@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import androidx.preference.PreferenceManager;
+
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -60,15 +62,11 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
     @Override
     public void processSuccessScenario(String response, int cityId) {
         IDataExtractor extractor = new OwmDataExtractor();
-        try {
-            JSONObject json = new JSONObject(response);
-            JSONArray list = json.getJSONArray("list");
-            JSONObject jsoncity = json.getJSONObject("city");
-            JSONObject coord = jsoncity.getJSONObject("coord");
-            float lat = (float)coord.getDouble("lat");
-            float lon = (float)coord.getDouble("lon");
-             //          Log.d("URL JSON",Float.toString(lat));
-             //          Log.d("URL JSON",Float.toString(lon));
+        Log.d("Extract",response);
+        if (extractor.wasCityFound(response)) {
+            try {
+                JSONObject json = new JSONObject(response);
+                JSONArray list = json.getJSONArray("stations");
 
                 List<Forecast> forecasts = new ArrayList<>();
 
@@ -76,6 +74,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
 
                 for (int i = 0; i < list.length(); i++) {
                     String currentItem = list.get(i).toString();
+                    Log.d("Extract", currentItem);
                     Forecast forecast = extractor.extractForecast(currentItem);
                     // Data were not well-formed, abort
                     if (forecast == null) {
@@ -86,20 +85,19 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                     }
                     // Could retrieve all data, so proceed
                     else {
-                            forecast.setCity_id(cityId);
-                            // add it to the database
-                            dbHelper.addForecast(forecast);
-                            forecasts.add(forecast);
+                        forecast.setCity_id(cityId);
+                        // add it to the database
+                        dbHelper.addForecast(forecast);
+                        forecasts.add(forecast);
                     }
                 }
 
                 ViewUpdater.updateForecasts(forecasts);
-                //again update Weekforecasts (new forecasts might change some rain weather symbols, see CityWeatherAdapter checkSun() )
 
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else Log.d("Extract","Error, city not found");
     }
 
     /**
@@ -109,6 +107,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      */
     @Override
     public void processFailScenario(final VolleyError error) {
+        Log.d("Error", String.valueOf(error));
         Handler h = new Handler(this.context.getMainLooper());
         h.post(new Runnable() {
             @Override

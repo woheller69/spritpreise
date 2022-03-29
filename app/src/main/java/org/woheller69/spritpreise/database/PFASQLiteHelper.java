@@ -613,7 +613,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
         values.put(FORECAST_COLUMN_PRECIPITATION, forecast.getPrecipitation());
         values.put(FORECAST_COLUMN_WIND_SPEED, forecast.getWindSpeed());
-        values.put(FORECAST_COLUMN_WIND_DIRECTION, forecast.getWindDirection());
+        values.put(FORECAST_COLUMN_WIND_DIRECTION, forecast.getCity_name());
         database.insert(TABLE_FORECAST, null, values);
         database.close();
     }
@@ -660,7 +660,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
                 forecast.setPrecipitation(Float.parseFloat(cursor.getString(8)));
                 forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
-                forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
+                forecast.setCity_name(cursor.getString(10));
                 list.add(forecast);
             } while (cursor.moveToNext());
 

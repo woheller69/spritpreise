@@ -1,6 +1,7 @@
 package org.woheller69.spritpreise.weather_api.open_weather_map;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
@@ -42,8 +43,15 @@ public class OwmHttpRequestForForecast  implements IHttpRequestForForecast {
     protected String getUrlForQueryingForecast(Context context, float lat, float lon) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
+        Log.d("URL",String.format(
+                "%slist.php?lat=%s&lng=%s&rad=1.5&sort=dist&type=all&apikey=%s",
+                BuildConfig.BASE_URL,
+                lat,
+                lon,
+                prefManager.getOWMApiKey(context)
+        ));
         return String.format(
-                "%sforecast?lat=%s&lon=%s&units=metric&appid=%s",
+                "%slist.php?lat=%s&lng=%s&rad=1.5&sort=dist&type=all&apikey=%s",
                 BuildConfig.BASE_URL,
                 lat,
                 lon,

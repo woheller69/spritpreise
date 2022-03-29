@@ -37,40 +37,6 @@
             android:columnCount="2"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/card_details_tv_rain60min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginBottom="5dp"
-                android:layout_row="0"
-                android:text="@string/card_details_rain60min"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <TextView
-                android:id="@+id/card_details_rain60min_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_marginStart="10dp"
-                android:layout_row="0"
-                android:text=""
-                android:letterSpacing="-0.07"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <TextView
-                android:id="@+id/card_details_legend_rain60min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_columnSpan="2"
-                android:layout_marginBottom="5dp"
-                android:layout_row="1"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/card_details_tv_humidity"
@@ -127,32 +93,16 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorPrimaryDark" />
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/card_details_temperature_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginStart="5dp"
-                android:layout_row="4">
-
-                <TextView
-                    android:id="@+id/card_details_wind_speed_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <ImageView
-                    android:id="@+id/card_details_wind_direction_value"
-                    android:layout_width="15sp"
-                    android:layout_height="15sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/card_details_wind_speed_value"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_south_24px"
-                    tools:ignore="ContentDescription" />
-
-            </RelativeLayout>
+                android:layout_marginStart="10dp"
+                android:layout_row="4"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimaryDark" />
 
         </GridLayout>
     </LinearLayout>

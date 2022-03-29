@@ -7,23 +7,14 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/course_of_day_time"
+        android:id="@+id/course_of_day_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
-        android:text="14:42"
+        android:layout_marginBottom="3dp"
+        android:text="Aral"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorPrimaryDark" />
-
-    <ImageView
-        android:id="@+id/course_of_day_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
 
     <TextView
         android:id="@+id/course_of_day_temperature"
@@ -45,18 +36,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorPrimaryDark" />
 
-    <TextView
-        android:id="@+id/course_of_day_precipitation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="3dp"
-        android:text="xy mm"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/course_of_day_wind_speed"
+        android:id="@+id/course_of_day_pressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -64,13 +46,5 @@
         android:text="xy Bft"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorPrimaryDark" />
-
-    <ImageView
-        android:id="@+id/course_of_day_wind_direction"
-        android:layout_width="20sp"
-        android:layout_height="20sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="3dp"
-        android:src="@drawable/ic_south_24px" />
 
 </LinearLayout>

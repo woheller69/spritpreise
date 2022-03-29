@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.database.CurrentWeatherData;
 import org.woheller69.spritpreise.database.Forecast;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.database.WeekForecast;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
-import org.woheller69.spritpreise.ui.UiResourceProvider;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
-import org.woheller69.spritpreise.weather_api.IApiToDatabaseConversion;
+import java.util.TimeZone;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
@@ -52,27 +50,11 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     }
 
-    // function update 3-hour or 1-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
 
         courseDayList = new ArrayList<>();
+        courseDayList.addAll(forecasts);
 
-        long threehoursago = System.currentTimeMillis() - (3 * 60 * 60 * 1000);
-        long onehourago = System.currentTimeMillis() - (1 * 60 * 60 * 1000);
-
-        if (forecasts.size() >= 48) {  //2day 1-hour forecast
-                for (Forecast f : forecasts) {
-                    if (f.getForecastTime() >= onehourago) {
-                        courseDayList.add(f);
-                    }
-                }
-        } else if (forecasts.size() == 40) {  //5day 3-hour forecast
-                for (Forecast f : forecasts) {
-                    if (f.getForecastTime() >= threehoursago) {
-                        courseDayList.add(f);
-                    }
-                }
-            }
             notifyDataSetChanged();
     }
 
@@ -100,20 +82,15 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     public class DetailViewHolder extends ViewHolder {
         TextView humidity;
         TextView pressure;
-        TextView windspeed;
-        TextView rain60min;
-        TextView rain60minLegend;
+        TextView temperature;
         TextView time;
-        ImageView winddirection;
+
 
         DetailViewHolder(View v) {
             super(v);
             this.humidity = v.findViewById(R.id.card_details_humidity_value);
             this.pressure = v.findViewById(R.id.card_details_pressure_value);
-            this.windspeed = v.findViewById(R.id.card_details_wind_speed_value);
-            this.rain60min = v.findViewById(R.id.card_details_rain60min_value);
-            this.rain60minLegend=v.findViewById(R.id.card_details_legend_rain60min);
-            this.winddirection =v.findViewById((R.id.card_details_wind_direction_value));
+            this.temperature = v.findViewById(R.id.card_details_temperature_value);
             this.time=v.findViewById(R.id.card_details_title);
         }
     }
@@ -170,12 +147,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
             if (courseDayList!=null && courseDayList.size()!=0 && courseDayList.get(0)!=null) {
                 long time = courseDayList.get(0).getTimestamp();
-                int zoneseconds = 9600;
+                long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
                 long updateTime = ((time + zoneseconds) * 1000);
 
                 holder.time.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
-                holder.humidity.setText(StringFormatUtils.formatInt(courseDayList.get(0).getHumidity(), context.getString(R.string.units_rh)));
-                holder.pressure.setText(StringFormatUtils.formatDecimal(courseDayList.get(0).getTemperature(), context.getString(R.string.units_hPa)));
+                holder.humidity.setText(Float.toString(courseDayList.get(0).getHumidity()));
+                holder.pressure.setText(Float.toString(courseDayList.get(0).getPressure()));
+                holder.temperature.setText(Float.toString(courseDayList.get(0).getTemperature()));
             }
         }  else if (viewHolder.getItemViewType() == DAY) {
 

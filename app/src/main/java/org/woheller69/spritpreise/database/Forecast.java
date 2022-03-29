@@ -158,7 +158,7 @@ public class Forecast {
     /**
      * @return Returns the air pressure value in hectopascal (hPa).
      */
-    float getPressure() {
+    public float getPressure() {
         return pressure;
     }
 
@@ -169,11 +169,12 @@ public class Forecast {
         this.pressure = pressure;
     }
 
+
     public String getCity_name() {
         return city_name;
     }
 
-    void setCity_name(String city_name) {
+    public void setCity_name(String city_name) {
         this.city_name = city_name;
     }
 

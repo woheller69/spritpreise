@@ -11,15 +11,15 @@ android {
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "org.woheller69.spritpreise"
-        minSdkVersion 21
+        minSdkVersion 26
         // do not increase targetSdkVersion beyond 29, this will make permission requests for GPS much more complex
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
         versionCode 1
         versionName "0.1"
 
-        buildConfigField "String", "DEFAULT_API_KEY", "\"00000000000000000000000000000000\""
-        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
+        buildConfigField "String", "DEFAULT_API_KEY", "\"00000000-0000-0000-0000-000000000002\""
+        buildConfigField "String", "BASE_URL", "\"https://creativecommons.tankerkoenig.de/json/\""
     }
 
     buildTypes {
