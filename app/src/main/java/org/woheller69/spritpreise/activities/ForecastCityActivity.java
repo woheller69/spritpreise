@@ -21,12 +21,12 @@ import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.database.WeekForecast;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
-import org.woheller69.spritpreise.ui.viewPager.WeatherPagerAdapter;
+import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 
 import java.util.List;
 
 public class ForecastCityActivity extends NavigationActivity implements IUpdateableCityUI {
-    private WeatherPagerAdapter pagerAdapter;
+    private CityPagerAdapter pagerAdapter;
 
     private static MenuItem refreshActionButton;
     private MenuItem rainviewerButton;
@@ -75,7 +75,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
             long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "2")) * 60 * 60);
 
             if (timestamp + updateInterval - systemTime <= 0) {
-                WeatherPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
+                CityPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
                 ForecastCityActivity.startRefreshAnimation();
             }
         }
@@ -107,7 +107,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
                 long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "2")) * 60 * 60);
 
                 if (timestamp + updateInterval - systemTime <= 0) {
-                    WeatherPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
+                    CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
                     ForecastCityActivity.startRefreshAnimation();
                 }
                 viewPager.setNextFocusRightId(position);
@@ -132,7 +132,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
 
     private void initResources() {
         viewPager = findViewById(R.id.viewPager);
-        pagerAdapter = new WeatherPagerAdapter(this, getSupportFragmentManager());
+        pagerAdapter = new CityPagerAdapter(this, getSupportFragmentManager());
         noCityText = findViewById(R.id.noCitySelectedText);
     }
 
@@ -186,7 +186,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
             }
         }else if (id==R.id.menu_refresh){
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
-                WeatherPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
+                CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
                 ForecastCityActivity.startRefreshAnimation();
             }
         }

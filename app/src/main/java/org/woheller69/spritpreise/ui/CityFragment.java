@@ -22,31 +22,31 @@ import org.woheller69.spritpreise.database.CurrentWeatherData;
 import org.woheller69.spritpreise.database.Forecast;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.database.WeekForecast;
-import org.woheller69.spritpreise.ui.RecycleList.CityWeatherAdapter;
+import org.woheller69.spritpreise.ui.RecycleList.CityAdapter;
 import org.woheller69.spritpreise.ui.RecycleList.OnSwipeDownListener;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
-import org.woheller69.spritpreise.ui.viewPager.WeatherPagerAdapter;
+import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 
 import java.util.List;
 
-public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
+public class CityFragment extends Fragment implements IUpdateableCityUI {
     private static final int MINGRIDWIDTH = 500;
     private int mCityId = -1;
     private int[] mDataSetTypes = new int[]{};
 
-    private CityWeatherAdapter mAdapter;
+    private CityAdapter mAdapter;
 
     private RecyclerView recyclerView;
 
-    public static WeatherCityFragment newInstance(Bundle args)
+    public static CityFragment newInstance(Bundle args)
     {
-        WeatherCityFragment weatherCityFragment = new WeatherCityFragment();
+        CityFragment weatherCityFragment = new CityFragment();
         weatherCityFragment.setArguments(args);
         return weatherCityFragment;
     }
 
-    public void setAdapter(CityWeatherAdapter adapter) {
+    public void setAdapter(CityAdapter adapter) {
         mAdapter = adapter;
 
         if (recyclerView != null) {
@@ -59,7 +59,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     public void loadData() {
                 CurrentWeatherData currentWeatherData = PFASQLiteHelper.getInstance(getContext()).getCurrentWeatherByCityId(mCityId);
 
-                mAdapter = new CityWeatherAdapter(currentWeatherData, mDataSetTypes, getContext());
+                mAdapter = new CityAdapter(currentWeatherData, mDataSetTypes, getContext());
                 setAdapter(mAdapter);
             }
 
@@ -93,7 +93,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
                 if (!recyclerView.canScrollVertically(-1)){
                     recyclerView.setOnTouchListener(new OnSwipeDownListener(getContext()) {
                         public void onSwipeDown() {
-                                WeatherPagerAdapter.refreshSingleData(getContext(),true,mCityId);
+                                CityPagerAdapter.refreshSingleData(getContext(),true,mCityId);
                                 ForecastCityActivity.startRefreshAnimation();
                         }
                     });
@@ -125,7 +125,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     @Override
     public void processNewCurrentWeatherData(CurrentWeatherData data) {
         if (data != null && data.getCity_id() == mCityId) {
-            setAdapter(new CityWeatherAdapter(data, mDataSetTypes, getContext()));
+            setAdapter(new CityAdapter(data, mDataSetTypes, getContext()));
         }
     }
 
@@ -140,10 +140,6 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
 
     @Override
     public void processNewWeekForecasts(List<WeekForecast> forecasts) {
-        if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
-            if (mAdapter != null) {
-                mAdapter.updateWeekForecastData(forecasts);
-            }
-        }
+
     }
 }

@@ -17,7 +17,6 @@ import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
 import org.woheller69.spritpreise.ui.UiResourceProvider;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -26,32 +25,22 @@ import java.util.TimeZone;
 // * Adapter for the horizontal listView for course of the day.
 // */import java.util.List;
 
-public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.CourseOfDayViewHolder> {
+public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOfDayViewHolder> {
 
     private List<Forecast> courseOfDayList;
     private Context context;
     private TextView recyclerViewHeader;
     private RecyclerView recyclerView;
-    private RecyclerView weekRecyclerView;
-    private Date courseOfDayHeaderDate;
 
-    CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
+
+    StationAdapter(List<Forecast> courseOfDayList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
         this.context = context;
         this.courseOfDayList = courseOfDayList;
         this.recyclerViewHeader=recyclerViewHeader;
         this.recyclerView=recyclerView;
-        if (courseOfDayList.size()!=0 && courseOfDayList.get(0)!=null) {
-            this.courseOfDayHeaderDate = new Date(courseOfDayList.get(0).getLocalForecastTime(context));
-        }else this.courseOfDayHeaderDate=new Date();  //fallback if no data available
     }
 
-    public void setWeekRecyclerView(RecyclerView weekRecyclerView){
-        this.weekRecyclerView=weekRecyclerView;
-    }
 
-    public Date getCourseOfDayHeaderDate(){
-        return this.courseOfDayHeaderDate;
-    }
     @Override
     public CourseOfDayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_course_of_day, parent, false);
@@ -119,12 +108,6 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             headerday = StringFormatUtils.getDayLong(headerday);
             recyclerViewHeader.setText(context.getResources().getString(headerday));
 
-            courseOfDayHeaderDate=HeaderTime.getTime();
-
-            if (weekRecyclerView!=null){
-                WeekWeatherAdapter weekadapter = (WeekWeatherAdapter) weekRecyclerView.getAdapter();
-                weekadapter.setCourseOfDayHeaderDate(courseOfDayHeaderDate);
-            }
         }
     }
 
