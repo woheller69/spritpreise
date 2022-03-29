@@ -29,26 +29,24 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     private int[] dataSetTypes;
     private List<Forecast> courseDayList;
-    private float[][] forecastData;
 
     private Context context;
 
-    private CurrentWeatherData currentWeatherDataList;
+
 
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
     public static final int DAY = 2;
 
 
-    public CityAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context) {
-        this.currentWeatherDataList = currentWeatherDataList;
+    public CityAdapter(int cityID, int[] dataSetTypes, Context context) {
+
         this.dataSetTypes = dataSetTypes;
         this.context = context;
 
         PFASQLiteHelper database = PFASQLiteHelper.getInstance(context.getApplicationContext());
 
-        List<Forecast> forecasts = database.getForecastsByCityId(currentWeatherDataList.getCity_id());
-        List<WeekForecast> weekforecasts = database.getWeekForecastsByCityId(currentWeatherDataList.getCity_id());
+        List<Forecast> forecasts = database.getForecastsByCityId(cityID);
 
         updateForecastData(forecasts);
 
@@ -134,7 +132,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }
     }
 
-
     public class ErrorViewHolder extends ViewHolder {
         ErrorViewHolder(View v) {
             super(v);
@@ -172,46 +169,24 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        boolean isDay = currentWeatherDataList.isDay(context);
-
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
-
-            //correct for timezone differences
-            int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
-            long riseTime = (currentWeatherDataList.getTimeSunrise() + zoneseconds) * 1000;
-            long setTime = (currentWeatherDataList.getTimeSunset() + zoneseconds) * 1000;
-            if (riseTime==zoneseconds*1000 || setTime==zoneseconds*1000) holder.sun.setText("\u2600\u25b2 --:--" + " \u25bc --:--" );
-            else  {
-                holder.sun.setText("\u2600\u25b2 " + StringFormatUtils.formatTimeWithoutZone(context, riseTime) + " \u25bc " + StringFormatUtils.formatTimeWithoutZone(context, setTime));
+            if (courseDayList!=null && courseDayList.size()!=0 && courseDayList.get(0)!=null) {
+                holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseDayList.get(0).getTemperature()));
             }
-
-            setImage(currentWeatherDataList.getWeatherID(), holder.weather, isDay);
-
-            holder.temperature.setText(StringFormatUtils.formatTemperature(context, currentWeatherDataList.getTemperatureCurrent()));
 
         } else if (viewHolder.getItemViewType() == DETAILS) {
 
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
+            if (courseDayList!=null && courseDayList.size()!=0 && courseDayList.get(0)!=null) {
+                long time = courseDayList.get(0).getTimestamp();
+                int zoneseconds = 9600;
+                long updateTime = ((time + zoneseconds) * 1000);
 
-            long time = currentWeatherDataList.getTimestamp();
-            int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
-            long updateTime = ((time + zoneseconds) * 1000);
-
-            holder.time.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
-            holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), context.getString(R.string.units_rh)));
-            holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), context.getString(R.string.units_hPa)));
-            holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()));
-            holder.windspeed.setBackground(StringFormatUtils.colorWindSpeed(context, currentWeatherDataList.getWindSpeed()));
-            holder.winddirection.setRotation(currentWeatherDataList.getWindDirection());
-
-            if (currentWeatherDataList.getRain60min()!=null && currentWeatherDataList.getRain60min().length()==12){
-                holder.rain60min.setText(currentWeatherDataList.getRain60min().substring(0,3)+"\u2009"+currentWeatherDataList.getRain60min().substring(3,6)+"\u2009"+currentWeatherDataList.getRain60min().substring(6,9)+"\u2009"+currentWeatherDataList.getRain60min().substring(9));
-            } else {
-                holder.rain60min.setText(R.string.error_no_rain60min_data);
+                holder.time.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
+                holder.humidity.setText(StringFormatUtils.formatInt(courseDayList.get(0).getHumidity(), context.getString(R.string.units_rh)));
+                holder.pressure.setText(StringFormatUtils.formatDecimal(courseDayList.get(0).getTemperature(), context.getString(R.string.units_hPa)));
             }
-            holder.rain60minLegend.setText("( "+context.getResources().getString(R.string.units_mm_h)+String.format(Locale.getDefault(),": □ %.1f ▤ <%.1f ▦ <%.1f ■ >=%.1f )",0.0,0.5,2.5,2.5));
-
         }  else if (viewHolder.getItemViewType() == DAY) {
 
             DayViewHolder holder = (DayViewHolder) viewHolder;
@@ -223,47 +198,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }
         //No update for error needed
     }
-
-    public void setImage(int value, ImageView imageView, boolean isDay) {
-        imageView.setImageResource(UiResourceProvider.getImageResourceForWeatherCategory(value, isDay));
-    }
-
-    //this method fixes the problem that OpenWeatherMap will show a rain symbol for the whole day even if weather during day is great and there are just a few drops of rain during night
-    public static boolean checkSun(Context context, int cityId, long forecastTimeNoon) {
-        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
-        List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
-        long extend=0;
-        boolean sun=false;
-        //iterate over FCs 5h before and 5h past forecast time of the weekforecast (which should usually be noon)
-        if (!forecastList.isEmpty() && forecastList.get(0).getForecastTime()>forecastTimeNoon) extend = 10800000;  // if it is already afternoon iterate 3h more, this happens on current day only
-        for (Forecast fc : forecastList) {
-            if ((fc.getForecastTime() >= forecastTimeNoon-18000000) && (fc.getForecastTime() <= forecastTimeNoon+18000000+extend)) {
-                if (fc.getWeatherID() <= IApiToDatabaseConversion.WeatherCategories.BROKEN_CLOUDS.getNumVal()) sun = true;  //if weather better or equal broken clouds in one interval there is at least some sun during day.
-            }
-        }
-        return sun;
-    }
-    //this method fixes the problem that OpenWeatherMap will show a rain symbol for the whole day even if weather during day is great and there are just a few drops of rain during night
-    public static Integer getCorrectedWeatherID(Context context, int cityId, long forecastTimeNoon) {
-        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
-        List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
-        long extend=0;
-        int category=0;
-        //iterate over FCs 5h before and 5h past forecast time of the weekforecast (which should usually be noon)
-        if (!forecastList.isEmpty() && forecastList.get(0).getForecastTime()>forecastTimeNoon) extend = 10800000;  // if it is already afternoon iterate 3h more, this happens on current day only
-        for (Forecast fc : forecastList) {
-            if ((fc.getForecastTime() >= forecastTimeNoon - 18000000) && (fc.getForecastTime() <= forecastTimeNoon + 18000000+extend)) {
-                if (fc.getWeatherID() > category) {
-                    category = fc.getWeatherID();  //find worst weather
-                }
-            }
-        }
-        //if worst is overcast clouds set category to broken clouds because fix is only used if checkSun=true, i.e. at least one interval with sun
-        if (category==IApiToDatabaseConversion.WeatherCategories.OVERCAST_CLOUDS.getNumVal()) category=IApiToDatabaseConversion.WeatherCategories.BROKEN_CLOUDS.getNumVal();
-        if (category>IApiToDatabaseConversion.WeatherCategories.BROKEN_CLOUDS.getNumVal() || category==0) category=1000; //do not change weather if condition is worse than broken clouds or forecastList empty
-        return category;
-    }
-
 
     @Override
     public int getItemCount() {

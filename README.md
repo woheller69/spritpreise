@@ -1,25 +1,8 @@
-# RadarWeather
+# Spritpreise Deutschland
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="150"/> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="150"/> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="150"/> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="150"/> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="150"/>
+Die Daten werden über die Tankerkönig API unter Creative-Commons-Lizenz “CC BY 4.0” von www.tankerkönig.de bereitgestellt.
 
-This application is forked from Privacy Friendly Weather (https://github.com/SecUSo/privacy-friendly-weather) a privacy friendly weather app.
-The original function has been modified to support the new OpenWeather One Call API, which provides a lot more features, like precipitation forecast for the next 60 minutes,
-hourly forecasts for the next 2 days, 8 day week forecasts, etc. In addition a rain radar functionality powered by RainViewer API (https://www.rainviewer.com/api.html) has been added. More weather categories were added, most images and icons were replaced. RadiusSearch now also shows the results on a map with weather icons.
-A chart showing forecasts with min/max temperature and precipitation for the next week has been added. In addition to the built in city list it is now also possible to use search-as-you-type location search via the photon API (https://photon.komoot.io) which is based on OpenStreetMap.
-
-There are also two new widgets:
-
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/10.png" width="150"/>
-
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/11.png" width="150"/>
-
-If permission for GPS is given the widget will automatically update position on a regular base.
-
-As One Call API only allows 1000 calls per day an own OpenWeatherMap API key is mandatory.
-
-Please register for free account at: https://home.openweathermap.org/users/sign_up
-
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">](https://f-droid.org/de/packages/org.woheller69.weather/)
+Dazu ist ein API Key nötig, der hier beantragt werden kann: https://creativecommons.tankerkoenig.de/api-key
 
 
 ## License
@@ -41,7 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 The app also uses:
-- The weather data service is provided by [OpenWeatherMap](https://openweathermap.org/), under <a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons licence CC BY-SA 4.0</a>
+- Die Daten werden über die Tankerkönig API unter Creative-Commons-Lizenz “CC BY 4.0” von www.tankerkönig.de bereitgestellt, <a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons licence CC BY-SA 4.0</a>
 - Icons from [Google Material Design Icons](https://material.io/resources/icons/) licensed under <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License Version 2.0</a>
 - Material Components for Android (https://github.com/material-components/material-components-android) which is licensed under <a href='https://github.com/material-components/material-components-android/blob/master/LICENSE'>Apache License Version 2.0</a>
 - Leaflet which is licensed under the very permissive <a href='https://github.com/Leaflet/Leaflet/blob/master/FAQ.md'>2-clause BSD License</a>

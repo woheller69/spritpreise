@@ -57,9 +57,8 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
     }
 
     public void loadData() {
-                CurrentWeatherData currentWeatherData = PFASQLiteHelper.getInstance(getContext()).getCurrentWeatherByCityId(mCityId);
 
-                mAdapter = new CityAdapter(currentWeatherData, mDataSetTypes, getContext());
+                mAdapter = new CityAdapter(mCityId, mDataSetTypes, getContext());
                 setAdapter(mAdapter);
             }
 
@@ -124,9 +123,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
     @Override
     public void processNewCurrentWeatherData(CurrentWeatherData data) {
-        if (data != null && data.getCity_id() == mCityId) {
-            setAdapter(new CityAdapter(data, mDataSetTypes, getContext()));
-        }
+
     }
 
     @Override
