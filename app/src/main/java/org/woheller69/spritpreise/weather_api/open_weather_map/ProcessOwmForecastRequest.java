@@ -58,7 +58,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      * @param response The response of the HTTP request.
      */
     @Override
-    public void processSuccessScenario(String response) {
+    public void processSuccessScenario(String response, int cityId) {
         IDataExtractor extractor = new OwmDataExtractor();
         try {
             JSONObject json = new JSONObject(response);
@@ -70,32 +70,9 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
              //          Log.d("URL JSON",Float.toString(lat));
              //          Log.d("URL JSON",Float.toString(lon));
 
-            ArrayList<Integer> CityIDList = new ArrayList<Integer>();
-
-            int cityId=0;
-            //find CityID from lat/lon
-            List<CityToWatch> citiesToWatch = dbHelper.getAllCitiesToWatch();
-            for (int i = 0; i < citiesToWatch.size(); i++) {
-                CityToWatch city = citiesToWatch.get(i);
-                //if lat/lon of json response very close to lat/lon in citytowatch
-                //OpenWeatherMaps rounds to 2 decimal places, so the response lat/lon should differ by <=0.005
-                if ((Math.abs(city.getLatitude() - lat)<=0.005) && (Math.abs(city.getLongitude() - lon)<=0.005)) {
-                    cityId=city.getCityId();
-                    CityIDList.add(cityId);
-                }
-            }
-            for (int c=0; c<CityIDList.size();c++) {
-                cityId = CityIDList.get(c);
                 List<Forecast> forecasts = new ArrayList<>();
 
-                SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
-
-
-
-                    dbHelper.deleteForecastsByCityId(cityId); //start with empty forecast list
-
-
-                // Continue with inserting new records
+                dbHelper.deleteForecastsByCityId(cityId); //start with empty forecast list
 
                 for (int i = 0; i < list.length(); i++) {
                     String currentItem = list.get(i).toString();
@@ -119,7 +96,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                 ViewUpdater.updateForecasts(forecasts);
                 //again update Weekforecasts (new forecasts might change some rain weather symbols, see CityWeatherAdapter checkSun() )
 
-            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

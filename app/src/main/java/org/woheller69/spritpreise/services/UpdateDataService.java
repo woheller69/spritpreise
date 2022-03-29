@@ -112,7 +112,7 @@ public class UpdateDataService extends JobIntentService {
 
 
                 IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
-                forecastRequest.perform(lat, lon);
+                forecastRequest.perform(lat, lon, cityId);
 
         }
     }
