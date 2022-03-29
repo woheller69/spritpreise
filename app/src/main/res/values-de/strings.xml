@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RadarWeather</string>
-    <string name="app_name_long">RadarWeather: Wetter und Radar</string>
+    <string name="app_name">Spritpreise</string>
+    <string name="app_name_long">Spritpreise Deutschland</string>
     <string name="about">Über</string>
     <string name="about_privacy_heading">Privatsphäre-Informationen</string>
     <string name="about_more_info">Mehr Informationen können gefunden werden auf:</string>

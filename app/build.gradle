@@ -10,7 +10,7 @@ android {
     }
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        applicationId "org.woheller69.weather"
+        applicationId "org.woheller69.spritpreise"
         minSdkVersion 21
         // do not increase targetSdkVersion beyond 29, this will make permission requests for GPS much more complex
         //noinspection ExpiredTargetSdkVersion

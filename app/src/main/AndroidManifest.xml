@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.woheller69.weather">
+    package="org.woheller69.spritpreise">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -19,11 +19,11 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name="org.woheller69.weather.activities.RainViewerActivity"
+        <activity android:name="org.woheller69.spritpreise.activities.RainViewerActivity"
             android:label="@string/RainViewer"/>
 
         <activity
-            android:name="org.woheller69.weather.activities.SplashActivity"
+            android:name="org.woheller69.spritpreise.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,63 +31,63 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.woheller69.weather.activities.ManageLocationsActivity"
+            android:name="org.woheller69.spritpreise.activities.ManageLocationsActivity"
             android:launchMode="singleTop"
             android:label="@string/activity_manage"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="org.woheller69.weather.activities.ForecastCityActivity" />
+            android:parentActivityName="org.woheller69.spritpreise.activities.ForecastCityActivity" />
         <activity
-            android:name="org.woheller69.weather.activities.ForecastCityActivity"
+            android:name="org.woheller69.spritpreise.activities.ForecastCityActivity"
             android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="org.woheller69.weather.activities.RadiusSearchActivity"
+            android:name="org.woheller69.spritpreise.activities.RadiusSearchActivity"
             android:label="@string/activity_radius_search"
-            android:parentActivityName="org.woheller69.weather.activities.ForecastCityActivity"
+            android:parentActivityName="org.woheller69.spritpreise.activities.ForecastCityActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.weather.activities.ForecastCityActivity" />
+                android:value="org.woheller69.spritpreise.activities.ForecastCityActivity" />
         </activity>
         <activity
-            android:name="org.woheller69.weather.activities.RadiusSearchResultActivity"
+            android:name="org.woheller69.spritpreise.activities.RadiusSearchResultActivity"
             android:label="@string/radius_search_result_label"
-            android:parentActivityName="org.woheller69.weather.activities.RadiusSearchActivity">
+            android:parentActivityName="org.woheller69.spritpreise.activities.RadiusSearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.weather.activities.RadiusSearchActivity" />
+                android:value="org.woheller69.spritpreise.activities.RadiusSearchActivity" />
         </activity>
         <activity
-            android:name="org.woheller69.weather.activities.AboutActivity"
+            android:name="org.woheller69.spritpreise.activities.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName="org.woheller69.weather.activities.ForecastCityActivity"
+            android:parentActivityName="org.woheller69.spritpreise.activities.ForecastCityActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.weather.activities.ForecastCityActivity" />
+                android:value="org.woheller69.spritpreise.activities.ForecastCityActivity" />
         </activity>
 
         <activity
-            android:name="org.woheller69.weather.activities.SettingsActivity"
+            android:name="org.woheller69.spritpreise.activities.SettingsActivity"
             android:label="@string/activity_settings_title"
-            android:parentActivityName="org.woheller69.weather.activities.ForecastCityActivity"
+            android:parentActivityName="org.woheller69.spritpreise.activities.ForecastCityActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.weather.activities.ForecastCityActivity" />
+                android:value="org.woheller69.spritpreise.activities.ForecastCityActivity" />
 
         </activity>
         <activity
-            android:name="org.woheller69.weather.firststart.TutorialActivity"
+            android:name="org.woheller69.spritpreise.firststart.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name="org.woheller69.weather.services.UpdateDataService"
+            android:name="org.woheller69.spritpreise.services.UpdateDataService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
 
-        <receiver android:name="org.woheller69.weather.widget.WeatherWidget">
+        <receiver android:name="org.woheller69.spritpreise.widget.WeatherWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -97,7 +97,7 @@
                 android:resource="@xml/weather_widget_info" />
         </receiver>
 
-        <receiver android:name="org.woheller69.weather.widget.WeatherWidget5day">
+        <receiver android:name="org.woheller69.spritpreise.widget.WeatherWidget5day">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

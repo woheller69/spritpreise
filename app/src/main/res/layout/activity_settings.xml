@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="org.woheller69.weather.activities.SettingsActivity">
+        tools:context="org.woheller69.spritpreise.activities.SettingsActivity">
 
         <include layout="@layout/toolbar" />
 
@@ -26,7 +26,7 @@
             android:weightSum="1">
 
         <androidx.fragment.app.FragmentContainerView
-            android:name="org.woheller69.weather.activities.SettingsActivity$GeneralPreferenceFragment"
+            android:name="org.woheller69.spritpreise.activities.SettingsActivity$GeneralPreferenceFragment"
             android:id="@+id/settings_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
