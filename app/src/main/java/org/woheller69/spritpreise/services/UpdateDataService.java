@@ -13,9 +13,7 @@ import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Forecast;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.weather_api.IHttpRequestForForecast;
-import org.woheller69.spritpreise.weather_api.IHttpRequestForOneCallAPI;
 import org.woheller69.spritpreise.weather_api.open_weather_map.OwmHttpRequestForForecast;
-import org.woheller69.spritpreise.weather_api.open_weather_map.OwmHttpRequestForOneCallAPI;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -111,14 +109,11 @@ public class UpdateDataService extends JobIntentService {
 
         // Update if update forced or if a certain time has passed
         if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
-             //if forecastChoice = 1 (3h) perform both else only one call API
-            int choice = Integer.parseInt(prefManager.getString("forecastChoice","1"));
-            if (choice==1) {
+
+
                 IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
                 forecastRequest.perform(lat, lon);
-            }
-            IHttpRequestForOneCallAPI forecastOneCallRequest = new OwmHttpRequestForOneCallAPI(getApplicationContext());
-            forecastOneCallRequest.perform(lat,lon);
+
         }
     }
 

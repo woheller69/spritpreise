@@ -24,20 +24,6 @@ public class ViewUpdater {
         subscribers.remove(sub);
     }
 
-    public static void updateCurrentWeatherData(CurrentWeatherData data) {
-        ArrayList<IUpdateableCityUI> subcopy = new ArrayList<>(subscribers);  //copy list needed as bugfix for concurrent modification exception
-        for (IUpdateableCityUI sub : subcopy) {
-            sub.processNewCurrentWeatherData(data);
-        }
-    }
-
-    public static void updateWeekForecasts(List<WeekForecast> forecasts) {
-        ArrayList<IUpdateableCityUI> subcopy = new ArrayList<>(subscribers);
-        for (IUpdateableCityUI sub : subcopy) {
-            sub.processNewWeekForecasts(forecasts);
-        }
-    }
-
     public static void updateForecasts(List<Forecast> forecasts) {
         ArrayList<IUpdateableCityUI> subcopy = new ArrayList<>(subscribers);
         for (IUpdateableCityUI sub : subcopy) {

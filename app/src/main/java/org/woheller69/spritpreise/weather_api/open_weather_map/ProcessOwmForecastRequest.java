@@ -89,16 +89,11 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                 List<Forecast> forecasts = new ArrayList<>();
 
                 SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
-                int choice = Integer.parseInt(prefManager.getString("forecastChoice", "1"));
 
-                if (choice == 1) {  //5day 3h forecasts
+
+
                     dbHelper.deleteForecastsByCityId(cityId); //start with empty forecast list
-                } else {  //load 48 1h forecasts and then append the 3h forecasts
-                    forecasts = dbHelper.getForecastsByCityId(cityId);
-                    if (forecasts == null || forecasts.size() != 48) { //data from OneCallAPI not available even though it should
-                        return;
-                    }
-                }
+
 
                 // Continue with inserting new records
 
@@ -114,33 +109,16 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                     }
                     // Could retrieve all data, so proceed
                     else {
-                        if ((choice == 1) || (forecast.getForecastTime() > forecasts.get(47).getForecastTime())) {  //if 5day/3h mode or if ForecastTime > last time from OneCallAPI
-                            if (choice == 2) { //at the position where 1h forecast changes to 3h forecast the precipitation shown in 3h forecast could be duplicate (already included in previous 1h forecasts, and therefore needs substraction)
-                                if (forecast.getForecastTime() == (forecasts.get(47).getForecastTime() + 60 * 60 * 1000)) {
-                                    if ((forecast.getPrecipitation() - forecasts.get(47).getPrecipitation() - forecasts.get(46).getPrecipitation()) >= 0) {
-                                        forecast.setPrecipitation(forecast.getPrecipitation() - forecasts.get(47).getPrecipitation() - forecasts.get(46).getPrecipitation());
-                                    } else
-                                        forecast.setPrecipitation(0); //only in case of inconsistency of OWM 1h and 3h forecasts
-                                }
-                                if (forecast.getForecastTime() == (forecasts.get(47).getForecastTime() + 2 * 60 * 60 * 1000)) {
-                                    if ((forecast.getPrecipitation() - forecasts.get(47).getPrecipitation()) >= 0) {
-                                        forecast.setPrecipitation(forecast.getPrecipitation() - forecasts.get(47).getPrecipitation());
-                                    } else
-                                        forecast.setPrecipitation(0); //only in case of inconsistency of OWM 1h and 3h forecasts
-                                }
-                            }
                             forecast.setCity_id(cityId);
                             // add it to the database
                             dbHelper.addForecast(forecast);
                             forecasts.add(forecast);
-                        }
                     }
                 }
 
                 ViewUpdater.updateForecasts(forecasts);
                 //again update Weekforecasts (new forecasts might change some rain weather symbols, see CityWeatherAdapter checkSun() )
-                List<WeekForecast> weekforecasts = dbHelper.getWeekForecastsByCityId(cityId);
-                ViewUpdater.updateWeekForecasts(weekforecasts);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();

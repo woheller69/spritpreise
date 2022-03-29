@@ -121,10 +121,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
         }
     }
 
-    @Override
-    public void processNewCurrentWeatherData(CurrentWeatherData data) {
-
-    }
 
     @Override
     public void processNewForecasts(List<Forecast> forecasts) {
@@ -135,8 +131,4 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
         }
     }
 
-    @Override
-    public void processNewWeekForecasts(List<WeekForecast> forecasts) {
-
-    }
 }

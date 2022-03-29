@@ -102,23 +102,8 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
     }
 
     @Override
-    public void processNewCurrentWeatherData(CurrentWeatherData data) {
-        lastUpdateTime = data.getTimestamp();
-        int id = data.getCity_id();
-        CurrentWeatherData old = findWeatherFromID(currentWeathers, id);
-        if (old != null) currentWeathers.remove(old);
-        currentWeathers.add(data);
-        notifyDataSetChanged();
-    }
-
-    @Override
     public void processNewForecasts(List<Forecast> forecasts) {
-        //empty because Fragments are subscribers themselves
-    }
-
-    @Override
-    public void processNewWeekForecasts(List<WeekForecast> forecasts) {
-        //empty because Fragments are subscribers themselves
+        notifyDataSetChanged();
     }
 
     public int getCityIDForPos(int pos) {

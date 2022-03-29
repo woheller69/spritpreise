@@ -201,20 +201,6 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
     }
 
     @Override
-    public void processNewCurrentWeatherData(CurrentWeatherData data) {
-        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
-            refreshActionButton.getActionView().clearAnimation();
-        }
-    }
-
-    @Override
-    public void processNewWeekForecasts(List<WeekForecast> forecasts) {
-        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
-            refreshActionButton.getActionView().clearAnimation();
-        }
-    }
-
-    @Override
     public void processNewForecasts(List<Forecast> forecasts) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
