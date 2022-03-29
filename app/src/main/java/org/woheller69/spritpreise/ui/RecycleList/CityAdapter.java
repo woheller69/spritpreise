@@ -132,12 +132,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }
     }
 
-    public class ErrorViewHolder extends ViewHolder {
-        ErrorViewHolder(View v) {
-            super(v);
-        }
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v;
@@ -153,16 +147,12 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     .inflate(R.layout.card_details, viewGroup, false);
             return new DetailViewHolder(v);
 
-        }  else if (viewType == DAY) {
+        }  else  {
 
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_day, viewGroup, false);
             return new DayViewHolder(v);
 
-        }  else {
-            v = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.card_error, viewGroup, false);
-            return new ErrorViewHolder(v);
         }
     }
 

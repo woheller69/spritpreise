@@ -18,10 +18,7 @@ import android.view.ViewGroup;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.ForecastCityActivity;
-import org.woheller69.spritpreise.database.CurrentWeatherData;
 import org.woheller69.spritpreise.database.Forecast;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.database.WeekForecast;
 import org.woheller69.spritpreise.ui.RecycleList.CityAdapter;
 import org.woheller69.spritpreise.ui.RecycleList.OnSwipeDownListener;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
