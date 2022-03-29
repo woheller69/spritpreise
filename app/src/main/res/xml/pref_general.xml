@@ -71,16 +71,6 @@
             android:title="@string/settings_update_interval" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/settings_search">
-        <ListPreference
-            android:defaultValue="2"
-            android:entries="@array/citySearchArray"
-            android:entryValues="@array/citySearchValues"
-            android:key="pref_citySearch"
-            android:summary="@string/settings_search_summary"
-            android:title="@string/settings_search" />
-    </PreferenceCategory>
-
     <PreferenceCategory android:title="@string/settings_position">
         <SwitchPreference
             android:key="pref_GPS"

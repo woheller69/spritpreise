@@ -21,9 +21,7 @@ import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.City;
 import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.dialogs.AddLocationDialog;
 import org.woheller69.spritpreise.dialogs.AddLocationDialogPhotonAPI;
-import org.woheller69.spritpreise.dialogs.EditLocationDialog;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerItemClickListener;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.woheller69.spritpreise.ui.RecycleList.SimpleItemTouchHelperCallback;
@@ -110,40 +108,8 @@ public class ManageLocationsActivity extends NavigationActivity {
         touchHelper.attachToRecyclerView(recyclerView);
 
         FloatingActionButton addFab1 = (FloatingActionButton) findViewById(R.id.fabAddLocation);
-        FloatingActionButton addFab2 = (FloatingActionButton) findViewById(R.id.fabEditLocation);
 
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(prefManager.getString("pref_citySearch", "1").equals("1")){
-
-            if (addFab1 != null) {
-
-                addFab1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        AddLocationDialog addLocationDialog = new AddLocationDialog();
-                        addLocationDialog.show(fragmentManager, "AddLocationDialog");
-                        getSupportFragmentManager().executePendingTransactions();
-                        addLocationDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                    }
-                });
-            }
-
-            if (addFab2 != null) {
-
-                addFab2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        EditLocationDialog editLocationDialog = new EditLocationDialog();
-                        editLocationDialog.show(fragmentManager, "EditLocationDialog");
-                        getSupportFragmentManager().executePendingTransactions();
-                        editLocationDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                    }
-                });
-
-            }
-        } else {
 
             if (addFab1 != null) {
 
@@ -158,13 +124,6 @@ public class ManageLocationsActivity extends NavigationActivity {
                     }
                 });
             }
-
-            if (addFab2 != null) {
-
-                addFab2.setVisibility(View.GONE);
-
-            }
-        }
     }
 
     @Override

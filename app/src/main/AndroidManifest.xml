@@ -41,23 +41,7 @@
             android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="org.woheller69.spritpreise.activities.RadiusSearchActivity"
-            android:label="@string/activity_radius_search"
-            android:parentActivityName="org.woheller69.spritpreise.activities.ForecastCityActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.spritpreise.activities.ForecastCityActivity" />
-        </activity>
-        <activity
-            android:name="org.woheller69.spritpreise.activities.RadiusSearchResultActivity"
-            android:label="@string/radius_search_result_label"
-            android:parentActivityName="org.woheller69.spritpreise.activities.RadiusSearchActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.woheller69.spritpreise.activities.RadiusSearchActivity" />
-        </activity>
+
         <activity
             android:name="org.woheller69.spritpreise.activities.AboutActivity"
             android:label="@string/about"
@@ -95,16 +79,6 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/weather_widget_info" />
-        </receiver>
-
-        <receiver android:name="org.woheller69.spritpreise.widget.WeatherWidget5day">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/weather_widget_5day_info" />
         </receiver>
 
     </application>

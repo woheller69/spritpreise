@@ -171,9 +171,6 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         }else if (itemId==R.id.nav_manage){
             intent = new Intent(this, ManageLocationsActivity.class);
             startActivity(intent);
-        }else if (itemId==R.id.nav_radius) {
-            intent = new Intent(this, RadiusSearchActivity.class);
-            createBackStack(intent);
         }else if (itemId==R.id.nav_about) {
             intent = new Intent(this, AboutActivity.class);
             createBackStack(intent);

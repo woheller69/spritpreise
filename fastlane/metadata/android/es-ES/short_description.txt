@@ -1,1 +1,0 @@
-Le permite ver el clima de las ciudades y lugares que le interesan.

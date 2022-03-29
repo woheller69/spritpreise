@@ -12,10 +12,6 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_edit_location_24px"
             android:title="@string/activity_manage" />
-        <item
-            android:id="@+id/nav_radius"
-            android:icon="@drawable/ic_map_24px"
-            android:title="@string/activity_radius_search" />
     </group>
 
     <group

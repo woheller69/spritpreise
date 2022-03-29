@@ -27,7 +27,6 @@ import org.woheller69.spritpreise.weather_api.IDataExtractor;
 import org.woheller69.spritpreise.weather_api.IHttpRequestForForecast;
 import org.woheller69.spritpreise.weather_api.IProcessHttpRequest;
 import org.woheller69.spritpreise.widget.WeatherWidget;
-import org.woheller69.spritpreise.widget.WeatherWidget5day;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -229,25 +228,6 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 CityToWatch city=dbHelper.getCityToWatch(cityID);
 
                 WeatherWidget.updateView(context, appWidgetManager, views, widgetID, city, currentWeather,weekforecasts,hourlyforecasts);
-                appWidgetManager.updateAppWidget(widgetID, views);
-            }
-        }
-
-        //search for 5day widgets with same city ID
-        int widget5dayCityID= WeatherWidget5day.getWidgetCityID(context);
-        int[] widget5dayIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget5day.class));
-
-        for (int widgetID : widget5dayIDs) {
-            //check if city ID is same
-            if (cityID == widget5dayCityID) {
-                //perform update for the widget
-
-                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget_5day);
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-
-                CityToWatch city=dbHelper.getCityToWatch(cityID);
-
-                WeatherWidget5day.updateView(context, appWidgetManager, views, widgetID, city, weekforecasts);
                 appWidgetManager.updateAppWidget(widgetID, views);
             }
         }
