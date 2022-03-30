@@ -75,15 +75,6 @@ public class Forecast {
     }
 
     /**
-     * @return Returns the local time for the forecast in UTC epoch
-     */
-    public long getLocalForecastTime(Context context) {
-        PFASQLiteHelper dbhelper = PFASQLiteHelper.getInstance(context);
-        int timezoneseconds = dbhelper.getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
-        return forecastFor + timezoneseconds * 1000L;
-    }
-
-    /**
      * @param forecastFor The point of time for the forecast.
      */
     public void setForecastTime(long forecastFor) {

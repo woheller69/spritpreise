@@ -67,31 +67,22 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     }
 
     public class OverViewHolder extends ViewHolder {
-        TextView temperature;
-        ImageView weather;
-        TextView sun;
+        //TextView temperature;
+        //TextView sun;
 
         OverViewHolder(View v) {
             super(v);
-            this.temperature = v.findViewById(R.id.card_overview_temperature);
-            this.weather = v.findViewById(R.id.card_overview_weather_image);
-            this.sun=v.findViewById(R.id.card_overview_sunrise_sunset);
+            //this.temperature = v.findViewById(R.id.card_overview_temperature);
+            //this.sun=v.findViewById(R.id.card_overview_sunrise_sunset);
         }
     }
 
     public class DetailViewHolder extends ViewHolder {
-        TextView humidity;
-        TextView pressure;
-        TextView temperature;
-        TextView time;
 
 
         DetailViewHolder(View v) {
             super(v);
-            this.humidity = v.findViewById(R.id.card_details_humidity_value);
-            this.pressure = v.findViewById(R.id.card_details_pressure_value);
-            this.temperature = v.findViewById(R.id.card_details_temperature_value);
-            this.time=v.findViewById(R.id.card_details_title);
+
         }
     }
 
@@ -138,23 +129,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
-            if (courseDayList!=null && courseDayList.size()!=0 && courseDayList.get(0)!=null) {
-                holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseDayList.get(0).getTemperature()));
-            }
+
 
         } else if (viewHolder.getItemViewType() == DETAILS) {
 
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
-            if (courseDayList!=null && courseDayList.size()!=0 && courseDayList.get(0)!=null) {
-                long time = courseDayList.get(0).getTimestamp();
-                long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
-                long updateTime = ((time + zoneseconds) * 1000);
 
-                holder.time.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
-                holder.humidity.setText(Float.toString(courseDayList.get(0).getHumidity()));
-                holder.pressure.setText(Float.toString(courseDayList.get(0).getPressure()));
-                holder.temperature.setText(Float.toString(courseDayList.get(0).getTemperature()));
-            }
+
         }  else if (viewHolder.getItemViewType() == DAY) {
 
             DayViewHolder holder = (DayViewHolder) viewHolder;

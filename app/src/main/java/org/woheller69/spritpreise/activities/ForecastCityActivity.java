@@ -15,10 +15,8 @@ import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.database.CurrentWeatherData;
 import org.woheller69.spritpreise.database.Forecast;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.database.WeekForecast;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
@@ -182,8 +180,6 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
                 Intent intent = new Intent(this, RainViewerActivity.class);
                 intent.putExtra("latitude", pagerAdapter.getLatForPos((viewPager.getCurrentItem())));
                 intent.putExtra("longitude", pagerAdapter.getLonForPos((viewPager.getCurrentItem())));
-                CurrentWeatherData currentWeather = db.getCurrentWeatherByCityId(pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
-                intent.putExtra("timezoneseconds",currentWeather.getTimeZoneSeconds());
                 startActivity(intent);
             }
         }else if (id==R.id.menu_refresh){

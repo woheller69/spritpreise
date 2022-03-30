@@ -14,6 +14,7 @@ import org.woheller69.spritpreise.database.Forecast;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
 import org.woheller69.spritpreise.ui.UiResourceProvider;
 
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -48,7 +49,12 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
 
-        updateRecyclerViewHeader();  //update header according to date in first visible item on the left
+        if (courseOfDayList!=null && courseOfDayList.size()!=0 && courseOfDayList.get(0)!=null) {
+            long time = courseOfDayList.get(0).getTimestamp();
+            long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
+            long updateTime = ((time + zoneseconds) * 1000);
+            recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
+        }
 
         holder.humidity.setText(Float.toString(courseOfDayList.get(position).getHumidity()));
         holder.temperature.setText( Float.toString(courseOfDayList.get(position).getTemperature()));
@@ -56,23 +62,6 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
         holder.name.setText(courseOfDayList.get(position).getCity_name());
 
 
-    }
-
-    //update header according to date in first visible item on the left of recyclerview
-    private void updateRecyclerViewHeader() {
-        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        LinearLayoutManager llm = (LinearLayoutManager) manager;
-        assert llm != null;
-        int visiblePosition = llm.findFirstVisibleItemPosition();
-        if (visiblePosition>-1) {
-            Calendar HeaderTime = Calendar.getInstance();
-            HeaderTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-            HeaderTime.setTimeInMillis(courseOfDayList.get(visiblePosition).getLocalForecastTime(context));
-            int headerday = HeaderTime.get(Calendar.DAY_OF_WEEK);
-            headerday = StringFormatUtils.getDayLong(headerday);
-            recyclerViewHeader.setText(context.getResources().getString(headerday));
-
-        }
     }
 
     @Override

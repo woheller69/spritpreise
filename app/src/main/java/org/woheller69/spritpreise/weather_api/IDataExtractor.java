@@ -1,9 +1,6 @@
 package org.woheller69.spritpreise.weather_api;
 
-import org.woheller69.spritpreise.database.CurrentWeatherData;
 import org.woheller69.spritpreise.database.Forecast;
-import org.woheller69.spritpreise.database.WeekForecast;
-import org.woheller69.spritpreise.radius_search.RadiusSearchItem;
 
 /**
  * This interface defines the frame of the functionality to extractCurrentWeatherData weather information from which

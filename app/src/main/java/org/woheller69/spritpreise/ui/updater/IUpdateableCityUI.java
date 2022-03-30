@@ -1,8 +1,6 @@
 package org.woheller69.spritpreise.ui.updater;
 
-import org.woheller69.spritpreise.database.CurrentWeatherData;
 import org.woheller69.spritpreise.database.Forecast;
-import org.woheller69.spritpreise.database.WeekForecast;
 
 import java.util.List;
 

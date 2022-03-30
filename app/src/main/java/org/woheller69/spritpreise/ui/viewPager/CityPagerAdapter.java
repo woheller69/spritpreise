@@ -9,10 +9,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.CityToWatch;
-import org.woheller69.spritpreise.database.CurrentWeatherData;
 import org.woheller69.spritpreise.database.Forecast;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.database.WeekForecast;
 import org.woheller69.spritpreise.services.UpdateDataService;
 import org.woheller69.spritpreise.ui.CityFragment;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
@@ -39,7 +37,6 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
     long lastUpdateTime;
 
     private List<CityToWatch> cities;
-    private List<CurrentWeatherData> currentWeathers;
 
     private static int[] mDataSetTypes = {OVERVIEW, DETAILS, DAY}; //TODO Make dynamic from Settings
 
@@ -47,7 +44,6 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
         super(supportFragmentManager,FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mContext = context;
         this.database = PFASQLiteHelper.getInstance(context);
-        this.currentWeathers = database.getAllCurrentWeathers();
         this.cities = database.getAllCitiesToWatch();
         try {
             cities = database.getAllCitiesToWatch();
@@ -94,12 +90,6 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
         enqueueWork(context, UpdateDataService.class, 0, intent);
     }
 
-    private CurrentWeatherData findWeatherFromID(List<CurrentWeatherData> currentWeathers, int ID) {
-        for (CurrentWeatherData weather : currentWeathers) {
-            if (weather.getCity_id() == ID) return weather;
-        }
-        return null;
-    }
 
     @Override
     public void processNewForecasts(List<Forecast> forecasts) {
