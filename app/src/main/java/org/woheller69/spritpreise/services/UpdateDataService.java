@@ -23,13 +23,10 @@ import java.util.List;
  * This class provides the functionality to fetch forecast data for a given city as a background
  * task.
  */
+
 public class UpdateDataService extends JobIntentService {
 
-    public static final String UPDATE_FORECAST_ACTION = "org.woheller69.spritpreise.services.UpdateDataService.UPDATE_FORECAST_ACTION";
-    public static final String UPDATE_ALL_ACTION = "org.woheller69.spritpreise.services.UpdateDataService.UPDATE_ALL_ACTION";
     public static final String UPDATE_SINGLE_ACTION = "org.woheller69.spritpreise.services.UpdateDataService.UPDATE_SINGLE_ACTION";
-
-    public static final String CITY_ID = "cityId";
     public static final String SKIP_UPDATE_INTERVAL = "skipUpdateInterval";
     private static final long MIN_UPDATE_INTERVAL=20;
 
@@ -64,27 +61,11 @@ public class UpdateDataService extends JobIntentService {
         }
 
         if (intent != null) {
-           // if (UPDATE_ALL_ACTION.equals(intent.getAction())) handleUpdateAll(intent);
-           // else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))
-           //     handleUpdateStationsAction(intent);
-           // else if (UPDATE_SINGLE_ACTION.equals(intent.getAction())) handleUpdateSingle(intent);
-
             if (UPDATE_SINGLE_ACTION.equals(intent.getAction())) handleUpdateSingle(intent);
         }
     }
 
 
-    /**
-     * Be careful, with using this. It can cause many calls to the API, because it wants to update everything if the update interval allows it.
-     *
-     * @param intent contains necessary parameters for the service work
-     */
-    private void handleUpdateAll(Intent intent) {
-         List<CityToWatch> cities = dbHelper.getAllCitiesToWatch();
-        for (CityToWatch c : cities) {
-            handleUpdateStationsAction(intent, c.getCityId(),c.getLatitude(),c.getLongitude());
-        }
-    }
 
     private void handleUpdateSingle(Intent intent) {
         int cityId = intent.getIntExtra("cityId",-1);
@@ -126,22 +107,5 @@ public class UpdateDataService extends JobIntentService {
         } catch (IOException | IllegalArgumentException e) {
             return false;
         }
-    }
-
-    private void handleUpdateStationsAction(Intent intent) {
-        int cityId = intent.getIntExtra(CITY_ID, -1);
-        float lat =0;
-        float lon =0;
-        //get lat lon for cityID
-        List<CityToWatch> citiesToWatch = dbHelper.getAllCitiesToWatch();
-        for (int i = 0; i < citiesToWatch.size(); i++) {
-            CityToWatch city = citiesToWatch.get(i);
-            if (city.getCityId() == cityId) {
-                lat = city.getLatitude();
-                lon = city.getLongitude();
-                break;
-            }
-        }
-        handleUpdateStationsAction(intent, cityId, lat, lon);
     }
 }
