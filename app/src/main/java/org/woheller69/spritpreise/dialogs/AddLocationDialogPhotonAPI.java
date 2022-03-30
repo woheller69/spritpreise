@@ -20,7 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -101,9 +100,6 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
         webview.getSettings().setUserAgentString(BuildConfig.APPLICATION_ID+"/"+BuildConfig.VERSION_NAME);
         webview.setBackgroundColor(0x00000000);
         webview.setBackgroundResource(R.drawable.photon);
-
-        final TextView textview = rootView.findViewById(R.id.textViewAddLocation);
-        textview.setVisibility(View.GONE);
 
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
 
