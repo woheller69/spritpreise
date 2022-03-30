@@ -44,14 +44,14 @@ public class OwmHttpRequestForForecast  implements IHttpRequestForForecast {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         Log.d("URL",String.format(
-                "%slist.php?lat=%s&lng=%s&rad=1.5&sort=dist&type=all&apikey=%s",
+                "%slist.php?lat=%s&lng=%s&rad=6&sort=dist&type=all&apikey=%s",
                 BuildConfig.BASE_URL,
                 lat,
                 lon,
                 prefManager.getOWMApiKey(context)
         ));
         return String.format(
-                "%slist.php?lat=%s&lng=%s&rad=1.5&sort=dist&type=all&apikey=%s",
+                "%slist.php?lat=%s&lng=%s&rad=6&sort=dist&type=all&apikey=%s",
                 BuildConfig.BASE_URL,
                 lat,
                 lon,

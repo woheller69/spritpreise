@@ -60,11 +60,12 @@ public class OwmDataExtractor implements IDataExtractor {
 
             JSONObject json = new JSONObject(data);
 
-            forecast.setTemperature((float) json.getDouble("diesel"));
+            if (json.has("diesel") && !json.isNull("diesel")) forecast.setTemperature((float) json.getDouble("diesel"));
             Log.d("Extract Diesel", String.valueOf(json.getDouble("diesel")));
-            forecast.setHumidity((float) json.getDouble("e5"));
-            forecast.setPressure((float) json.getDouble("e10"));
+            if (json.has("e5") && !json.isNull("e5")) forecast.setHumidity((float) json.getDouble("e5"));
+            if (json.has("e10") && !json.isNull("e10")) forecast.setPressure((float) json.getDouble("e10"));
             forecast.setCity_name(json.getString("brand"));
+            if (json.getString("brand").equals("")) forecast.setCity_name(json.getString("name"));
 
             forecast.setPrecipitation((float) json.getDouble("postCode"));
             return forecast;

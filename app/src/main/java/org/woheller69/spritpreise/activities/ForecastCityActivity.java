@@ -67,9 +67,10 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
         if (pagerAdapter.getCount()>0) {  //only if at least one city is watched
              //if pagerAdapter has item with current cityId go there, otherwise use cityId from current item
             if (pagerAdapter.getPosForCityID(cityId)==0) cityId=pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());
-            CurrentWeatherData currentWeather = db.getCurrentWeatherByCityId(cityId);
+            List <Forecast> forecasts = db.getForecastsByCityId(cityId);
 
-            long timestamp = currentWeather.getTimestamp();
+            long timestamp = 0;
+            if (forecasts.size()!=0) timestamp=forecasts.get(0).getTimestamp();
             long systemTime = System.currentTimeMillis() / 1000;
             SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "2")) * 60 * 60);
@@ -100,9 +101,10 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
                 //Update current tab if outside update interval, show animation
                 SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 PFASQLiteHelper database = PFASQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
-                CurrentWeatherData currentWeather = database.getCurrentWeatherByCityId(pagerAdapter.getCityIDForPos(position));
+                List <Forecast> forecasts = database.getForecastsByCityId(pagerAdapter.getCityIDForPos(position));
 
-                long timestamp = currentWeather.getTimestamp();
+                long timestamp = 0;
+                if (forecasts.size()!=0) timestamp=forecasts.get(0).getTimestamp();
                 long systemTime = System.currentTimeMillis() / 1000;
                 long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "2")) * 60 * 60);
 

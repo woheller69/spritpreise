@@ -30,7 +30,7 @@ public class AppPreferencesManager {
     }
 
     public boolean isFirstTimeLaunch() {
-        return preferences.getString("API_key_value", "").equals("");
+        return (preferences.getString("API_key_value", "").equals("") && BuildConfig.DEFAULT_API_KEY.equals(BuildConfig.UNPATCHED_API_KEY));
     }
 
     /**
@@ -133,17 +133,18 @@ public class AppPreferencesManager {
 
 
     public String getOWMApiKey(Context context){
-        String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY);
-        if (prefValue.equals(context.getString(R.string.settings__API_key_default))) {
+        String prefValue = preferences.getString("API_key_value", "");
+        if (prefValue.length()==36) return prefValue;  // if a valid key has been entered use it
+        else if (BuildConfig.DEFAULT_API_KEY.equals(BuildConfig.UNPATCHED_API_KEY)){ // no key entered and build config not patched when compiling
             new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(context, context.getResources().getString(R.string.settings_title_API_key), Toast.LENGTH_LONG).show());
-            return BuildConfig.DEFAULT_API_KEY;
+            return "";
         } else {
-            return prefValue;
+            return BuildConfig.DEFAULT_API_KEY;
         }
     }
 
     public boolean showStarDialog() {
-        int versionCode = preferences.getInt("versionCode",0);
+        int versionCode = preferences.getInt("versionCode",BuildConfig.VERSION_CODE);
         boolean askForStar=preferences.getBoolean("askForStar",true);
 
         if (!isFirstTimeLaunch() && BuildConfig.VERSION_CODE>versionCode && askForStar){ //not at first start, only after upgrade and only if use has not yet given a star or has declined
