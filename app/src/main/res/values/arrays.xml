@@ -20,23 +20,35 @@
     </string-array>
 
     <string-array name="refreshIntervalArray">
-        <item>@string/settings_interval_quarter</item>
-        <item>@string/settings_interval_half</item>
-        <item>@string/settings_interval_one</item>
-        <item>@string/settings_interval_two</item>
-        <item>@string/settings_interval_six</item>
-        <item>@string/settings_interval_twelve</item>
-        <item>@string/settings_interval_twentyfour</item>
+        <item>@string/settings_interval_5</item>
+        <item>@string/settings_interval_10</item>
+        <item>@string/settings_interval_15</item>
+        <item>@string/settings_interval_30</item>
     </string-array>
 
     <string-array name="refreshIntervalValues">
-        <item>0.25</item>
-        <item>0.5</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="searchRadiusArray">
+        <item>1 km</item>
+        <item>2 km</item>
+        <item>3 km</item>
+        <item>4 km</item>
+        <item>5 km</item>
+        <item>10 km</item>
+    </string-array>
+
+    <string-array name="searchRadiusValues">
         <item>1</item>
         <item>2</item>
-        <item>6</item>
-        <item>12</item>
-        <item>24</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>10</item>
     </string-array>
 
     <!-- dots inactive colors -->

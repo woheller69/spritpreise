@@ -32,6 +32,7 @@
     <string name="error_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
     <string name="error_dialog_add_city_too_close">Der Ort liegt zu nahe an einem bereits beobachteten Ort</string>
     <string name="error_no_radius_search_result">Kein Ort gefunden. Suchradius vergrößern</string>
+    <string name="settings_search_radius">Suchradius</string>
     <string name="dialog_add_add_button">Hinzufügen</string>
     <string name="dialog_add_close_button">Schließen</string>
     <string name="dialog_add_label">Ort, der hinzugefügt werden soll:</string>

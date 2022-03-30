@@ -95,7 +95,7 @@ public class UpdateDataService extends JobIntentService {
 
         long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
-        long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "2")) * 60 * 60);
+        long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
         List<Forecast> forecasts = dbHelper.getForecastsByCityId(cityId);
         if (forecasts.size() > 0) {             // check timestamp of the current forecasts

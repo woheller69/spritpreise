@@ -7,49 +7,26 @@
             android:defaultValue="@string/settings__API_key_default" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/settings_title_units">
-        <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/temperatureUnitsArray"
-            android:entryValues="@array/temperatureUnitsValues"
-            android:key="temperatureUnit"
-            android:summary="@string/settings_summary_temperature"
-            android:title="@string/settings_title_temperature" />
-
-        <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/distanceUnitsArray"
-            android:entryValues="@array/distanceUnitsValues"
-            android:key="distanceUnit"
-            android:summary="@string/settings_summary_distance"
-            android:title="@string/settings_title_distance" />
-
-        <SwitchPreference
-            android:key="pref_WindFormat"
-            android:title="@string/settings_wind"
-            android:defaultValue="true"
-            />
-    </PreferenceCategory>
-
     <PreferenceCategory android:title="@string/settings_title_forecastChoice">
+
         <ListPreference
-            android:defaultValue="2"
-            android:entries="@array/forecastChoiceArray"
-            android:entryValues="@array/forecastChoiceValues"
-            android:key="forecastChoice"
-            android:summary="@string/settings_summary_forecastChoice"
-            android:title="@string/settings_forecastChoice" />
+            android:defaultValue="3"
+            android:entries="@array/searchRadiusArray"
+            android:entryValues="@array/searchRadiusValues"
+            android:key="pref_searchRadius"
+            android:title="@string/settings_search_radius" />
+
+        <ListPreference
+            android:defaultValue="15"
+            android:entries="@array/refreshIntervalArray"
+            android:entryValues="@array/refreshIntervalValues"
+            android:key="pref_updateInterval"
+            android:title="@string/settings_update_interval" />
 
         <SwitchPreference
             android:key="pref_DarkMode"
             android:title="@string/settings_darkmode"
             android:defaultValue="false"
-            />
-
-        <SwitchPreference
-            android:key="pref_TempDecimals"
-            android:title="@string/settings_temp_decimal"
-            android:defaultValue="true"
             />
 
         <SwitchPreference
@@ -59,16 +36,6 @@
             android:defaultValue="true"
             />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/settings_intervals">
-        <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/refreshIntervalArray"
-            android:entryValues="@array/refreshIntervalValues"
-            android:key="pref_updateInterval"
-            android:summary="@string/settings_interval_summary"
-            android:title="@string/settings_update_interval" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_position">

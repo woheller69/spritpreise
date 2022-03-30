@@ -89,13 +89,11 @@
     <string name="error_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
     <string name="error_dialog_add_city_too_close">City too close to other watched city</string>
     <string name="error_no_radius_search_result">No city found. Increase search radius</string>
-    <string name="settings_interval_quarter" translatable="false">15 min</string>
-    <string name="settings_interval_half" translatable="false">30 min</string>
-    <string name="settings_interval_one" translatable="false">1 h</string>
-    <string name="settings_interval_two" translatable="false">2 h</string>
-    <string name="settings_interval_six" translatable="false">6 h</string>
-    <string name="settings_interval_twelve" translatable="false">12 h</string>
-    <string name="settings_interval_twentyfour" translatable="false">24 h</string>
+    <string name="settings_search_radius">Search radius</string>
+    <string name="settings_interval_5" translatable="false">5 min</string>
+    <string name="settings_interval_10" translatable="false">10 min</string>
+    <string name="settings_interval_15" translatable="false">15 min</string>
+    <string name="settings_interval_30" translatable="false">30 min</string>
     <string name="settings_intervals">Intervals</string>
     <string name="settings_update_interval">Update interval</string>
     <string name="settings_interval_summary">Set the interval of automatic updates</string>

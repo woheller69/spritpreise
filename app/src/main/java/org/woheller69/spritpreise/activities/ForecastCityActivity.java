@@ -71,7 +71,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
             if (forecasts.size()!=0) timestamp=forecasts.get(0).getTimestamp();
             long systemTime = System.currentTimeMillis() / 1000;
             SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "2")) * 60 * 60);
+            long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
             if (timestamp + updateInterval - systemTime <= 0) {
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
@@ -104,7 +104,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
                 long timestamp = 0;
                 if (forecasts.size()!=0) timestamp=forecasts.get(0).getTimestamp();
                 long systemTime = System.currentTimeMillis() / 1000;
-                long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "2")) * 60 * 60);
+                long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
                 if (timestamp + updateInterval - systemTime <= 0) {
                     CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
