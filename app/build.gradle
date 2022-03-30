@@ -18,7 +18,8 @@ android {
         versionCode 1
         versionName "0.1"
 
-        buildConfigField "String", "DEFAULT_API_KEY", "\"00000000-0000-0000-0000-000000000002\""
+        buildConfigField "String", "DEFAULT_API_KEY", "\"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX\""
+        buildConfigField "String", "UNPATCHED_API_KEY", "\"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX\""
         buildConfigField "String", "BASE_URL", "\"https://creativecommons.tankerkoenig.de/json/\""
     }
 
@@ -44,5 +45,4 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 }
