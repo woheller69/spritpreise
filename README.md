@@ -31,7 +31,6 @@ The app also uses:
 - Leaflet.TileLayer.ColorFilter which is licensed under <a href='https://github.com/xtk93x/Leaflet.TileLayer.ColorFilter/blob/master/LICENSE'>MIT License</a>
 - RainViewer API which is free (https://www.rainviewer.com/api.html) & RainViewer API Example (https://github.com/rainviewer/rainviewer-api-example)
 - WilliamChart (com.db.chart) (https://github.com/diogobernardino/williamchart) which is licensed under <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License Version 2.0</a>
-- Android SQLiteAssetHelper (com.readystatesoftware.sqliteasset) (https://github.com/jgilfelt/android-sqlite-asset-helper) which is licensed under <a href='https://github.com/jgilfelt/android-sqlite-asset-helper/blob/master/LICENSE'>Apache License Version 2.0</a>
 - Android Volley (com.android.volley) (https://github.com/google/volley) which is licensed under <a href='https://github.com/google/volley/blob/master/LICENSE'>Apache License Version 2.0</a>
 - AndroidX libraries (https://github.com/androidx/androidx) which is licensed under <a href='https://github.com/androidx/androidx/blob/androidx-main/LICENSE.txt'>Apache License Version 2.0</a>
 - AutoSuggestTextViewAPICall (https://github.com/Truiton/AutoSuggestTextViewAPICall) which is licensed under <a href='https://github.com/Truiton/AutoSuggestTextViewAPICall/blob/master/LICENSE'>Apache License Version 2.0</a>

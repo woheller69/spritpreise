@@ -1,9 +1,7 @@
 package org.woheller69.spritpreise.weather_api.open_weather_map;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
-import androidx.preference.PreferenceManager;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -15,10 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.NavigationActivity;
-import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Forecast;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.database.WeekForecast;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.weather_api.IDataExtractor;
 import org.woheller69.spritpreise.weather_api.IProcessHttpRequest;
