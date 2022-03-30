@@ -1,6 +1,6 @@
 package org.woheller69.spritpreise.ui.updater;
 
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface IUpdateableCityUI {
 
-    void processNewForecasts(List<Forecast> forecasts);
+    void processUpdateStations(List<Station> stations);
 
 }

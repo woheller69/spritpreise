@@ -1,6 +1,6 @@
 package org.woheller69.spritpreise.ui.updater;
 
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,10 @@ public class ViewUpdater {
         subscribers.remove(sub);
     }
 
-    public static void updateForecasts(List<Forecast> forecasts) {
+    public static void updateStations(List<Station> stations) {
         ArrayList<IUpdateableCityUI> subcopy = new ArrayList<>(subscribers);
         for (IUpdateableCityUI sub : subcopy) {
-            sub.processNewForecasts(forecasts);
+            sub.processUpdateStations(stations);
         }
     }
 }

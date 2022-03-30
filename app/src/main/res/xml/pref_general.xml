@@ -7,7 +7,7 @@
             android:defaultValue="@string/settings__API_key_default" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/settings_title_forecastChoice">
+    <PreferenceCategory android:title="@string/settings_title_display_options">
 
         <ListPreference
             android:defaultValue="3"

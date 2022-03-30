@@ -5,28 +5,22 @@ import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
-    private static final String TAG = "Forecast_Adapter";
 
     private int[] dataSetTypes;
-    private List<Forecast> courseDayList;
+    private List<Station> stationList;
 
     private Context context;
 
@@ -44,16 +38,16 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         PFASQLiteHelper database = PFASQLiteHelper.getInstance(context.getApplicationContext());
 
-        List<Forecast> forecasts = database.getForecastsByCityId(cityID);
+        List<Station> stations = database.getStationsByCityId(cityID);
 
-        updateForecastData(forecasts);
+        updateStationsData(stations);
 
     }
 
-    public void updateForecastData(List<Forecast> forecasts) {
+    public void updateStationsData(List<Station> stations) {
 
-        courseDayList = new ArrayList<>();
-        courseDayList.addAll(forecasts);
+        stationList = new ArrayList<>();
+        stationList.addAll(stations);
 
             notifyDataSetChanged();
     }
@@ -94,7 +88,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         DayViewHolder(View v) {
             super(v);
-            recyclerView = v.findViewById(R.id.recycler_view_course_day);
+            recyclerView = v.findViewById(R.id.recycler_view_stations);
             recyclerView.setHasFixedSize(true);
             recyclerViewHeader=v.findViewById(R.id.recycler_view_header);
         }
@@ -141,7 +135,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             DayViewHolder holder = (DayViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
-            StationAdapter adapter = new StationAdapter(courseDayList, context, holder.recyclerViewHeader, holder.recyclerView);
+            StationAdapter adapter = new StationAdapter(stationList, context, holder.recyclerViewHeader, holder.recyclerView);
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
         }

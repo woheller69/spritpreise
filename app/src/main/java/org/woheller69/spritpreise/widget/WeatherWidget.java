@@ -24,9 +24,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.activities.ForecastCityActivity;
+import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.database.CityToWatch;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.services.UpdateDataService;
 
@@ -108,7 +108,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
 
 
-    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Forecast> hourlyforecasts) {
+    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Station> stations) {
         PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
 
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
@@ -122,7 +122,7 @@ public class WeatherWidget extends AppWidgetProvider {
         PendingIntent pendingUpdate = PendingIntent.getBroadcast(context, appWidgetId, intentUpdate, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget_update, pendingUpdate);
 
-        Intent intent2 = new Intent(context, ForecastCityActivity.class);
+        Intent intent2 = new Intent(context, CityGasPricesActivity.class);
         intent2.putExtra("cityId", getWidgetCityID(context));
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
@@ -196,7 +196,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
         int widgetCityID=WeatherWidget.getWidgetCityID(context);
 
-        List<Forecast> hourlyforecasts=dbHelper.getForecastsByCityId(widgetCityID);
+        List<Station> stations =dbHelper.getStationsByCityId(widgetCityID);
 
         int[] widgetIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
 
@@ -207,7 +207,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
                 CityToWatch city=dbHelper.getCityToWatch(widgetCityID);
 
-                WeatherWidget.updateView(context, appWidgetManager, views, widgetID, city, hourlyforecasts);
+                WeatherWidget.updateView(context, appWidgetManager, views, widgetID, city, stations);
                 appWidgetManager.updateAppWidget(widgetID, views);
 
         }

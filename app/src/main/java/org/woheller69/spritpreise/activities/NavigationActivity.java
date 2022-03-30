@@ -59,7 +59,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
             alertDialogBuilder.setPositiveButton(getString(R.string.dialog_OK_button), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/woheller69/weather")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/woheller69/spritpreise")));
                     prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
                     prefManager.setAskForStar(false);
                 }
@@ -89,7 +89,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         } else {
             if (getNavigationDrawerID()!=R.id.nav_weather)
             {
-                Intent intent = new Intent(this, ForecastCityActivity.class);
+                Intent intent = new Intent(this, CityGasPricesActivity.class);
                 startActivity(intent);
             }else{
                 Intent intent = new Intent();
@@ -166,7 +166,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         }
 
         if (itemId==R.id.nav_weather) {
-            intent = new Intent(this, ForecastCityActivity.class);
+            intent = new Intent(this, CityGasPricesActivity.class);
             startActivity(intent);
         }else if (itemId==R.id.nav_manage){
             intent = new Intent(this, ManageLocationsActivity.class);
@@ -179,7 +179,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
             createBackStack(intent);
         }else if (itemId==R.id.star_on_github){
             startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/woheller69/weather")));
+                    Uri.parse("https://github.com/woheller69/spritpreise")));
             prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
             prefManager.setAskForStar(false);
         }

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Spritpreise</string>
-    <string name="app_name_long">Spritpreise Deutschland</string>
+    <string name="app_name">Gas prices</string>
+    <string name="app_name_long">Gas prices Germany</string>
     <string name="activity_about">About</string>
     <string name="activity_settings">Settings</string>
-    <string name="activity_weather">Weather</string>
+    <string name="activity_weather">Gas prices</string>
     <string name="activity_manage">Manage locations</string>
     <string name="activity_radius_search">Radius Search</string>
     <string name="action_refresh">Refresh</string>
@@ -13,9 +13,9 @@
     <string name="next">Next</string>
     <string name="okay">Okay</string>
     <string name="slide1_heading">Welcome!</string>
-    <string name="slide1_text">RadarWeather is an App to check the current Weather and Forecasts for your Locations.</string>
+    <string name="slide1_text">Gas prices provides the current gas prices for your locations.</string>
     <string name="slide2_heading">How To</string>
-    <string name="slide2_text">You can choose your own locations and get detailed information about the current weather. A rain radar is also available.</string>
+    <string name="slide2_text">You can choose your own locations and get current gas prices.</string>
     <string name="slide3_heading" translatable="false">Github</string>
     <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
     <string name="card_details_heading">Last update</string>
@@ -27,7 +27,7 @@
     <string name="card_error_heading">Error fetching weather data</string>
     <string name="card_error_content">Please try to update!</string>
     <string name="about_privacy_heading">Privacy Info</string>
-    <string name="about_permission_internet_description">Connecting to the Network: This permission is needed because weather data is retrieved by making requests to servers on the Internet. Without this permission, no weather data can be received. Optional: authorization for GPS.</string>
+    <string name="about_permission_internet_description">Connecting to the Network: This permission is needed because data is retrieved by making requests to servers on the Internet. Without this permission, no price information can be received. Optional: authorization for GPS.</string>
     <string name="about">About</string>
     <string name="version_number" translatable="false">Version</string>
     <string name="about_license">License</string>
@@ -52,12 +52,11 @@
     <string name="dialog_add_no_city_found">No location was found that matches your input. It is recommended to select one of the items from the dropdown list.  </string>
     <string name="dialog_add_close_button">Close</string>
     <string name="dialog_add_add_button">Add</string>
-    <string name="error_convert_to_json">The retrieved weather data was not well-formed. </string>
+    <string name="error_convert_to_json">The retrieved data was not well-formed. </string>
     <string name="error_no_internet">Your Device is not connected to the Internet</string>
-    <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
-    <string name="error_radius_search">Error while doing radius search, please try again!</string>
+    <string name="error_fetch_stations">Error retrieving data, please try again!</string>
     <string name="error_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
-    <string name="error_dialog_add_city_too_close">City too close to other watched city</string>
+
     <string name="error_no_radius_search_result">No city found. Increase search radius</string>
     <string name="settings_search_radius">Search radius</string>
     <string name="settings_interval_5" translatable="false">5 min</string>
@@ -67,14 +66,14 @@
     <string name="settings_intervals">Intervals</string>
     <string name="settings_update_interval">Update interval</string>
     <string name="settings_interval_summary">Set the interval of automatic updates</string>
-    <string name="about_privacy_answer">RadarWeather only uses the permission \"Internet\" to retrieve weather data. It further does not include any tracking mechanisms or advertisement.</string>
-    <string name="about_where_from">Where do the weather informations come from?</string>
-    <string name="about_where_from_answer">Weather information is fetched from the service OpenWeatherMap. Rain radar data is received from RainViewer. </string>
+    <string name="about_privacy_answer">Gas prices only uses the permission \"Internet\" to retrieve weather data. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="about_where_from">Where does the information come from?</string>
+    <string name="about_where_from_answer">Price information is fetched from the service Tankerkönig. </string>
     <string name="about_permissions">Permissions</string>
     <string name="RainViewer">Rain Radar</string>
     <string name="long_press_text">Hold and drag to sort.</string>
     <string name="swipe_to_delete">Swipe to delete</string>
-    <string name="settings_title_forecastChoice">Display options</string>
+    <string name="settings_title_display_options">Display options</string>
     <string name="registerOWM">Information is fetched from Tankerkönig. Please enter your API key in settings. If you do not yet have an API key, please press the button below for free registration:</string>
     <string name="registerOWMbutton">Register for free</string>
     <string name="chart">Chart</string>

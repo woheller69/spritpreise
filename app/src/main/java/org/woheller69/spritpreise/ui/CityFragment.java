@@ -17,8 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.activities.ForecastCityActivity;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.activities.CityGasPricesActivity;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.ui.RecycleList.CityAdapter;
 import org.woheller69.spritpreise.ui.RecycleList.OnSwipeDownListener;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
@@ -77,9 +77,9 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragment_weather_forecast_city_overview, container, false);
+        final View v = inflater.inflate(R.layout.city_fragment, container, false);
 
-        recyclerView = v.findViewById(R.id.weatherForecastRecyclerView);
+        recyclerView = v.findViewById(R.id.StationsRecyclerView);
         recyclerView.setLayoutManager(getLayoutManager(getContext()));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
@@ -90,7 +90,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
                     recyclerView.setOnTouchListener(new OnSwipeDownListener(getContext()) {
                         public void onSwipeDown() {
                                 CityPagerAdapter.refreshSingleData(getContext(),true,mCityId);
-                                ForecastCityActivity.startRefreshAnimation();
+                                CityGasPricesActivity.startRefreshAnimation();
                         }
                     });
                 }else recyclerView.setOnTouchListener(null);
@@ -120,10 +120,10 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
 
     @Override
-    public void processNewForecasts(List<Forecast> forecasts) {
-        if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
+    public void processUpdateStations(List<Station> stations) {
+        if (stations != null && stations.size() > 0 && stations.get(0).getCity_id() == mCityId) {
             if (mAdapter != null) {
-                mAdapter.updateForecastData(forecasts);
+                mAdapter.updateStationsData(stations);
             }
         }
     }

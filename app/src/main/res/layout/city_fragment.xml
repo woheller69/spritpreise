@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ForecastCityActivity"
+    tools:context=".activities.CityGasPricesActivity"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/weatherForecastRecyclerView"
+        android:id="@+id/StationsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

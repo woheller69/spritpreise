@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.activities.ForecastCityActivity;
+import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.activities.SettingsActivity;
 
 import org.woheller69.spritpreise.preferences.AppPreferencesManager;
@@ -137,7 +137,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
+        startActivity(new Intent(TutorialActivity.this, CityGasPricesActivity.class));
         finish();
     }
 

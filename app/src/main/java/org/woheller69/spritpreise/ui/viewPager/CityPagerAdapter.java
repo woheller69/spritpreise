@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.CityToWatch;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.services.UpdateDataService;
 import org.woheller69.spritpreise.ui.CityFragment;
@@ -92,7 +92,7 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
 
 
     @Override
-    public void processNewForecasts(List<Forecast> forecasts) {
+    public void processUpdateStations(List<Station> stations) {
         notifyDataSetChanged();
     }
 

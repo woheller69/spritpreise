@@ -212,7 +212,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     public void deleteCityToWatch(CityToWatch cityToWatch) {
 
         //First delete all weather data for city which is deleted
-        deleteForecastsByCityId(cityToWatch.getCityId());
+        deleteStationsByCityId(cityToWatch.getCityId());
 
         //Now remove city from CITIES_TO_WATCH
         SQLiteDatabase database = this.getWritableDatabase();
@@ -241,32 +241,32 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     /**
      * Methods for TABLE_FORECAST
      */
-    public synchronized void addForecast(Forecast forecast) {
+    public synchronized void addStation(Station station) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(FORECAST_CITY_ID, forecast.getCity_id());
-        values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime());
-        values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
-        values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
-        values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
-        values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
-        values.put(FORECAST_COLUMN_PRECIPITATION, forecast.getPrecipitation());
-        values.put(FORECAST_COLUMN_WIND_SPEED, forecast.getWindSpeed());
-        values.put(FORECAST_COLUMN_WIND_DIRECTION, forecast.getCity_name());
+        values.put(FORECAST_CITY_ID, station.getCity_id());
+        values.put(FORECAST_COLUMN_TIME_MEASUREMENT, station.getTimestamp());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, station.getForecastTime());
+        values.put(FORECAST_COLUMN_WEATHER_ID, station.getWeatherID());
+        values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, station.getTemperature());
+        values.put(FORECAST_COLUMN_HUMIDITY, station.getHumidity());
+        values.put(FORECAST_COLUMN_PRESSURE, station.getPressure());
+        values.put(FORECAST_COLUMN_PRECIPITATION, station.getPrecipitation());
+        values.put(FORECAST_COLUMN_WIND_SPEED, station.getWindSpeed());
+        values.put(FORECAST_COLUMN_WIND_DIRECTION, station.getCity_name());
         database.insert(TABLE_FORECAST, null, values);
         database.close();
     }
 
-    public synchronized void deleteForecastsByCityId(int cityId) {
+    public synchronized void deleteStationsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_FORECAST, FORECAST_CITY_ID + " = ?",
                 new String[]{Integer.toString(cityId)});
         database.close();
     }
 
-    public synchronized List<Forecast> getForecastsByCityId(int cityId) {
+    public synchronized List<Station> getStationsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.query(TABLE_FORECAST,
@@ -284,24 +284,24 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                 , FORECAST_CITY_ID + "=?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
-        List<Forecast> list = new ArrayList<>();
-        Forecast forecast;
+        List<Station> list = new ArrayList<>();
+        Station station;
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                forecast = new Forecast();
-                forecast.setId(Integer.parseInt(cursor.getString(0)));
-                forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
-                forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
-                forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
-                forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
-                forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
-                forecast.setPressure(Float.parseFloat(cursor.getString(7)));
-                forecast.setPrecipitation(Float.parseFloat(cursor.getString(8)));
-                forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
-                forecast.setCity_name(cursor.getString(10));
-                list.add(forecast);
+                station = new Station();
+                station.setId(Integer.parseInt(cursor.getString(0)));
+                station.setCity_id(Integer.parseInt(cursor.getString(1)));
+                station.setTimestamp(Long.parseLong(cursor.getString(2)));
+                station.setForecastTime(Long.parseLong(cursor.getString(3)));
+                station.setWeatherID(Integer.parseInt(cursor.getString(4)));
+                station.setTemperature(Float.parseFloat(cursor.getString(5)));
+                station.setHumidity(Float.parseFloat(cursor.getString(6)));
+                station.setPressure(Float.parseFloat(cursor.getString(7)));
+                station.setPrecipitation(Float.parseFloat(cursor.getString(8)));
+                station.setWindSpeed(Float.parseFloat(cursor.getString(9)));
+                station.setCity_name(cursor.getString(10));
+                list.add(station);
             } while (cursor.moveToNext());
 
             cursor.close();

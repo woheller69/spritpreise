@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
         } else { //otherwise directly start ForecastCityActivity
-            Intent mainIntent = new Intent(SplashActivity.this, ForecastCityActivity.class);
+            Intent mainIntent = new Intent(SplashActivity.this, CityGasPricesActivity.class);
             SplashActivity.this.startActivity(mainIntent);
         }
         SplashActivity.this.finish();

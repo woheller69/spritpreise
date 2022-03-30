@@ -1,6 +1,6 @@
 package org.woheller69.spritpreise.weather_api;
 
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 
 /**
  * This interface defines the frame of the functionality to extractCurrentWeatherData weather information from which
@@ -17,7 +17,7 @@ public interface IDataExtractor {
     boolean wasCityFound(String data);
 
 
-    Forecast extractForecast(String data);
+    Station extractStation(String data);
 
     /**
      * @param data0, data1, data2, data3, data4 contain the information to retrieve the rain for a minute within the next 60min.

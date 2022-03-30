@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * This class is the database model for the forecasts table.
  */
-public class Forecast {
+public class Station {
 
     public static final float NO_RAIN_VALUE = 0;
     private int id;
@@ -22,11 +22,11 @@ public class Forecast {
     private String city_name;
 
 
-    public Forecast() {
+    public Station() {
     }
 
-    public Forecast(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
-                    float pressure, float windSpeed, float windDirection, float precipitation) {
+    public Station(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
+                   float pressure, float windSpeed, float windDirection, float precipitation) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;

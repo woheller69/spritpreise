@@ -15,7 +15,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
@@ -23,7 +23,7 @@ import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 
 import java.util.List;
 
-public class ForecastCityActivity extends NavigationActivity implements IUpdateableCityUI {
+public class CityGasPricesActivity extends NavigationActivity implements IUpdateableCityUI {
     private CityPagerAdapter pagerAdapter;
 
     private static MenuItem refreshActionButton;
@@ -65,17 +65,17 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
         if (pagerAdapter.getCount()>0) {  //only if at least one city is watched
              //if pagerAdapter has item with current cityId go there, otherwise use cityId from current item
             if (pagerAdapter.getPosForCityID(cityId)==0) cityId=pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());
-            List <Forecast> forecasts = db.getForecastsByCityId(cityId);
+            List <Station> stations = db.getStationsByCityId(cityId);
 
             long timestamp = 0;
-            if (forecasts.size()!=0) timestamp=forecasts.get(0).getTimestamp();
+            if (stations.size()!=0) timestamp= stations.get(0).getTimestamp();
             long systemTime = System.currentTimeMillis() / 1000;
             SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
             if (timestamp + updateInterval - systemTime <= 0) {
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
-                ForecastCityActivity.startRefreshAnimation();
+                CityGasPricesActivity.startRefreshAnimation();
             }
         }
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
@@ -84,7 +84,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forecast_city);
+        setContentView(R.layout.activity_city_gas_prices);
         overridePendingTransition(0, 0);
 
         initResources();
@@ -99,16 +99,16 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
                 //Update current tab if outside update interval, show animation
                 SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 PFASQLiteHelper database = PFASQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
-                List <Forecast> forecasts = database.getForecastsByCityId(pagerAdapter.getCityIDForPos(position));
+                List <Station> stations = database.getStationsByCityId(pagerAdapter.getCityIDForPos(position));
 
                 long timestamp = 0;
-                if (forecasts.size()!=0) timestamp=forecasts.get(0).getTimestamp();
+                if (stations.size()!=0) timestamp= stations.get(0).getTimestamp();
                 long systemTime = System.currentTimeMillis() / 1000;
                 long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
                 if (timestamp + updateInterval - systemTime <= 0) {
                     CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
-                    ForecastCityActivity.startRefreshAnimation();
+                    CityGasPricesActivity.startRefreshAnimation();
                 }
                 viewPager.setNextFocusRightId(position);
                 cityId=pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());  //save current cityId for next resume
@@ -144,7 +144,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_forecast_city, menu);
+        getMenuInflater().inflate(R.menu.activity_city_gas_prices, menu);
 
         final Menu m = menu;
 
@@ -185,7 +185,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
         }else if (id==R.id.menu_refresh){
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
-                ForecastCityActivity.startRefreshAnimation();
+                CityGasPricesActivity.startRefreshAnimation();
             }
         }
 
@@ -199,7 +199,7 @@ public class ForecastCityActivity extends NavigationActivity implements IUpdatea
     }
 
     @Override
-    public void processNewForecasts(List<Forecast> forecasts) {
+    public void processUpdateStations(List<Station> stations) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }

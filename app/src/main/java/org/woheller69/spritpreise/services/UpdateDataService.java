@@ -10,10 +10,10 @@ import android.widget.Toast;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.NavigationActivity;
 import org.woheller69.spritpreise.database.CityToWatch;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.weather_api.IHttpRequestForForecast;
-import org.woheller69.spritpreise.weather_api.open_weather_map.OwmHttpRequestForForecast;
+import org.woheller69.spritpreise.weather_api.IHttpRequestForStations;
+import org.woheller69.spritpreise.weather_api.tankerkoenig.TKHttpRequestForStations;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -64,10 +64,12 @@ public class UpdateDataService extends JobIntentService {
         }
 
         if (intent != null) {
-            if (UPDATE_ALL_ACTION.equals(intent.getAction())) handleUpdateAll(intent);
-            else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))
-                handleUpdateForecastAction(intent);
-            else if (UPDATE_SINGLE_ACTION.equals(intent.getAction())) handleUpdateSingle(intent);
+           // if (UPDATE_ALL_ACTION.equals(intent.getAction())) handleUpdateAll(intent);
+           // else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))
+           //     handleUpdateStationsAction(intent);
+           // else if (UPDATE_SINGLE_ACTION.equals(intent.getAction())) handleUpdateSingle(intent);
+
+            if (UPDATE_SINGLE_ACTION.equals(intent.getAction())) handleUpdateSingle(intent);
         }
     }
 
@@ -80,30 +82,30 @@ public class UpdateDataService extends JobIntentService {
     private void handleUpdateAll(Intent intent) {
          List<CityToWatch> cities = dbHelper.getAllCitiesToWatch();
         for (CityToWatch c : cities) {
-            handleUpdateForecastAction(intent, c.getCityId(),c.getLatitude(),c.getLongitude());
+            handleUpdateStationsAction(intent, c.getCityId(),c.getLatitude(),c.getLongitude());
         }
     }
 
     private void handleUpdateSingle(Intent intent) {
         int cityId = intent.getIntExtra("cityId",-1);
         CityToWatch city = dbHelper.getCityToWatch(cityId);
-        handleUpdateForecastAction(intent, cityId, city.getLatitude(), city.getLongitude());
+        handleUpdateStationsAction(intent, cityId, city.getLatitude(), city.getLongitude());
     }
 
-    private void handleUpdateForecastAction(Intent intent, int cityId, float lat, float lon) {
+    private void handleUpdateStationsAction(Intent intent, int cityId, float lat, float lon) {
         boolean skipUpdateInterval = intent.getBooleanExtra(SKIP_UPDATE_INTERVAL, false);
 
         long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
         long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
 
-        List<Forecast> forecasts = dbHelper.getForecastsByCityId(cityId);
-        if (forecasts.size() > 0) {             // check timestamp of the current forecasts
-            timestamp = forecasts.get(0).getTimestamp();
+        List<Station> stations = dbHelper.getStationsByCityId(cityId);
+        if (stations.size() > 0) {             // check timestamp of stations
+            timestamp = stations.get(0).getTimestamp();
         }
 
         if (skipUpdateInterval) {
-            // check timestamp of the current forecasts
+            // check timestamp of the current stations
                 if ((timestamp+MIN_UPDATE_INTERVAL-systemTime)>0) skipUpdateInterval=false;  //even if skipUpdateInterval is true, never update if less than MIN_UPDATE_INTERVAL s
         }
 
@@ -111,22 +113,22 @@ public class UpdateDataService extends JobIntentService {
         if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
 
 
-                IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
-                forecastRequest.perform(lat, lon, cityId);
+                IHttpRequestForStations stationsRequest = new TKHttpRequestForStations(getApplicationContext());
+                stationsRequest.perform(lat, lon, cityId);
 
         }
     }
 
     private boolean isOnline() {
         try {
-            InetAddress inetAddress = InetAddress.getByName("api.openweathermap.org");
+            InetAddress inetAddress = InetAddress.getByName("creativecommons.tankerkoenig.de");
             return inetAddress.isReachable(2000);
         } catch (IOException | IllegalArgumentException e) {
             return false;
         }
     }
 
-    private void handleUpdateForecastAction(Intent intent) {
+    private void handleUpdateStationsAction(Intent intent) {
         int cityId = intent.getIntExtra(CITY_ID, -1);
         float lat =0;
         float lon =0;
@@ -140,6 +142,6 @@ public class UpdateDataService extends JobIntentService {
                 break;
             }
         }
-        handleUpdateForecastAction(intent, cityId, lat, lon);
+        handleUpdateStationsAction(intent, cityId, lat, lon);
     }
 }

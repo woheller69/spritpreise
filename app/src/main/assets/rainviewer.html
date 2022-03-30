@@ -189,7 +189,7 @@ var marker = L.marker([getUrlParameter('lat'), getUrlParameter('lon')]).addTo(ma
              document.getElementById("timestamp").innerHTML = (new Date((nextFrame.time + parseInt(getUrlParameter('tz')))* 1000)).toLocaleString(navigator.language, { timeZone: 'UTC', hour12: true });
         }
 
-        //change color of forecasts from black to red
+        //change color of stations from black to red
         if (animationPosition > lastPastFramePosition){
             document.getElementById("timestamp").style.color = 'red';
         }else{

@@ -1,4 +1,4 @@
-package org.woheller69.spritpreise.weather_api.open_weather_map;
+package org.woheller69.spritpreise.weather_api.tankerkoenig;
 
 import android.content.Context;
 import android.os.Handler;
@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.NavigationActivity;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.weather_api.IDataExtractor;
@@ -26,12 +26,7 @@ import java.util.List;
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
  * current weather for all stored cities.
  */
-public class ProcessOwmForecastRequest implements IProcessHttpRequest {
-
-    /**
-     * Constants
-     */
-    private final String DEBUG_TAG = "process_forecast";
+public class ProcessStationsRequest implements IProcessHttpRequest {
 
     /**
      * Member variables
@@ -44,7 +39,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      *
      * @param context The context of the HTTP request.
      */
-    public ProcessOwmForecastRequest(Context context) {
+    public ProcessStationsRequest(Context context) {
         this.context = context;
         this.dbHelper = PFASQLiteHelper.getInstance(context);
     }
@@ -57,23 +52,23 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      */
     @Override
     public void processSuccessScenario(String response, int cityId) {
-        IDataExtractor extractor = new OwmDataExtractor();
+        IDataExtractor extractor = new TKDataExtractor();
         Log.d("Extract",response);
         if (extractor.wasCityFound(response)) {
             try {
                 JSONObject json = new JSONObject(response);
                 JSONArray list = json.getJSONArray("stations");
 
-                List<Forecast> forecasts = new ArrayList<>();
+                List<Station> stations = new ArrayList<>();
 
-                dbHelper.deleteForecastsByCityId(cityId); //start with empty forecast list
+                dbHelper.deleteStationsByCityId(cityId); //start with empty stations list
 
                 for (int i = 0; i < list.length(); i++) {
                     String currentItem = list.get(i).toString();
                     Log.d("Extract", currentItem);
-                    Forecast forecast = extractor.extractForecast(currentItem);
+                    Station station = extractor.extractStation(currentItem);
                     // Data were not well-formed, abort
-                    if (forecast == null) {
+                    if (station == null) {
                         final String ERROR_MSG = context.getResources().getString(R.string.error_convert_to_json);
                         if (NavigationActivity.isVisible)
                             Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
@@ -81,14 +76,14 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                     }
                     // Could retrieve all data, so proceed
                     else {
-                        forecast.setCity_id(cityId);
+                        station.setCity_id(cityId);
                         // add it to the database
-                        dbHelper.addForecast(forecast);
-                        forecasts.add(forecast);
+                        dbHelper.addStation(station);
+                        stations.add(station);
                     }
                 }
 
-                ViewUpdater.updateForecasts(forecasts);
+                ViewUpdater.updateStations(stations);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -108,7 +103,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
         h.post(new Runnable() {
             @Override
             public void run() {
-                if (NavigationActivity.isVisible) Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast), Toast.LENGTH_LONG).show();
+                if (NavigationActivity.isVisible) Toast.makeText(context, context.getResources().getString(R.string.error_fetch_stations), Toast.LENGTH_LONG).show();
             }
         });
     }

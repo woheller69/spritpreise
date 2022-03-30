@@ -28,7 +28,7 @@
             android:background="@color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_course_day"
+            android:id="@+id/recycler_view_stations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

@@ -1,21 +1,18 @@
 package org.woheller69.spritpreise.ui.RecycleList;
 
 import android.content.Context;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.database.Forecast;
+import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
-import org.woheller69.spritpreise.ui.UiResourceProvider;
 
 import java.time.Instant;
-import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -26,13 +23,13 @@ import java.util.TimeZone;
 
 public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOfDayViewHolder> {
 
-    private List<Forecast> courseOfDayList;
+    private List<Station> courseOfDayList;
     private Context context;
     private TextView recyclerViewHeader;
     private RecyclerView recyclerView;
 
 
-    StationAdapter(List<Forecast> courseOfDayList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
+    StationAdapter(List<Station> courseOfDayList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
         this.context = context;
         this.courseOfDayList = courseOfDayList;
         this.recyclerViewHeader=recyclerViewHeader;

@@ -5,15 +5,15 @@
     <string name="about">Über</string>
     <string name="about_privacy_heading">Privatsphäre-Informationen</string>
     <string name="about_more_info">Mehr Informationen können gefunden werden auf:</string>
-    <string name="about_permission_internet_description">Zugriff auf alle Netzwerke: Diese Berechtigung "wird benötigt, um Wetter-Anfragen an Server zu stellen, die sich im Internet befinden. Ohne diese Berechtigung können keine Wetter-Daten bezogen werden. Optional: Berechtigung für GPS.</string>
+    <string name="about_permission_internet_description">Zugriff auf alle Netzwerke: Diese Berechtigung "wird benötigt, um Anfragen an Server zu stellen, die sich im Internet befinden. Ohne diese Berechtigung können keine Preisinformationen bezogen werden. Optional: Berechtigung für GPS.</string>
     <string name="about_license_text">Diese App ist abgeleitet von Privacy Friendly Weather, entwickelt von der Forschungsgruppe SECUSO. Quelltext lizenziert unter GPLv3. Die App benutzt Icons von Google Material Design Icons, lizenziert unter Apache License Version 2.0, die Leaflet Bibliothek, lizenziert unter 2-clause BSD License, das Leaflet.TileLayer.ColorFilter Plugin, lizenziert unter MIT License, die freie RainViewer API, AutoSuggestTextViewAPICall, lizenziert unter der Apache License Version 2.0 und die WilliamChart Bibliothek (com.db.chart), lizenziert unter der Apache License Version 2.0</string>
     <string name="about_license">Lizenz</string>
     <string name="about_permissions">Berechtigungen</string>
-    <string name="about_privacy_answer">RadarWeather benötigt nur Zugang zum Internet. Es werden weder persönliche Daten gesammelt, noch wird Werbung angezeigt.</string>
-    <string name="about_where_from">Woher kommen die Wetterinformationen?</string>
-    <string name="about_where_from_answer">Die Wetterinformationen stammen von dem Dienst OpenWeatherMap. Die Daten für das Regenradar stammen von RainViewer.</string>
+    <string name="about_privacy_answer">Spritpreise benötigt nur Zugang zum Internet. Es werden weder persönliche Daten gesammelt, noch wird Werbung angezeigt.</string>
+    <string name="about_where_from">Woher kommen die Preisinformationen?</string>
+    <string name="about_where_from_answer">Die Preisinformationen stammen von dem Dienst Tankerkönig.</string>
     <string name="activity_about">Über</string>
-    <string name="activity_weather">Wetter</string>
+    <string name="activity_weather">Spritpreise</string>
     <string name="activity_manage">Orte verwalten</string>
     <string name="activity_settings">Einstellungen</string>
     <string name="activity_radius_search">Umkreissuche</string>
@@ -25,12 +25,11 @@
     <string name="card_details_wind_speed">Wind:</string>
     <string name="card_day_heading">Tagesverlauf</string>
     <string name="card_week_heading">Woche</string>
-    <string name="error_convert_to_json">Die erhaltenen Wetterdaten entsprachen nicht dem erwarteten Format.</string>
+    <string name="error_convert_to_json">Die erhaltenen Daten entsprachen nicht dem erwarteten Format.</string>
     <string name="error_no_internet">Das Gerät ist nicht mit dem Internet verbunden!</string>
-    <string name="error_fetch_forecast">Es ist ein Fehler Abrufen der Wettervorhersage aufgetreten, bitte versuchen Sie es erneut!</string>
-    <string name="error_radius_search">Es ist ein Fehler beim Abfragen der Umkreissuche aufgetreten, bitte versuchen Sie es erneut!</string>
+    <string name="error_fetch_stations">Es ist ein Fehler Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="error_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
-    <string name="error_dialog_add_city_too_close">Der Ort liegt zu nahe an einem bereits beobachteten Ort</string>
+
     <string name="error_no_radius_search_result">Kein Ort gefunden. Suchradius vergrößern</string>
     <string name="settings_search_radius">Suchradius</string>
     <string name="dialog_add_add_button">Hinzufügen</string>
@@ -53,15 +52,15 @@
     <string name="settings_title_API">API Key</string>
     <string name="settings_title_API_key">API Key eingeben</string>
     <string name="settings_update_interval">Update Intervall</string>
-    <string name="settings_title_forecastChoice">Anzeigeoptionen</string>
+    <string name="settings_title_display_options">Anzeigeoptionen</string>
 
     <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
     <string name="next">Weiter</string>
     <string name="okay">OK</string>
     <string name="slide1_heading">Willkommen!</string>
-    <string name="slide1_text">RadarWeather überprüft sowohl das aktuelle Wetter, als auch die Vorhersagen für selbst gewählte Orte.</string>
+    <string name="slide1_text">Spritpreise liefert die Spritpreise für ihre Orte.</string>
     <string name="slide2_heading">Funktionen</string>
-    <string name="slide2_text">Sie können ihre eigenen Orte wählen und detaillierte Informationen über das aktuelle Wetter erfahren. Ein Regenradar ist ebenfalls verfügbar.</string>
+    <string name="slide2_text">Sie können ihre eigenen Orte wählen und die aktuellen Spritpreise abfragen.</string>
     <string name="slide3_text">Der Quellcode ist auf GitHub verfügbar. Weitere Informationen finden Sie auf der Über-Seite</string>
     <string name="card_error_content">Bitte versuchen Sie zu aktualisieren!</string>
     <string name="card_error_heading">Fehler beim Abrufen der Wetterdaten</string>
