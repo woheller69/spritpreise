@@ -2,6 +2,7 @@ package org.woheller69.spritpreise.ui.RecycleList;
 
 import android.content.Context;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +29,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
-    public static final int DAY = 2;
+    public static final int STATIONS = 2;
 
 
     public CityAdapter(int cityID, int[] dataSetTypes, Context context) {
@@ -112,7 +113,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }  else  {
 
             v = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.card_day, viewGroup, false);
+                    .inflate(R.layout.card_stations, viewGroup, false);
             return new DayViewHolder(v);
 
         }
@@ -130,11 +131,12 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
 
 
-        }  else if (viewHolder.getItemViewType() == DAY) {
+        }  else if (viewHolder.getItemViewType() == STATIONS) {
 
             DayViewHolder holder = (DayViewHolder) viewHolder;
-            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
+            holder.recyclerView.addItemDecoration(new DividerItemDecoration(holder.recyclerView.getContext(), DividerItemDecoration.VERTICAL));
             StationAdapter adapter = new StationAdapter(stationList, context, holder.recyclerViewHeader, holder.recyclerView);
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);

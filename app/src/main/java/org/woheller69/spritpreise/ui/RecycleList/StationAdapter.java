@@ -39,7 +39,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
 
     @Override
     public CourseOfDayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_course_of_day, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_station, parent, false);
         return new CourseOfDayViewHolder(view);
     }
 

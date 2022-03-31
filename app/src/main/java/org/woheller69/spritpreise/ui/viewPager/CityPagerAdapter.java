@@ -21,7 +21,7 @@ import java.util.List;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.woheller69.spritpreise.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
-import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.DAY;
+import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.STATIONS;
 import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.DETAILS;
 import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.OVERVIEW;
 
@@ -38,7 +38,7 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
 
     private List<CityToWatch> cities;
 
-    private static int[] mDataSetTypes = {OVERVIEW, DETAILS, DAY}; //TODO Make dynamic from Settings
+    private static int[] mDataSetTypes = {OVERVIEW, DETAILS, STATIONS}; //TODO Make dynamic from Settings
 
     public CityPagerAdapter(Context context, FragmentManager supportFragmentManager) {
         super(supportFragmentManager,FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
