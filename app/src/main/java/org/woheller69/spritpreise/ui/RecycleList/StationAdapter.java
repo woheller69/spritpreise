@@ -23,15 +23,15 @@ import java.util.TimeZone;
 
 public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOfDayViewHolder> {
 
-    private List<Station> courseOfDayList;
+    private List<Station> stationList;
     private Context context;
     private TextView recyclerViewHeader;
     private RecyclerView recyclerView;
 
 
-    StationAdapter(List<Station> courseOfDayList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
+    StationAdapter(List<Station> stationList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
         this.context = context;
-        this.courseOfDayList = courseOfDayList;
+        this.stationList = stationList;
         this.recyclerViewHeader=recyclerViewHeader;
         this.recyclerView=recyclerView;
     }
@@ -46,39 +46,39 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
 
-        if (courseOfDayList!=null && courseOfDayList.size()!=0 && courseOfDayList.get(0)!=null) {
-            long time = courseOfDayList.get(0).getTimestamp();
+        if (stationList !=null && stationList.size()!=0 && stationList.get(0)!=null) {
+            long time = stationList.get(0).getTimestamp();
             long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
             long updateTime = ((time + zoneseconds) * 1000);
             recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
         }
 
-        holder.humidity.setText(Float.toString(courseOfDayList.get(position).getHumidity()));
-        holder.temperature.setText( Float.toString(courseOfDayList.get(position).getTemperature()));
-        holder.pressure.setText(Float.toString(courseOfDayList.get(position).getPressure()));
-        holder.name.setText(courseOfDayList.get(position).getCity_name());
+        holder.diesel.setText(Double.toString(stationList.get(position).getDiesel()));
+        holder.e5.setText( Double.toString(stationList.get(position).getE5()));
+        holder.e10.setText(Double.toString(stationList.get(position).getE10()));
+        holder.name.setText(stationList.get(position).getBrand());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return courseOfDayList.size();
+        return stationList.size();
     }
 
     class CourseOfDayViewHolder extends RecyclerView.ViewHolder {
-        TextView temperature;
-        TextView humidity;
-        TextView pressure;
+        TextView e5;
+        TextView diesel;
+        TextView e10;
         TextView name;
 
         CourseOfDayViewHolder(View itemView) {
             super(itemView);
 
-            temperature = itemView.findViewById(R.id.course_of_day_temperature);
-            humidity = itemView.findViewById(R.id.course_of_day_humidity);
-            pressure = itemView.findViewById(R.id.course_of_day_pressure);
-            name = itemView.findViewById(R.id.course_of_day_name);
+            e5 = itemView.findViewById(R.id.station_e5);
+            diesel = itemView.findViewById(R.id.station_diesel);
+            e10 = itemView.findViewById(R.id.station_e10);
+            name = itemView.findViewById(R.id.station_brand);
 
         }
     }

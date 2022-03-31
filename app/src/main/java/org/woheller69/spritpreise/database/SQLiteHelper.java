@@ -33,34 +33,42 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String CITIES_TO_WATCH_LATITUDE = "latitude";
 
     //Names of columns in TABLE_STATIONS
-    private static final String FORECAST_ID = "forecast_id";
-    private static final String FORECAST_CITY_ID = "city_id";
-    private static final String FORECAST_COLUMN_TIME_MEASUREMENT = "time_of_measurement";
-    private static final String FORECAST_COLUMN_FORECAST_FOR = "forecast_for";
-    private static final String FORECAST_COLUMN_WEATHER_ID = "weather_id";
-    private static final String FORECAST_COLUMN_TEMPERATURE_CURRENT = "temperature_current";
-    private static final String FORECAST_COLUMN_HUMIDITY = "humidity";
-    private static final String FORECAST_COLUMN_PRESSURE = "pressure";
-    private static final String FORECAST_COLUMN_PRECIPITATION = "precipitation";
-    private static final String FORECAST_COLUMN_WIND_SPEED = "wind_speed";
-    private static final String FORECAST_COLUMN_WIND_DIRECTION = "wind_direction";
+    private static final String STATION_ID = "station_id";
+    private static final String STATION_CITY_ID = "city_id";
+    private static final String STATION_TIMESTAMP = "timestamp";
+    private static final String STATION_DIESEL = "diesel";
+    private static final String STATION_E5 = "e5";
+    private static final String STATION_E10 = "e10";
+    private static final String STATION_ISOPEN = "is_open";
+    private static final String STATION_BRAND = "brand";
+    private static final String STATION_NAME = "name";
+    private static final String STATION_ADDRESS1 = "address1";
+    private static final String STATION_ADDRESS2 = "address2";
+    private static final String STATION_DISTANCE = "distance";
+    private static final String STATION_LATITUDE = "latitude";
+    private static final String STATION_LONGITUDE = "longitude";
+    private static final String STATION_UUID = "uuid";
 
     /**
      * Create Table statements for all tables
      */
     private static final String CREATE_TABLE_STATIONS = "CREATE TABLE " + TABLE_STATIONS +
             "(" +
-            FORECAST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            FORECAST_CITY_ID + " INTEGER," +
-            FORECAST_COLUMN_TIME_MEASUREMENT + " LONG NOT NULL," +
-            FORECAST_COLUMN_FORECAST_FOR + " VARCHAR(200) NOT NULL," +
-            FORECAST_COLUMN_WEATHER_ID + " INTEGER," +
-            FORECAST_COLUMN_TEMPERATURE_CURRENT + " REAL," +
-            FORECAST_COLUMN_HUMIDITY + " REAL," +
-            FORECAST_COLUMN_PRESSURE + " REAL," +
-            FORECAST_COLUMN_PRECIPITATION + " REAL," +
-            FORECAST_COLUMN_WIND_SPEED + " REAL," +
-            FORECAST_COLUMN_WIND_DIRECTION + " REAL ); ";
+            STATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            STATION_CITY_ID + " INTEGER," +
+            STATION_TIMESTAMP + " LONG NOT NULL," +
+            STATION_DIESEL + " REAL," +
+            STATION_E5 + " REAL," +
+            STATION_E10 + " REAL," +
+            STATION_ISOPEN + " BIT," +
+            STATION_BRAND + " VARCHAR(200) NOT NULL," +
+            STATION_NAME + " VARCHAR(200) NOT NULL," +
+            STATION_ADDRESS1 + " VARCHAR(200) NOT NULL," +
+            STATION_ADDRESS2 + " VARCHAR(200) NOT NULL," +
+            STATION_DISTANCE + " REAL," +
+            STATION_LATITUDE + " REAL," +
+            STATION_LONGITUDE + " REAL," +
+            STATION_UUID + " VARCHAR(200) NOT NULL ); ";
 
     private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
             "(" +
@@ -237,23 +245,27 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(FORECAST_CITY_ID, station.getCity_id());
-        values.put(FORECAST_COLUMN_TIME_MEASUREMENT, station.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, station.getForecastTime());
-        values.put(FORECAST_COLUMN_WEATHER_ID, station.getWeatherID());
-        values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, station.getTemperature());
-        values.put(FORECAST_COLUMN_HUMIDITY, station.getHumidity());
-        values.put(FORECAST_COLUMN_PRESSURE, station.getPressure());
-        values.put(FORECAST_COLUMN_PRECIPITATION, station.getPrecipitation());
-        values.put(FORECAST_COLUMN_WIND_SPEED, station.getWindSpeed());
-        values.put(FORECAST_COLUMN_WIND_DIRECTION, station.getCity_name());
+        values.put(STATION_CITY_ID, station.getCity_id());
+        values.put(STATION_TIMESTAMP, station.getTimestamp());
+        values.put(STATION_DIESEL, station.getDiesel());
+        values.put(STATION_E5, station.getE5());
+        values.put(STATION_E10, station.getE10());
+        values.put(STATION_ISOPEN, station.isOpen());
+        values.put(STATION_BRAND, station.getBrand());
+        values.put(STATION_NAME, station.getName());
+        values.put(STATION_ADDRESS1, station.getAddress1());
+        values.put(STATION_ADDRESS2, station.getAddress2());
+        values.put(STATION_DISTANCE, station.getDistance());
+        values.put(STATION_LATITUDE, station.getLatitude());
+        values.put(STATION_LONGITUDE, station.getLongitude());
+        values.put(STATION_UUID, station.getUuid());
         database.insert(TABLE_STATIONS, null, values);
         database.close();
     }
 
     public synchronized void deleteStationsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_STATIONS, FORECAST_CITY_ID + " = ?",
+        database.delete(TABLE_STATIONS, STATION_CITY_ID + " = ?",
                 new String[]{Integer.toString(cityId)});
         database.close();
     }
@@ -262,18 +274,22 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.query(TABLE_STATIONS,
-                new String[]{FORECAST_ID,
-                        FORECAST_CITY_ID,
-                        FORECAST_COLUMN_TIME_MEASUREMENT,
-                        FORECAST_COLUMN_FORECAST_FOR,
-                        FORECAST_COLUMN_WEATHER_ID,
-                        FORECAST_COLUMN_TEMPERATURE_CURRENT,
-                        FORECAST_COLUMN_HUMIDITY,
-                        FORECAST_COLUMN_PRESSURE,
-                        FORECAST_COLUMN_PRECIPITATION,
-                        FORECAST_COLUMN_WIND_SPEED,
-                        FORECAST_COLUMN_WIND_DIRECTION}
-                , FORECAST_CITY_ID + "=?",
+                new String[]{STATION_ID,
+                        STATION_CITY_ID,
+                        STATION_TIMESTAMP,
+                        STATION_DIESEL,
+                        STATION_E5,
+                        STATION_E10,
+                        STATION_ISOPEN,
+                        STATION_BRAND,
+                        STATION_NAME,
+                        STATION_ADDRESS1,
+                        STATION_ADDRESS2,
+                        STATION_DISTANCE,
+                        STATION_LATITUDE,
+                        STATION_LONGITUDE,
+                        STATION_UUID}
+                , STATION_CITY_ID + "=?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
         List<Station> list = new ArrayList<>();
@@ -285,14 +301,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 station.setId(Integer.parseInt(cursor.getString(0)));
                 station.setCity_id(Integer.parseInt(cursor.getString(1)));
                 station.setTimestamp(Long.parseLong(cursor.getString(2)));
-                station.setForecastTime(Long.parseLong(cursor.getString(3)));
-                station.setWeatherID(Integer.parseInt(cursor.getString(4)));
-                station.setTemperature(Float.parseFloat(cursor.getString(5)));
-                station.setHumidity(Float.parseFloat(cursor.getString(6)));
-                station.setPressure(Float.parseFloat(cursor.getString(7)));
-                station.setPrecipitation(Float.parseFloat(cursor.getString(8)));
-                station.setWindSpeed(Float.parseFloat(cursor.getString(9)));
-                station.setCity_name(cursor.getString(10));
+                station.setDiesel(Double.parseDouble(cursor.getString(3)));
+                station.setE5(Double.parseDouble(cursor.getString(4)));
+                station.setE10(Double.parseDouble(cursor.getString(5)));
+                station.setOpen(Boolean.parseBoolean(cursor.getString(6)));
+                station.setBrand(cursor.getString(7));
+                station.setName(cursor.getString(8));
+                station.setAddress1(cursor.getString(9));
+                station.setAddress2(cursor.getString(10));
+                station.setDistance(Double.parseDouble(cursor.getString(11)));
+                station.setLatitude(Double.parseDouble(cursor.getString(12)));
+                station.setLongitude(Double.parseDouble(cursor.getString(13)));
+                station.setUuid(cursor.getString(14));
                 list.add(station);
             } while (cursor.moveToNext());
 

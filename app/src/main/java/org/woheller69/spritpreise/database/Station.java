@@ -1,99 +1,54 @@
 package org.woheller69.spritpreise.database;
 
-import android.content.Context;
-
 /**
- * This class is the database model for the forecasts table.
+ * This class is the database model for the stations.
  */
 public class Station {
 
-    public static final float NO_RAIN_VALUE = 0;
     private int id;
     private int city_id;
     private long timestamp;
-    private long forecastFor;
-    private int weatherID;
-    private float temperature;
-    private float humidity;
-    private float pressure;
-    private float windSpeed;
-    private float windDirection;
-    private float precipitation;
-    private String city_name;
+    private double diesel;
+    private double e5;
+    private double e10;
+    private boolean isOpen;
+    private String brand;
+    private String name;
+    private String address1;
+    private String address2;
+    private double distance;
+    private double latitude;
+    private double longitude;
+    private String uuid;
 
 
     public Station() {
     }
 
-    public Station(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
-                   float pressure, float windSpeed, float windDirection, float precipitation) {
+    public Station(int id, int city_id, long timestamp, double diesel, double e5, double e10, boolean isOpen, String brand, String name, String address1, String address2, double distance, double latitude, double longitude, String uuid) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
-        this.forecastFor = forecastFor;
-        this.weatherID = weatherID;
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.pressure = pressure;
-        this.windSpeed = windSpeed;
-        this.windDirection = windDirection;
-        this.precipitation = precipitation;
+        this.diesel = diesel;
+        this.e5 = e5;
+        this.e10 = e10;
+        this.isOpen = isOpen;
+        this.brand = brand;
+        this.name = name;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.distance = distance;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.uuid = uuid;
     }
 
-    public float getWindDirection() {
-        return windDirection;
-    }
-
-    public void setWindDirection(float windDirection) {
-        this.windDirection = windDirection;
-    }
-
-    public float getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(float speed) {
-        this.windSpeed = speed;
-    }
-
-    /**
-     * @return Returns the ID of the record (which uniquely identifies the record).
-     */
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return Returns the date and time for the forecast.
-     */
-    public long getForecastTime() {
-        return forecastFor;
-    }
-
-    /**
-     * @param forecastFor The point of time for the forecast.
-     */
-    public void setForecastTime(long forecastFor) {
-        this.forecastFor = forecastFor;
-    }
-
-    /**
-     * @return Returns the point of time when the data was inserted into the database in Unix, UTC.
-     */
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @param timestamp The point of time to set when the data was inserted into the database in
-     *                  Unix, UTC.
-     */
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
     }
 
     public int getCity_id() {
@@ -104,72 +59,107 @@ public class Station {
         this.city_id = city_id;
     }
 
-    /**
-     * @return Returns the weather condition ID.
-     */
-    public int getWeatherID() {
-        return weatherID;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    /**
-     * @param weatherID The weather condition ID to set.
-     */
-    public void setWeatherID(int weatherID) {
-        this.weatherID = weatherID;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
-    /**
-     * @return Returns the current temperature in Celsius.
-     */
-    public float getTemperature() {
-        return temperature;
+    public double getDiesel() {
+        return diesel;
     }
 
-    /**
-     * @param temperature The current temperature to set in Celsius.
-     */
-    public void setTemperature(float temperature) {
-        this.temperature = temperature;
+    public void setDiesel(double diesel) {
+        this.diesel = diesel;
     }
 
-    /**
-     * @return Returns the humidity value in percent.
-     */
-    public float getHumidity() {
-        return humidity;
+    public double getE5() {
+        return e5;
     }
 
-    /**
-     * @param humidity The humidity value in percent to set.
-     */
-    public void setHumidity(float humidity) {
-        this.humidity = humidity;
+    public void setE5(double e5) {
+        this.e5 = e5;
     }
 
-    /**
-     * @return Returns the air pressure value in hectopascal (hPa).
-     */
-    public float getPressure() {
-        return pressure;
+    public double getE10() {
+        return e10;
     }
 
-    /**
-     * @param pressure The air pressure value in hectopascal (hPa) to set.
-     */
-    public void setPressure(float pressure) {
-        this.pressure = pressure;
+    public void setE10(double e10) {
+        this.e10 = e10;
     }
 
-
-    public String getCity_name() {
-        return city_name;
+    public boolean isOpen() {
+        return isOpen;
     }
 
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 
-    public float getPrecipitation() { return precipitation; }
+    public String getBrand() {
+        return brand;
+    }
 
-    public void setPrecipitation(float precipitation) { this.precipitation = precipitation; }
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }

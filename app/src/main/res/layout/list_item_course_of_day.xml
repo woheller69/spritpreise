@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/course_of_day_name"
+        android:id="@+id/station_brand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -17,7 +17,7 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/course_of_day_temperature"
+        android:id="@+id/station_e5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,7 +27,7 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/course_of_day_humidity"
+        android:id="@+id/station_diesel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -38,7 +38,7 @@
 
 
     <TextView
-        android:id="@+id/course_of_day_pressure"
+        android:id="@+id/station_e10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
