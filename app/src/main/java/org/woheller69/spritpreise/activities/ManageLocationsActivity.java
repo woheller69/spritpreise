@@ -153,7 +153,6 @@ public class ManageLocationsActivity extends NavigationActivity {
 
         return new CityToWatch(
                 database.getMaxRank() + 1,
-                selectedCity.getCountryCode(),
                 -1,
                 selectedCity.getCityId(), selectedCity.getLongitude(),selectedCity.getLatitude(),
                 selectedCity.getCityName()

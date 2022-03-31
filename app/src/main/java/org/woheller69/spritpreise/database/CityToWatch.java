@@ -10,7 +10,6 @@ public class CityToWatch {
     private int id;
     private int cityId;
     private String cityName;
-    private String countryCode;
     private float lon;
     private float lat;
     private int rank;
@@ -18,17 +17,13 @@ public class CityToWatch {
     public CityToWatch() {
     }
 
-    public CityToWatch(int rank, String countryCode, int id, int cityId, float lon, float lat, String cityName) {
+    public CityToWatch(int rank, int id, int cityId, float lon, float lat, String cityName) {
         this.rank = rank;
-        this.countryCode = countryCode;
         this.lon = lon;
         this.lat = lat;
         this.id = id;
         this.cityId = cityId;
         this.cityName = cityName;
-    }
-
-    public CityToWatch(int i, String s, String de, int i1, int i2, String darmstadt) {
     }
 
     public int getId() {
@@ -53,14 +48,6 @@ public class CityToWatch {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
     }
 
     public int getRank() {

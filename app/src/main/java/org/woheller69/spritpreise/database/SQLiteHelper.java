@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     private static SQLiteHelper instance = null;
 
@@ -22,18 +22,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     //Names of tables in the database
     private static final String TABLE_CITIES_TO_WATCH = "CITIES_TO_WATCH";
-    private static final String TABLE_FORECAST = "FORECASTS";
+    private static final String TABLE_STATIONS = "STATIONS";
 
     //Names of columns in TABLE_CITIES_TO_WATCH
     private static final String CITIES_TO_WATCH_ID = "cities_to_watch_id";
     private static final String CITIES_TO_WATCH_CITY_ID = "city_id";
     private static final String CITIES_TO_WATCH_COLUMN_RANK = "rank";
     private static final String CITIES_TO_WATCH_NAME = "city_name";
-    private static final String CITIES_TO_WATCH_COUNTRY_CODE = "country_code";
     private static final String CITIES_TO_WATCH_LONGITUDE = "longitude";
     private static final String CITIES_TO_WATCH_LATITUDE = "latitude";
 
-    //Names of columns in TABLE_FORECAST
+    //Names of columns in TABLE_STATIONS
     private static final String FORECAST_ID = "forecast_id";
     private static final String FORECAST_CITY_ID = "city_id";
     private static final String FORECAST_COLUMN_TIME_MEASUREMENT = "time_of_measurement";
@@ -49,7 +48,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     /**
      * Create Table statements for all tables
      */
-    private static final String CREATE_TABLE_FORECASTS = "CREATE TABLE " + TABLE_FORECAST +
+    private static final String CREATE_TABLE_STATIONS = "CREATE TABLE " + TABLE_STATIONS +
             "(" +
             FORECAST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             FORECAST_CITY_ID + " INTEGER," +
@@ -69,7 +68,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             CITIES_TO_WATCH_CITY_ID + " INTEGER," +
             CITIES_TO_WATCH_COLUMN_RANK + " INTEGER," +
             CITIES_TO_WATCH_NAME + " VARCHAR(100) NOT NULL," +
-            CITIES_TO_WATCH_COUNTRY_CODE + " VARCHAR(10) NOT NULL," +
             CITIES_TO_WATCH_LONGITUDE + " REAL NOT NULL," +
             CITIES_TO_WATCH_LATITUDE + " REAL NOT NULL ); ";
 
@@ -88,7 +86,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
-        db.execSQL(CREATE_TABLE_FORECASTS);
+        db.execSQL(CREATE_TABLE_STATIONS);
 
     }
 
@@ -107,7 +105,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(CITIES_TO_WATCH_CITY_ID, city.getCityId());
         values.put(CITIES_TO_WATCH_COLUMN_RANK, city.getRank());
         values.put(CITIES_TO_WATCH_NAME,city.getCityName());
-        values.put(CITIES_TO_WATCH_COUNTRY_CODE,city.getCountryCode());
         values.put(CITIES_TO_WATCH_LATITUDE,city.getLatitude());
         values.put(CITIES_TO_WATCH_LONGITUDE,city.getLongitude());
 
@@ -131,7 +128,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 "SELECT " + CITIES_TO_WATCH_ID +
                         ", " + CITIES_TO_WATCH_CITY_ID +
                         ", " + CITIES_TO_WATCH_NAME +
-                        ", " + CITIES_TO_WATCH_COUNTRY_CODE +
                         ", " + CITIES_TO_WATCH_LONGITUDE +
                         ", " + CITIES_TO_WATCH_LATITUDE +
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
@@ -144,10 +140,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             cityToWatch.setId(Integer.parseInt(cursor.getString(0)));
             cityToWatch.setCityId(Integer.parseInt(cursor.getString(1)));
             cityToWatch.setCityName(cursor.getString(2));
-            cityToWatch.setCountryCode(cursor.getString(3));
-            cityToWatch.setLongitude(Float.parseFloat(cursor.getString(4)));
-            cityToWatch.setLatitude(Float.parseFloat(cursor.getString(5)));
-            cityToWatch.setRank(Integer.parseInt(cursor.getString(6)));
+            cityToWatch.setLongitude(Float.parseFloat(cursor.getString(3)));
+            cityToWatch.setLatitude(Float.parseFloat(cursor.getString(4)));
+            cityToWatch.setRank(Integer.parseInt(cursor.getString(5)));
 
             cursor.close();
         }
@@ -166,7 +161,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 "SELECT " + CITIES_TO_WATCH_ID +
                         ", " + CITIES_TO_WATCH_CITY_ID +
                         ", " + CITIES_TO_WATCH_NAME +
-                        ", " + CITIES_TO_WATCH_COUNTRY_CODE +
                         ", " + CITIES_TO_WATCH_LONGITUDE +
                         ", " + CITIES_TO_WATCH_LATITUDE +
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
@@ -181,10 +175,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 cityToWatch.setId(Integer.parseInt(cursor.getString(0)));
                 cityToWatch.setCityId(Integer.parseInt(cursor.getString(1)));
                 cityToWatch.setCityName(cursor.getString(2));
-                cityToWatch.setCountryCode(cursor.getString(3));
-                cityToWatch.setLongitude(Float.parseFloat(cursor.getString(4)));
-                cityToWatch.setLatitude(Float.parseFloat(cursor.getString(5)));
-                cityToWatch.setRank(Integer.parseInt(cursor.getString(6)));
+                cityToWatch.setLongitude(Float.parseFloat(cursor.getString(3)));
+                cityToWatch.setLatitude(Float.parseFloat(cursor.getString(4)));
+                cityToWatch.setRank(Integer.parseInt(cursor.getString(5)));
 
                 cityToWatchList.add(cityToWatch);
             } while (cursor.moveToNext());
@@ -201,7 +194,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(CITIES_TO_WATCH_CITY_ID, cityToWatch.getCityId());
         values.put(CITIES_TO_WATCH_COLUMN_RANK, cityToWatch.getRank());
         values.put(CITIES_TO_WATCH_NAME,cityToWatch.getCityName());
-        values.put(CITIES_TO_WATCH_COUNTRY_CODE,cityToWatch.getCountryCode());
         values.put(CITIES_TO_WATCH_LATITUDE,cityToWatch.getLatitude());
         values.put(CITIES_TO_WATCH_LONGITUDE,cityToWatch.getLongitude());
 
@@ -255,13 +247,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(FORECAST_COLUMN_PRECIPITATION, station.getPrecipitation());
         values.put(FORECAST_COLUMN_WIND_SPEED, station.getWindSpeed());
         values.put(FORECAST_COLUMN_WIND_DIRECTION, station.getCity_name());
-        database.insert(TABLE_FORECAST, null, values);
+        database.insert(TABLE_STATIONS, null, values);
         database.close();
     }
 
     public synchronized void deleteStationsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_FORECAST, FORECAST_CITY_ID + " = ?",
+        database.delete(TABLE_STATIONS, FORECAST_CITY_ID + " = ?",
                 new String[]{Integer.toString(cityId)});
         database.close();
     }
@@ -269,7 +261,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public synchronized List<Station> getStationsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
 
-        Cursor cursor = database.query(TABLE_FORECAST,
+        Cursor cursor = database.query(TABLE_STATIONS,
                 new String[]{FORECAST_ID,
                         FORECAST_CITY_ID,
                         FORECAST_COLUMN_TIME_MEASUREMENT,

@@ -50,7 +50,7 @@ public class TKHttpRequestForStations implements IHttpRequestForStations {
                 BuildConfig.BASE_URL,
                 lat,
                 lon,
-                sharedPreferences.getString("pref_searchRadius","1"),
+                sharedPreferences.getString("pref_searchRadius","3"),
                 prefManager.getOWMApiKey(context)
         ));
         return String.format(
@@ -58,7 +58,7 @@ public class TKHttpRequestForStations implements IHttpRequestForStations {
                 BuildConfig.BASE_URL,
                 lat,
                 lon,
-                sharedPreferences.getString("pref_searchRadius","1"),
+                sharedPreferences.getString("pref_searchRadius","3"),
                 prefManager.getOWMApiKey(context)
         );
     }
