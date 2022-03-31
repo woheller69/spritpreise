@@ -38,7 +38,7 @@ import static androidx.core.app.JobIntentService.enqueueWork;
 import static java.lang.Boolean.TRUE;
 import static org.woheller69.spritpreise.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
-public class WeatherWidget extends AppWidgetProvider {
+public class Widget extends AppWidgetProvider {
     private static LocationListener locationListenerGPS;
     private LocationManager locationManager;
 
@@ -67,7 +67,6 @@ public class WeatherWidget extends AppWidgetProvider {
         int rank=cities.get(0).getRank();
         for (int i = 0; i < cities.size(); i++) {   //find cityID for first city to watch = lowest Rank
             CityToWatch city = cities.get(i);
-            //Log.d("debugtag",Integer.toString(city.getRank()));
             if (city.getRank() <= rank ){
                 rank=city.getRank();
                 cityID = city.getCityId();
@@ -93,7 +92,6 @@ public class WeatherWidget extends AppWidgetProvider {
                         city.setLatitude((float) lat);
                         city.setLongitude((float) lon);
                         city.setCityName(String.format(Locale.getDefault(),"%.2f° / %.2f°", lat, lon));
-                        //Toast.makeText(context.getApplicationContext(), String.format("%.2f / %.2f", lat, lon), Toast.LENGTH_SHORT).show();
                         db.updateCityToWatch(city);
 
                         break;
@@ -109,12 +107,11 @@ public class WeatherWidget extends AppWidgetProvider {
 
 
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Station> stations) {
-        SQLiteHelper dbHelper = SQLiteHelper.getInstance(context);
 
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
+        views.setTextViewText(R.id.widget_E5, Double.toString(stations.get(0).getE5()));
 
-
-        Intent intentUpdate = new Intent(context, WeatherWidget.class);
+        Intent intentUpdate = new Intent(context, Widget.class);
         intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         int[] idArray = new int[]{appWidgetId};
         intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
@@ -151,7 +148,7 @@ public class WeatherWidget extends AppWidgetProvider {
                         public void onLocationChanged(android.location.Location location) {
                             // There may be multiple widgets active, so update all of them
                             Log.d("GPS", "Location changed");
-                            int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget.class)); //IDs Might have changed since last call of onUpdate
+                            int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class)); //IDs Might have changed since last call of onUpdate
                             for (int appWidgetId : appWidgetIds) {
                                 updateAppWidget(context, appWidgetId);
                             }
@@ -194,20 +191,20 @@ public class WeatherWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the first widget is created
         SQLiteHelper dbHelper = SQLiteHelper.getInstance(context);
 
-        int widgetCityID=WeatherWidget.getWidgetCityID(context);
+        int widgetCityID= Widget.getWidgetCityID(context);
 
         List<Station> stations =dbHelper.getStationsByCityId(widgetCityID);
 
-        int[] widgetIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
+        int[] widgetIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class));
 
         for (int widgetID : widgetIDs) {
 
-                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
                 CityToWatch city=dbHelper.getCityToWatch(widgetCityID);
 
-                WeatherWidget.updateView(context, appWidgetManager, views, widgetID, city, stations);
+                Widget.updateView(context, appWidgetManager, views, widgetID, city, stations);
                 appWidgetManager.updateAppWidget(widgetID, views);
 
         }

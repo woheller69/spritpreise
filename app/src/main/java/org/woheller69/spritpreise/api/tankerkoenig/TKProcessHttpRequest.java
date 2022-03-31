@@ -1,9 +1,12 @@
 package org.woheller69.spritpreise.api.tankerkoenig;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.os.Handler;
 
 import android.util.Log;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -13,11 +16,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.NavigationActivity;
+import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.api.IDataExtractor;
 import org.woheller69.spritpreise.api.IProcessHttpRequest;
+import org.woheller69.spritpreise.widget.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +89,7 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
                 }
 
                 ViewUpdater.updateStations(stations);
+                possiblyUpdateWidgets(cityId, stations);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -108,4 +114,25 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
         });
     }
 
+    private void possiblyUpdateWidgets(int cityID, List<Station> stations) {
+        //search for widgets with same city ID
+        int widgetCityID = Widget.getWidgetCityID(context);
+
+        int[] widgetIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class));
+
+        for (int widgetID : widgetIDs) {
+            //check if city ID is same
+            if (cityID == widgetCityID) {
+                //perform update for the widget
+
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+                CityToWatch city = dbHelper.getCityToWatch(cityID);
+
+                Widget.updateView(context, appWidgetManager, views, widgetID, city, stations);
+                appWidgetManager.updateAppWidget(widgetID, views);
+            }
+        }
+    }
 }
