@@ -44,7 +44,7 @@ public class TKDataExtractor implements IDataExtractor {
             if (json.getString("brand").equals("")) station.setBrand(json.getString("name"));
             station.setName(json.getString("name"));
             station.setAddress1(json.getString("street")+" "+json.getString("houseNumber"));
-            station.setAddress2(json.getDouble("postCode") +" "+json.getString("place"));
+            station.setAddress2(json.getString("postCode") +" "+json.getString("place"));
             station.setDistance(json.getDouble("dist"));
             station.setLatitude(json.getDouble("lat"));
             station.setLongitude(json.getDouble("lng"));

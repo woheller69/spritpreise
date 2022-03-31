@@ -2,6 +2,7 @@ package org.woheller69.spritpreise.ui.RecycleList;
 
 import android.content.Context;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,12 +54,21 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
             recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
         }
 
-        holder.diesel.setText(Double.toString(stationList.get(position).getDiesel()));
-        holder.e5.setText( Double.toString(stationList.get(position).getE5()));
-        holder.e10.setText(Double.toString(stationList.get(position).getE10()));
+        holder.diesel.setText("D: " + stationList.get(position).getDiesel());
+        holder.e5.setText( "E5: " + stationList.get(position).getE5());
+        holder.e10.setText("E10: " + stationList.get(position).getE10());
+        holder.dist.setText(stationList.get(position).getDistance()+" km");
+        holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
+        if (stationList.get(position).isOpen()) {
+            holder.isOpen.setText("Geöffnet");
+            holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_green,null));
+        }
+        else  {
+            holder.isOpen.setText("Geschlossen");
+            holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_lightred,null));
+        }
+
         holder.name.setText(stationList.get(position).getBrand());
-
-
     }
 
     @Override
@@ -71,6 +81,9 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
         TextView diesel;
         TextView e10;
         TextView name;
+        TextView dist;
+        TextView isOpen;
+        TextView address;
 
         CourseOfDayViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +92,9 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
             diesel = itemView.findViewById(R.id.station_diesel);
             e10 = itemView.findViewById(R.id.station_e10);
             name = itemView.findViewById(R.id.station_brand);
+            dist = itemView.findViewById(R.id.station_dist);
+            isOpen = itemView.findViewById(R.id.station_isOpen);
+            address = itemView.findViewById(R.id.station_address);
 
         }
     }

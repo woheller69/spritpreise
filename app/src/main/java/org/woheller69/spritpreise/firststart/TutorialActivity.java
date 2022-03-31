@@ -106,7 +106,7 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://home.openweathermap.org/users/sign_up/")));
+                        Uri.parse("https://creativecommons.tankerkoenig.de")));
             }
         });
 

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 import java.util.ArrayList;
@@ -304,7 +305,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 station.setDiesel(Double.parseDouble(cursor.getString(3)));
                 station.setE5(Double.parseDouble(cursor.getString(4)));
                 station.setE10(Double.parseDouble(cursor.getString(5)));
-                station.setOpen(Boolean.parseBoolean(cursor.getString(6)));
+                station.setOpen(cursor.getString(6).equals("1"));
                 station.setBrand(cursor.getString(7));
                 station.setName(cursor.getString(8));
                 station.setAddress1(cursor.getString(9));

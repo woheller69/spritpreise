@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
-            android:background="@drawable/splash_icon" />
+            android:background="@drawable/ic_launcher_foreground" />
         <Space
             android:layout_width="1dp"
             android:layout_height="20dp"/>
