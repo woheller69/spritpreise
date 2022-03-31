@@ -23,7 +23,7 @@
     <string name="error_no_internet">Das Gerät ist nicht mit dem Internet verbunden!</string>
     <string name="error_fetch_stations">Es ist ein Fehler Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="error_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
-
+    <string name="error_no_map_app">Keine Kartenanwendung installiert</string>
     <string name="error_no_radius_search_result">Kein Ort gefunden. Suchradius vergrößern</string>
     <string name="settings_search_radius">Suchradius</string>
     <string name="dialog_add_add_button">Hinzufügen</string>
@@ -48,7 +48,6 @@
     <string name="slide2_text">Sie können ihre eigenen Orte wählen und die aktuellen Spritpreise abfragen.</string>
     <string name="slide3_text">Der Quellcode ist auf GitHub verfügbar. Weitere Informationen finden Sie auf der Über-Seite</string>
     <string name="card_error_content">Bitte versuchen Sie zu aktualisieren!</string>
-    <string name="card_error_heading">Fehler beim Abrufen der Wetterdaten</string>
     <string name="long_press_text">Halten und ziehen Sie, um die Städte zu sortieren.</string>
     <string name="swipe_to_delete">Wischen Sie zum Löschen</string>
     <string name="RainViewer">Regenradar</string>
@@ -68,5 +67,5 @@
     <string name="dialog_NO_button">Nein</string>
     <string name="dialog_Later_button">Vielleicht später</string>
     <string name="dialog_StarOnGitHub">Mögen Sie diese App? Bitte vergeben Sie einen Stern auf GitHub.</string>
-    <string name="no_map_app">Keine Kartenanwendung installiert</string>
+
 </resources>

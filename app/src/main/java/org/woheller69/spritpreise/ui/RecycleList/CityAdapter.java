@@ -151,7 +151,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     try {
                         context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc)));
                     } catch (ActivityNotFoundException ignored) {
-                        Toast.makeText(context,R.string.no_map_app, Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.error_no_map_app, Toast.LENGTH_LONG).show();
                     }
                 }
 
