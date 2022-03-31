@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="temperatureUnitsArray">
-        <item>@string/settings_celsius</item>
-        <item>@string/settings_fahrenheit</item>
-    </string-array>
-    <string-array name="temperatureUnitsValues">
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
-    <string-array name="distanceUnitsArray">
-        <item>@string/settings_kilometers</item>
-        <item>@string/settings_miles</item>
-    </string-array>
-    <string-array name="distanceUnitsValues">
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
     <string-array name="refreshIntervalArray">
         <item>@string/settings_interval_5</item>
         <item>@string/settings_interval_10</item>

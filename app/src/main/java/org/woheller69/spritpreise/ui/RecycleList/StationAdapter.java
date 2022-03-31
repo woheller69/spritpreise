@@ -51,7 +51,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
             long time = stationList.get(0).getTimestamp();
             long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
             long updateTime = ((time + zoneseconds) * 1000);
-            recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
+            recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_stations_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
         }
 
         holder.diesel.setText("D: " + stationList.get(position).getDiesel());

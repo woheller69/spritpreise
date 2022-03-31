@@ -6,7 +6,7 @@
     android:minWidth="200dp"
     android:minResizeHeight="20dp"
     android:minResizeWidth="50dp"
-    android:previewImage="@drawable/weather_widget_preview"
+    android:previewImage="@drawable/widget_preview"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen" />

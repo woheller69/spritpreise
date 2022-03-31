@@ -5,7 +5,7 @@
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
     android:id="@+id/widget_layout"
-    android:previewImage="@drawable/weather_widget_preview">
+    android:previewImage="@drawable/widget_preview">
 
     <ImageView
         android:id="@+id/widget_background"

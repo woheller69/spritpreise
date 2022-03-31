@@ -51,7 +51,7 @@ public class TKHttpRequestForStations implements IHttpRequestForStations {
                 lat,
                 lon,
                 sharedPreferences.getString("pref_searchRadius","3"),
-                prefManager.getOWMApiKey(context)
+                prefManager.getTKApiKey(context)
         ));
         return String.format(
                 "%slist.php?lat=%s&lng=%s&rad=%s&sort=dist&type=all&apikey=%s",
@@ -59,7 +59,7 @@ public class TKHttpRequestForStations implements IHttpRequestForStations {
                 lat,
                 lon,
                 sharedPreferences.getString("pref_searchRadius","3"),
-                prefManager.getOWMApiKey(context)
+                prefManager.getTKApiKey(context)
         );
     }
 }

@@ -1,15 +1,19 @@
 package org.woheller69.spritpreise.ui.RecycleList;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.Station;
@@ -140,6 +144,22 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             StationAdapter adapter = new StationAdapter(stationList, context, holder.recyclerViewHeader, holder.recyclerView);
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
+            holder.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    String loc = stationList.get(position).getLatitude() + "," + stationList.get(position).getLongitude();
+                    try {
+                        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc)));
+                    } catch (ActivityNotFoundException ignored) {
+                        Toast.makeText(context,R.string.no_map_app, Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onLongItemClick(View view, int position) {
+
+                }
+            }));
         }
         //No update for error needed
     }

@@ -46,7 +46,7 @@
         android:visibility="invisible"
         android:textStyle="bold"
         android:background="@null"
-        android:text="@string/registerOWMbutton"
+        android:text="@string/registerTKbutton"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

@@ -41,7 +41,7 @@ public class RainViewerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rain_viewer);
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-        String API_KEY = prefManager.getOWMApiKey(getApplicationContext());
+        String API_KEY = prefManager.getTKApiKey(getApplicationContext());
         float latitude = getIntent().getFloatExtra("latitude", -1);
         float longitude = getIntent().getFloatExtra("longitude", -1);
         int timezoneseconds = getIntent().getIntExtra("timezoneseconds",0);
