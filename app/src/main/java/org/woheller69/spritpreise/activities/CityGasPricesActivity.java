@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.Station;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
@@ -47,7 +47,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
         initResources();
 
-        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
+        SQLiteHelper db = SQLiteHelper.getInstance(this);
         if (db.getAllCitiesToWatch().isEmpty()) {
             // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
             viewPager.setVisibility(View.GONE);
@@ -98,7 +98,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
                 //Update current tab if outside update interval, show animation
                 SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                PFASQLiteHelper database = PFASQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
+                SQLiteHelper database = SQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
                 List <Station> stations = database.getStationsByCityId(pagerAdapter.getCityIDForPos(position));
 
                 long timestamp = 0;
@@ -174,7 +174,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
+        SQLiteHelper db = SQLiteHelper.getInstance(this);
         if (id==R.id.menu_rainviewer) {
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
                 Intent intent = new Intent(this, RainViewerActivity.class);

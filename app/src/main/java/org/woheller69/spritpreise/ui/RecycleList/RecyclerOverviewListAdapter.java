@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.CityToWatch;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +28,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     private Context context;
     private final List<CityToWatch> cities;
 
-    PFASQLiteHelper database;
+    SQLiteHelper database;
 
 
     /**
@@ -37,7 +37,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     public RecyclerOverviewListAdapter(Context context, List<CityToWatch> cities) {
         this.context = context;
         this.cities = cities;
-        this.database = PFASQLiteHelper.getInstance(context);
+        this.database = SQLiteHelper.getInstance(context);
     }
 
 

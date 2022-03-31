@@ -12,11 +12,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PFASQLiteHelper extends SQLiteOpenHelper {
+public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
 
-    private static PFASQLiteHelper instance = null;
+    private static SQLiteHelper instance = null;
 
     private static final String DATABASE_NAME = "Spritpreise.db";
 
@@ -73,14 +73,14 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             CITIES_TO_WATCH_LONGITUDE + " REAL NOT NULL," +
             CITIES_TO_WATCH_LATITUDE + " REAL NOT NULL ); ";
 
-    public static PFASQLiteHelper getInstance(Context context) {
+    public static SQLiteHelper getInstance(Context context) {
         if (instance == null && context != null) {
-            instance = new PFASQLiteHelper(context.getApplicationContext());
+            instance = new SQLiteHelper(context.getApplicationContext());
         }
         return instance;
     }
 
-    private PFASQLiteHelper(Context context) {
+    private SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

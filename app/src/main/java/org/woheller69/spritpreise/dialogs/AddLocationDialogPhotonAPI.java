@@ -35,7 +35,7 @@ import org.woheller69.spritpreise.BuildConfig;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.ManageLocationsActivity;
 import org.woheller69.spritpreise.database.City;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.util.photonApiCall;
 import org.woheller69.spritpreise.ui.util.AutoSuggestAdapter;
 
@@ -48,7 +48,7 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
 
     Activity activity;
     View rootView;
-    PFASQLiteHelper database;
+    SQLiteHelper database;
 
     private AutoCompleteTextView autoCompleteTextView;
     City selectedCity;
@@ -92,7 +92,7 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
         builder.setView(view);
         builder.setTitle(getActivity().getString(R.string.dialog_add_label));
 
-        this.database = PFASQLiteHelper.getInstance(getActivity());
+        this.database = SQLiteHelper.getInstance(getActivity());
 
 
         final WebView webview= rootView.findViewById(R.id.webViewAddLocation);

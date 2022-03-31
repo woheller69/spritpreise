@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.NavigationActivity;
 import org.woheller69.spritpreise.database.Station;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.api.IDataExtractor;
 import org.woheller69.spritpreise.api.IProcessHttpRequest;
@@ -32,7 +32,7 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private PFASQLiteHelper dbHelper;
+    private SQLiteHelper dbHelper;
 
     /**
      * Constructor.
@@ -41,7 +41,7 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
      */
     public TKProcessHttpRequest(Context context) {
         this.context = context;
-        this.dbHelper = PFASQLiteHelper.getInstance(context);
+        this.dbHelper = SQLiteHelper.getInstance(context);
     }
 
     /**

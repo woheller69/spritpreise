@@ -20,7 +20,7 @@ import android.widget.Toast;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.City;
 import org.woheller69.spritpreise.database.CityToWatch;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.dialogs.AddLocationDialogPhotonAPI;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerItemClickListener;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerOverviewListAdapter;
@@ -34,7 +34,7 @@ import java.util.List;
 public class ManageLocationsActivity extends NavigationActivity {
 
     private final String DEBUG_TAG = "main_activity_debug";
-    private PFASQLiteHelper database;
+    private SQLiteHelper database;
 
     private ItemTouchHelper.Callback callback;
     private ItemTouchHelper touchHelper;
@@ -48,7 +48,7 @@ public class ManageLocationsActivity extends NavigationActivity {
         setContentView(R.layout.activity_manage_locations);
         overridePendingTransition(0, 0);
         context=this;
-        database = PFASQLiteHelper.getInstance(getApplicationContext());
+        database = SQLiteHelper.getInstance(getApplicationContext());
 
         //cities = new ArrayList<>();
 

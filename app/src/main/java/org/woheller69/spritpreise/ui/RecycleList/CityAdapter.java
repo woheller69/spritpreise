@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.Station;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         this.dataSetTypes = dataSetTypes;
         this.context = context;
 
-        PFASQLiteHelper database = PFASQLiteHelper.getInstance(context.getApplicationContext());
+        SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
 
         List<Station> stations = database.getStationsByCityId(cityID);
 

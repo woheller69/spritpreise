@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.services.UpdateDataService;
 import org.woheller69.spritpreise.ui.CityFragment;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
@@ -33,7 +33,7 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
 
     private Context mContext;
 
-    private PFASQLiteHelper database;
+    private SQLiteHelper database;
     long lastUpdateTime;
 
     private List<CityToWatch> cities;
@@ -43,7 +43,7 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
     public CityPagerAdapter(Context context, FragmentManager supportFragmentManager) {
         super(supportFragmentManager,FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mContext = context;
-        this.database = PFASQLiteHelper.getInstance(context);
+        this.database = SQLiteHelper.getInstance(context);
         this.cities = database.getAllCitiesToWatch();
         try {
             cities = database.getAllCitiesToWatch();

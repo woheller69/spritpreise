@@ -27,7 +27,7 @@ import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.services.UpdateDataService;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
     public void updateAppWidget(Context context, final int appWidgetId) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        PFASQLiteHelper db = PFASQLiteHelper.getInstance(context);
+        SQLiteHelper db = SQLiteHelper.getInstance(context);
         if (!db.getAllCitiesToWatch().isEmpty()) {
 
             int cityID = getWidgetCityID(context);
@@ -61,7 +61,7 @@ public class WeatherWidget extends AppWidgetProvider {
     }
 
     public static int getWidgetCityID(Context context) {
-        PFASQLiteHelper db = PFASQLiteHelper.getInstance(context);
+        SQLiteHelper db = SQLiteHelper.getInstance(context);
         int cityID=0;
         List<CityToWatch> cities = db.getAllCitiesToWatch();
         int rank=cities.get(0).getRank();
@@ -77,7 +77,7 @@ public class WeatherWidget extends AppWidgetProvider {
 }
 
     public static void updateLocation(final Context context, int cityID, boolean manual) {
-        PFASQLiteHelper db = PFASQLiteHelper.getInstance(context);
+        SQLiteHelper db = SQLiteHelper.getInstance(context);
         List<CityToWatch> cities = db.getAllCitiesToWatch();
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
@@ -109,7 +109,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
 
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Station> stations) {
-        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
+        SQLiteHelper dbHelper = SQLiteHelper.getInstance(context);
 
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
 
@@ -192,7 +192,7 @@ public class WeatherWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
-        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
+        SQLiteHelper dbHelper = SQLiteHelper.getInstance(context);
 
         int widgetCityID=WeatherWidget.getWidgetCityID(context);
 

@@ -11,7 +11,7 @@ import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.NavigationActivity;
 import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
-import org.woheller69.spritpreise.database.PFASQLiteHelper;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.api.IHttpRequestForStations;
 import org.woheller69.spritpreise.api.tankerkoenig.TKHttpRequestForStations;
 
@@ -30,7 +30,7 @@ public class UpdateDataService extends JobIntentService {
     public static final String SKIP_UPDATE_INTERVAL = "skipUpdateInterval";
     private static final long MIN_UPDATE_INTERVAL=20;
 
-    private PFASQLiteHelper dbHelper;
+    private SQLiteHelper dbHelper;
     private SharedPreferences prefManager;
 
     /**
@@ -43,7 +43,7 @@ public class UpdateDataService extends JobIntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        dbHelper = PFASQLiteHelper.getInstance(getApplicationContext());
+        dbHelper = SQLiteHelper.getInstance(getApplicationContext());
         prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
