@@ -1,11 +1,11 @@
-package org.woheller69.spritpreise.weather_api.tankerkoenig;
+package org.woheller69.spritpreise.api.tankerkoenig;
 
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.woheller69.spritpreise.database.Station;
-import org.woheller69.spritpreise.weather_api.IDataExtractor;
+import org.woheller69.spritpreise.api.IDataExtractor;
 
 import java.util.Date;
 import java.util.TimeZone;

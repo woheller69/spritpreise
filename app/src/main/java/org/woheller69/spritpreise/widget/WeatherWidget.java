@@ -85,8 +85,8 @@ public class WeatherWidget extends AppWidgetProvider {
             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (locationGPS != null) {
                 CityToWatch city;
-                double lat = Math.round(locationGPS.getLatitude()*100.0)/100.0;  //round 2 digits
-                double lon = Math.round(locationGPS.getLongitude()*100.0)/100.0; //round 2 digits
+                double lat = locationGPS.getLatitude();
+                double lon = locationGPS.getLongitude();
                 for (int i=0; i<cities.size();i++){
                     if (cities.get(i).getCityId()==cityID) {
                         city = cities.get(i);

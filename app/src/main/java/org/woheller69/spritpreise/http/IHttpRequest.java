@@ -1,6 +1,6 @@
 package org.woheller69.spritpreise.http;
 
-import org.woheller69.spritpreise.weather_api.IProcessHttpRequest;
+import org.woheller69.spritpreise.api.IProcessHttpRequest;
 
 /**
  * This interface defines the template for making HTTP request. Furthermore, it provides a generic

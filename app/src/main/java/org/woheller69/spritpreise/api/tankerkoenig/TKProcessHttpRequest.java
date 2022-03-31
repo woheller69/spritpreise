@@ -1,4 +1,4 @@
-package org.woheller69.spritpreise.weather_api.tankerkoenig;
+package org.woheller69.spritpreise.api.tankerkoenig;
 
 import android.content.Context;
 import android.os.Handler;
@@ -16,8 +16,8 @@ import org.woheller69.spritpreise.activities.NavigationActivity;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
-import org.woheller69.spritpreise.weather_api.IDataExtractor;
-import org.woheller69.spritpreise.weather_api.IProcessHttpRequest;
+import org.woheller69.spritpreise.api.IDataExtractor;
+import org.woheller69.spritpreise.api.IProcessHttpRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
  * current weather for all stored cities.
  */
-public class ProcessStationsRequest implements IProcessHttpRequest {
+public class TKProcessHttpRequest implements IProcessHttpRequest {
 
     /**
      * Member variables
@@ -39,7 +39,7 @@ public class ProcessStationsRequest implements IProcessHttpRequest {
      *
      * @param context The context of the HTTP request.
      */
-    public ProcessStationsRequest(Context context) {
+    public TKProcessHttpRequest(Context context) {
         this.context = context;
         this.dbHelper = PFASQLiteHelper.getInstance(context);
     }

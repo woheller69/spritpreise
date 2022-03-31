@@ -1,4 +1,4 @@
-package org.woheller69.spritpreise.weather_api;
+package org.woheller69.spritpreise.api;
 
 /**
  * This generic interface is for making an HTTP request to some weather API, process the data and

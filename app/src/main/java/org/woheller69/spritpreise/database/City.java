@@ -1,8 +1,6 @@
 package org.woheller69.spritpreise.database;
 
 
-import java.util.Locale;
-
 /**
  * Created by yonjuni on 04.01.17.
  * data object for city
@@ -19,14 +17,6 @@ public class City {
     private float lat;
 
     public City() {
-    }
-
-    public City(int cityId, String cityName, String countryCode, float lon, float lat) {
-        this.cityId = cityId;
-        this.cityName = cityName;
-        this.countryCode = countryCode;
-        this.lon = lon;
-        this.lat = lat;
     }
 
     public int getCityId() {
@@ -51,11 +41,6 @@ public class City {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(Locale.getDefault(),"%s, %s (%.2f / %.2f)", cityName, countryCode, lat, lon);
     }
 
     public void setLatitude(float latitude) {

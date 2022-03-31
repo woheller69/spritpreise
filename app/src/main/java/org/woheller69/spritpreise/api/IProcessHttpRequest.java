@@ -1,4 +1,4 @@
-package org.woheller69.spritpreise.weather_api;
+package org.woheller69.spritpreise.api;
 
 import com.android.volley.VolleyError;
 

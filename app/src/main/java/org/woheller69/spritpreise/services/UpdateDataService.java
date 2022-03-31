@@ -12,8 +12,8 @@ import org.woheller69.spritpreise.activities.NavigationActivity;
 import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.PFASQLiteHelper;
-import org.woheller69.spritpreise.weather_api.IHttpRequestForStations;
-import org.woheller69.spritpreise.weather_api.tankerkoenig.TKHttpRequestForStations;
+import org.woheller69.spritpreise.api.IHttpRequestForStations;
+import org.woheller69.spritpreise.api.tankerkoenig.TKHttpRequestForStations;
 
 import java.io.IOException;
 import java.net.InetAddress;
