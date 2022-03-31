@@ -18,6 +18,7 @@ public class AboutActivity extends NavigationActivity {
         overridePendingTransition(0, 0);
 
         ((TextView) findViewById(R.id.githubURL)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.tankerkoenigURL)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) findViewById(R.id.textFieldVersionName)).setText(BuildConfig.VERSION_NAME);
 
     }

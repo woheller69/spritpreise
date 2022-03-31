@@ -70,6 +70,16 @@
         android:text="@string/about_where_from_answer" />
 
     <TextView
+        android:id="@+id/tankerkoenigURL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="@string/about_tankerkoenig"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textFieldLicence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

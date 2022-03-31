@@ -31,9 +31,10 @@
     <string name="about">About</string>
     <string name="version_number" translatable="false">Version</string>
     <string name="about_license">License</string>
-    <string name="about_license_text">This application is derived from Privacy Friendly Weather, developed by the research group SECUSO. Sourcecode licensed under GPLv3. The app uses icons from Google Material Design Icons licensed under Apache License Version 2.0, the Leaflet library which is licensed under 2-clause BSD License, the Leaflet.TileLayer.ColorFilter plugin which is licensed under MIT License, RainViewer API which is free, and AutoSuggestTextViewAPICall which is licensed under Apache License Version 2.0</string>
+    <string name="about_license_text">This application is derived from Privacy Friendly Weather, developed by the research group SECUSO. Source code licensed under GPLv3. The app uses icons from Google Material Design Icons licensed under Apache License Version 2.0, Android Volley which is licensed under Apache License Version 2.0, AndroidX libraries which is licensed under Apache License Version 2.0, and AutoSuggestTextViewAPICall which is licensed under Apache License Version 2.0</string>
     <string name="about_more_info">More information can be found on:</string>
     <string name="about_github" translatable="false"><a href="https://github.com/woheller69/spritpreise">Github-Repo</a></string>
+    <string name="about_tankerkoenig" translatable="false"><a href="https://creativecommons.tankerkoenig.de/">Tankerkönig</a></string>
     <string name="activity_settings_title">Settings</string>
     <string name="settings_title_units">Units</string>
     <string name="settings_summary_temperature">Set the unit to use for displaying temperatures</string>
@@ -68,7 +69,7 @@
     <string name="settings_interval_summary">Set the interval of automatic updates</string>
     <string name="about_privacy_answer">Gas prices only uses the permission \"Internet\" to retrieve weather data. It further does not include any tracking mechanisms or advertisement.</string>
     <string name="about_where_from">Where does the information come from?</string>
-    <string name="about_where_from_answer">Price information is fetched from the service Tankerkönig. </string>
+    <string name="about_where_from_answer">Price information is fetched from</string>
     <string name="about_permissions">Permissions</string>
     <string name="RainViewer">Rain Radar</string>
     <string name="long_press_text">Hold and drag to sort.</string>

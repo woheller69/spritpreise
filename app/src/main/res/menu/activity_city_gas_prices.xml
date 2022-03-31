@@ -9,6 +9,7 @@
         app:actionViewClass="android.widget.ImageButton"
         app:showAsAction="always"
         style="@android:style/Widget.ActionButton" />
+<!--
     <item
         android:id="@+id/menu_rainviewer"
         android:orderInCategory="100"
@@ -18,4 +19,5 @@
         app:showAsAction="always"
         style="@android:style/Widget.ActionButton"
         />
+        -->
 </menu>
