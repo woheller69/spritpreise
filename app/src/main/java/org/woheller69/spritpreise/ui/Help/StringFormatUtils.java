@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.SuperscriptSpan;
 import android.text.style.TextAppearanceSpan;
 
@@ -15,6 +16,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import static java.lang.Boolean.TRUE;
+
+import org.woheller69.spritpreise.R;
 
 public final class StringFormatUtils {
 
@@ -28,6 +31,7 @@ public final class StringFormatUtils {
         SpannableString priceformat = new SpannableString(prefix + pricestring + suffix);
         priceformat.setSpan(new SuperscriptSpan(), priceformat.length()-3, priceformat.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         priceformat.setSpan(new TextAppearanceSpan(context, android.R.style.TextAppearance_Small), priceformat.length()-3, priceformat.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        priceformat.setSpan(new ForegroundColorSpan(context.getColor(R.color.colorPrimaryDark)), 0, priceformat.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return priceformat;
     }
 
