@@ -132,7 +132,7 @@ public class Widget extends AppWidgetProvider {
                     views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
                     views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
                     views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
-                    views.setTextViewText(R.id.widget_dist, stations.get(0).getDistance() + " km");
+                    views.setTextViewText(R.id.widget_dist, station.getDistance() + " km");
                     views.setTextViewText(R.id.widget_brand, station.getBrand());
                     break;
                 }
