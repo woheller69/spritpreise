@@ -53,18 +53,17 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
             long updateTime = ((time + zoneseconds) * 1000);
             recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_stations_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
         }
-
-        holder.diesel.setText("D: " + stationList.get(position).getDiesel());
-        holder.e5.setText( "E5: " + stationList.get(position).getE5());
-        holder.e10.setText("E10: " + stationList.get(position).getE10());
+        holder.diesel.setText(StringFormatUtils.formatPrice(context, "D: ",stationList.get(position).getDiesel()," €"));
+        holder.e5.setText( StringFormatUtils.formatPrice(context, "E5: ",stationList.get(position).getE5()," €"));
+        holder.e10.setText(StringFormatUtils.formatPrice(context, "E10: ",stationList.get(position).getE10()," €"));
         holder.dist.setText(stationList.get(position).getDistance()+" km");
         holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
         if (stationList.get(position).isOpen()) {
-            holder.isOpen.setText("Geöffnet");
+            holder.isOpen.setText(R.string.open);
             holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_green,null));
         }
         else  {
-            holder.isOpen.setText("Geschlossen");
+            holder.isOpen.setText(R.string.closed);
             holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_lightred,null));
         }
 

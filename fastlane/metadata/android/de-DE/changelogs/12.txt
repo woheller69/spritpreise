@@ -1,3 +1,0 @@
-Display bug behoben #1
-Regenradar zeigt jetzt 30min Vorhersage
-Migration zu AndroidX, Target SDK29

@@ -1,3 +1,0 @@
-Einige Farben geändert,
-Widgets leicht transparent
-Bugfix für Polartag/Polarnacht

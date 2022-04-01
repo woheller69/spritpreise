@@ -1,3 +1,0 @@
-Neue Symbole für sehr leichten Regen (<0.5mm/h) in der 60 min Vorhersage
-Veraltete APIs ersetzt
-Bugfixes

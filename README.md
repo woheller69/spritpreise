@@ -1,8 +1,11 @@
-# Spritpreise Deutschland
+# Gas Prices Germany
 
-Die Daten werden über die Tankerkönig API unter Creative-Commons-Lizenz “CC BY 4.0” von www.tankerkönig.de bereitgestellt.
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="150"/> 
 
-Dazu ist ein API Key nötig, der hier beantragt werden kann: https://creativecommons.tankerkoenig.de/api-key
+Gas Prices Germany provides the prices that the petrol stations report to the market transparency office.
+The data is provided via the Tankerkönig API under the Creative Commons license “CC BY 4.0” from www.tankerkönig.de.
+
+This requires an API key, which can be requested here: https://creativecommons.tankerkoenig.de/api-key
 
 
 ## License
@@ -24,7 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 The app also uses:
-- Die Daten werden über die Tankerkönig API unter Creative-Commons-Lizenz “CC BY 4.0” von www.tankerkönig.de bereitgestellt, <a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons licence CC BY-SA 4.0</a>
+- Data is provided via the Tankerkönig API (www.tankerkönig.de) under Creative-Commons-Lizenz “CC BY 4.0”, <a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons licence CC BY-SA 4.0</a>
 - The code is based on Privacy Friendly Weather (https://github.com/SecUSo/privacy-friendly-weather), which is published under GPLv3
 - Icons from [Google Material Design Icons](https://material.io/resources/icons/) licensed under <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License Version 2.0</a>
 - Material Components for Android (https://github.com/material-components/material-components-android) which is licensed under <a href='https://github.com/material-components/material-components-android/blob/master/LICENSE'>Apache License Version 2.0</a>

@@ -1,1 +1,0 @@
-Bugfix: revert minify due to crash on Android 12

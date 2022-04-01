@@ -1,1 +1,1 @@
-Lets you watch the weather for cities and locations you are interested in.
+Gas Prices shows the current prices at gas stations in Germany

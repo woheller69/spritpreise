@@ -1,1 +1,1 @@
-Mit RadarWeather kann das Wetter von Orten eingesehen werden. 
+Spritpreise zeigt die aktuellen Preise an den Tankstellen in Deutschland

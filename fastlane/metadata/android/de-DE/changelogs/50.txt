@@ -1,1 +1,0 @@
-Bugfix: minify wieder deaktiviert wegen Crash unter Android 12

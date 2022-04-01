@@ -1,3 +1,0 @@
-Bugfix für seltenen Crash
-Geringfügige GUI Änderungen
-Wolkendarstellung auf Karten geändert

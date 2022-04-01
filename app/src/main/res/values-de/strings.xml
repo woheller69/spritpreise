@@ -13,7 +13,7 @@
     <string name="about_where_from">Woher kommen die Preisinformationen?</string>
     <string name="about_where_from_answer">Die Preisinformationen stammen von</string>
     <string name="activity_about">Über</string>
-    <string name="activity_weather">Spritpreise</string>
+    <string name="activity_gasprices">Spritpreise</string>
     <string name="activity_manage">Orte verwalten</string>
     <string name="activity_settings">Einstellungen</string>
     <string name="action_refresh">Aktualisieren</string>
@@ -67,5 +67,7 @@
     <string name="dialog_NO_button">Nein</string>
     <string name="dialog_Later_button">Vielleicht später</string>
     <string name="dialog_StarOnGitHub">Mögen Sie diese App? Bitte vergeben Sie einen Stern auf GitHub.</string>
+    <string name="closed">Geschlossen</string>
+    <string name="open">Geöffnet</string>
 
 </resources>

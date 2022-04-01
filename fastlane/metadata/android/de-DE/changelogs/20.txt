@@ -1,4 +1,0 @@
-Widget hinzugefügt
-15min und 30min als zusätzliche Updateintervalle
-Interne Codebereinigung
-Bugfixes
