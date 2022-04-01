@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -110,6 +111,9 @@ public class Widget extends AppWidgetProvider {
 
 
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Station> stations) {
+        SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        if(prefManager.getBoolean("pref_GPS", true)==TRUE) views.setViewVisibility(R.id.location_on, View.VISIBLE); else views.setViewVisibility(R.id.location_on,View.GONE);
+
         long time = stations.get(0).getTimestamp();
         long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
         long updateTime = ((time + zoneseconds) * 1000);
