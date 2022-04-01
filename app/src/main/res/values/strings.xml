@@ -78,6 +78,8 @@
     <string name="dialog_StarOnGitHub">Do you like this app? Please star it on GitHub.</string>
     <string name="closed">Closed</string>
     <string name="open">Open</string>
+    <string name="error_no_open_station">No open station found</string>
+    <string name="error_no_station_found">No station found</string>
 
 
 </resources>

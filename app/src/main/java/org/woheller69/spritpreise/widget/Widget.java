@@ -108,32 +108,36 @@ public class Widget extends AppWidgetProvider {
         }
     }
 
-
-
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Station> stations) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         if(prefManager.getBoolean("pref_GPS", true)==TRUE) views.setViewVisibility(R.id.location_on, View.VISIBLE); else views.setViewVisibility(R.id.location_on,View.GONE);
+        views.setTextViewText(R.id.widget_city_name, city.getCityName());
+        views.setViewVisibility(R.id.widget_E5,View.GONE);
+        views.setViewVisibility(R.id.widget_E10,View.GONE);
+        views.setViewVisibility(R.id.widget_D,View.GONE);
+        views.setTextViewText(R.id.widget_dist,"");
+        views.setTextViewText(R.id.widget_updatetime,"");
+        views.setTextViewText(R.id.widget_brand,context.getString(R.string.error_no_open_station));
 
-        long time = stations.get(0).getTimestamp();
-        long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
-        long updateTime = ((time + zoneseconds) * 1000);
-        views.setTextViewText(R.id.widget_updatetime,StringFormatUtils.formatTimeWithoutZone(context, updateTime));
-        views.setTextViewText(R.id.widget_E5, context.getString(R.string.closed));
-        views.setTextViewText(R.id.widget_E10, context.getString(R.string.closed));
-        views.setTextViewText(R.id.widget_D, context.getString(R.string.closed));
-
-        for (Station station: stations){
-            if (station.isOpen()){  //display values of closest open station
-                views.setTextViewText(R.id.widget_city_name, city.getCityName());
-                views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context,"E5: ", station.getE5()," €"));
-                views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context,"E10: ", station.getE10()," €"));
-                views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context,"D: ", station.getDiesel()," €"));
-                views.setTextViewText(R.id.widget_dist,stations.get(0).getDistance()+ " km");
-                views.setTextViewText(R.id.widget_brand,station.getBrand());
-                break;
+        if (stations.size()>0) {
+            long time = stations.get(0).getTimestamp();
+            long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
+            long updateTime = ((time + zoneseconds) * 1000);
+            views.setTextViewText(R.id.widget_updatetime, "("+StringFormatUtils.formatTimeWithoutZone(context, updateTime)+")");
+            for (Station station : stations) {
+                if (station.isOpen()) {  //display values of closest open station
+                    views.setViewVisibility(R.id.widget_E5,View.VISIBLE);
+                    views.setViewVisibility(R.id.widget_E10,View.VISIBLE);
+                    views.setViewVisibility(R.id.widget_D,View.VISIBLE);
+                    views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
+                    views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
+                    views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
+                    views.setTextViewText(R.id.widget_dist, stations.get(0).getDistance() + " km");
+                    views.setTextViewText(R.id.widget_brand, station.getBrand());
+                    break;
+                }
             }
         }
-
         Intent intentUpdate = new Intent(context, Widget.class);
         intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         int[] idArray = new int[]{appWidgetId};

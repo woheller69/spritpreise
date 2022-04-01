@@ -58,16 +58,12 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
     @Override
     public void processSuccessScenario(String response, int cityId) {
         IDataExtractor extractor = new TKDataExtractor();
-        Log.d("Extract",response);
+        dbHelper.deleteStationsByCityId(cityId); //start with empty stations list
+        List<Station> stations = new ArrayList<>();
         if (extractor.wasCityFound(response)) {
             try {
                 JSONObject json = new JSONObject(response);
                 JSONArray list = json.getJSONArray("stations");
-
-                List<Station> stations = new ArrayList<>();
-
-                dbHelper.deleteStationsByCityId(cityId); //start with empty stations list
-
                 for (int i = 0; i < list.length(); i++) {
                     String currentItem = list.get(i).toString();
                     Log.d("Extract", currentItem);
@@ -87,14 +83,14 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
                         stations.add(station);
                     }
                 }
-
-                ViewUpdater.updateStations(stations);
-                possiblyUpdateWidgets(cityId, stations);
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        } else Log.d("Extract","Error, city not found");
+        } else {
+            Log.d("Extract","Error, no station found");
+        }
+        ViewUpdater.updateStations(stations);
+        possiblyUpdateWidgets(cityId, stations);
     }
 
     /**
