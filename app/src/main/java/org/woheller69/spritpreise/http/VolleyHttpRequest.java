@@ -78,7 +78,7 @@ public class VolleyHttpRequest implements IHttpRequest {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {  //from https://stackoverflow.com/questions/17049473/how-to-set-custom-header-in-volley-request
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("User-Agent", BuildConfig.APPLICATION_ID + "/" + BuildConfig.VERSION_NAME);
                 return params;
