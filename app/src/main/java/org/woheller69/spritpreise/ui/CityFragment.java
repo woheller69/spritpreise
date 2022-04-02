@@ -49,7 +49,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
         if (recyclerView != null) {
             recyclerView.setAdapter(mAdapter);
             recyclerView.setFocusable(false);
-            recyclerView.setLayoutManager(getLayoutManager(getContext()));  //fixes problems with StaggeredGrid: After refreshing data only empty space shown below tab
         }
     }
 
@@ -80,7 +79,11 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
         final View v = inflater.inflate(R.layout.city_fragment, container, false);
 
         recyclerView = v.findViewById(R.id.CityRecyclerView);
-        recyclerView.setLayoutManager(getLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()){
+            public boolean canScrollVertically() {    //Make parent recyclerview not scrollable (not needed in this app) and scroll stations instead
+                return false;
+            }
+        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -105,19 +108,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
         return v;
     }
-
-    public RecyclerView.LayoutManager getLayoutManager(Context context) {
-        int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
-        float density = context.getResources().getDisplayMetrics().density;
-        float width = widthPixels / density;
-
-        if (width > MINGRIDWIDTH) {
-            return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        } else {
-            return new LinearLayoutManager(context);
-        }
-    }
-
 
     @Override
     public void processUpdateStations(List<Station> stations) {
