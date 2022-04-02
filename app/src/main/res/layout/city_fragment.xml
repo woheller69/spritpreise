@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/StationsRecyclerView"
+        android:id="@+id/CityRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

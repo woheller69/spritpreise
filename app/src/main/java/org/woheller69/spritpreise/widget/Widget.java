@@ -195,7 +195,7 @@ public class Widget extends AppWidgetProvider {
                         }
                     };
                     Log.d("GPS", "Request Updates");
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600000, 3000, locationListenerGPS);  //Update every 10 min, min distance 5km
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1800000, 10000, locationListenerGPS);  //Update every 30 min, min distance 10km
                 }
             }else {
                 Log.d("GPS","Remove Updates");

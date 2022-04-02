@@ -22,7 +22,7 @@ import java.util.TimeZone;
 // * Adapter for the horizontal listView for course of the day.
 // */import java.util.List;
 
-public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOfDayViewHolder> {
+public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationViewHolder> {
 
     private List<Station> stationList;
     private Context context;
@@ -39,13 +39,13 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
 
 
     @Override
-    public CourseOfDayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_station, parent, false);
-        return new CourseOfDayViewHolder(view);
+        return new StationViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
+    public void onBindViewHolder(StationViewHolder holder, int position) {
 
         if (stationList !=null && stationList.size()!=0 && stationList.get(0)!=null) {
             long time = stationList.get(0).getTimestamp();
@@ -75,7 +75,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
         return stationList.size();
     }
 
-    class CourseOfDayViewHolder extends RecyclerView.ViewHolder {
+    class StationViewHolder extends RecyclerView.ViewHolder {
         TextView e5;
         TextView diesel;
         TextView e10;
@@ -84,7 +84,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.CourseOf
         TextView isOpen;
         TextView address;
 
-        CourseOfDayViewHolder(View itemView) {
+        StationViewHolder(View itemView) {
             super(itemView);
 
             e5 = itemView.findViewById(R.id.station_e5);

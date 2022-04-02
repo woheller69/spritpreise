@@ -87,11 +87,11 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
 
 
-    public class DayViewHolder extends ViewHolder {
+    public class StationViewHolder extends ViewHolder {
         RecyclerView recyclerView;
         TextView recyclerViewHeader;
 
-        DayViewHolder(View v) {
+        StationViewHolder(View v) {
             super(v);
             recyclerView = v.findViewById(R.id.recycler_view_stations);
             recyclerView.setHasFixedSize(true);
@@ -118,7 +118,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_stations, viewGroup, false);
-            return new DayViewHolder(v);
+            return new StationViewHolder(v);
 
         }
     }
@@ -137,7 +137,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         }  else if (viewHolder.getItemViewType() == STATIONS) {
 
-            DayViewHolder holder = (DayViewHolder) viewHolder;
+            StationViewHolder holder = (StationViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             holder.recyclerView.addItemDecoration(new DividerItemDecoration(holder.recyclerView.getContext(), DividerItemDecoration.VERTICAL));

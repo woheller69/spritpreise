@@ -79,7 +79,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.city_fragment, container, false);
 
-        recyclerView = v.findViewById(R.id.StationsRecyclerView);
+        recyclerView = v.findViewById(R.id.CityRecyclerView);
         recyclerView.setLayoutManager(getLayoutManager(getContext()));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
