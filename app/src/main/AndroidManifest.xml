@@ -18,10 +18,6 @@
         android:fontFamily = "sans-serif-light"
         android:theme="@style/AppTheme">
 
-
-        <activity android:name="org.woheller69.spritpreise.activities.RainViewerActivity"
-            android:label="@string/RainViewer"/>
-
         <activity
             android:name="org.woheller69.spritpreise.activities.SplashActivity"
             android:theme="@style/SplashTheme">

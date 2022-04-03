@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         if (prefManager.isFirstTimeLaunch()){  //First time got to TutorialActivity
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
-        } else { //otherwise directly start ForecastCityActivity
+        } else { //otherwise directly start CityGasPricesActivity
             Intent mainIntent = new Intent(SplashActivity.this, CityGasPricesActivity.class);
             SplashActivity.this.startActivity(mainIntent);
         }

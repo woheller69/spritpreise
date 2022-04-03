@@ -51,7 +51,7 @@
     <string name="settings_intervals">Intervals</string>
     <string name="settings_update_interval">Update interval</string>
     <string name="settings_interval_summary">Set the interval of automatic updates</string>
-    <string name="about_privacy_answer">Gas Prices only uses the permission \"Internet\" to retrieve weather data. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="about_privacy_answer">Gas Prices only uses the permission \"Internet\" to retrieve price data. It further does not include any tracking mechanisms or advertisement.</string>
     <string name="about_where_from">Where does the information come from?</string>
     <string name="about_where_from_answer">Price information is fetched from</string>
     <string name="about_permissions">Permissions</string>
@@ -67,7 +67,7 @@
     <string name="edit_location_hint_ID" translatable="false">ID</string>
     <string name="settings_darkmode">Android 10+ Dark Mode</string>
     <string name="settings_position">Position</string>
-    <string name="settings_GPS_summary">Allow usage of current GPS position in first TAB and in current weather widget. Position update is triggered automatically by widget.</string>
+    <string name="settings_GPS_summary">Allow usage of current GPS position in first TAB and in the widget. Position update is triggered automatically by widget.</string>
     <string name="settings_GPS_position">Allow GPS usage</string>
     <string name="error_no_position">No position available</string>
     <string name="settings_time24h">24-hour format</string>
