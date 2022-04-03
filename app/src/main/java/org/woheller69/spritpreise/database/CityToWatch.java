@@ -2,8 +2,7 @@ package org.woheller69.spritpreise.database;
 
 /**
  * This class is the database model for the cities to watch. 'Cities to watch' means the locations
- * for which a user would like to see the weather for. This includes those locations that will be
- * deleted after app close (non-persistent locations).
+ * for which a user would like to see the gas prices.
  */
 public class CityToWatch {
 

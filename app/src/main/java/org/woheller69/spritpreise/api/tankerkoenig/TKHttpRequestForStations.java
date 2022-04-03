@@ -2,7 +2,6 @@ package org.woheller69.spritpreise.api.tankerkoenig;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
@@ -14,8 +13,8 @@ import org.woheller69.spritpreise.preferences.AppPreferencesManager;
 import org.woheller69.spritpreise.api.IHttpRequestForStations;
 
 /**
- * This class provides the functionality for making and processing HTTP requests to the
- * OpenWeatherMap to retrieve the latest weather data for all stored cities.
+ * This class provides the functionality for making and processing HTTP requests to
+ * Tankerkönig to retrieve the latest gas prices for all stored cities.
  */
 public class TKHttpRequestForStations implements IHttpRequestForStations {
 
@@ -45,14 +44,7 @@ public class TKHttpRequestForStations implements IHttpRequestForStations {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        Log.d("URL",String.format(
-                "%slist.php?lat=%s&lng=%s&rad=%s&sort=dist&type=all&apikey=%s",
-                BuildConfig.BASE_URL,
-                lat,
-                lon,
-                sharedPreferences.getString("pref_searchRadius","3"),
-                prefManager.getTKApiKey(context)
-        ));
+
         return String.format(
                 "%slist.php?lat=%s&lng=%s&rad=%s&sort=dist&type=all&apikey=%s",
                 BuildConfig.BASE_URL,

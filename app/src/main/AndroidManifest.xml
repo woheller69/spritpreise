@@ -74,7 +74,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/weather_widget_info" />
+                android:resource="@xml/widget_info" />
         </receiver>
 
     </application>

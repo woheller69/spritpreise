@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
- * current weather for all stored cities.
+ * This class processes the HTTP requests that are made to the Tankerkönig API requesting the
+ * current prices for all stored cities.
  */
 public class TKProcessHttpRequest implements IProcessHttpRequest {
 

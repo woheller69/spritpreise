@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 
@@ -38,9 +37,9 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
     public static CityFragment newInstance(Bundle args)
     {
-        CityFragment weatherCityFragment = new CityFragment();
-        weatherCityFragment.setArguments(args);
-        return weatherCityFragment;
+        CityFragment cityFragment = new CityFragment();
+        cityFragment.setArguments(args);
+        return cityFragment;
     }
 
     public void setAdapter(CityAdapter adapter) {

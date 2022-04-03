@@ -1,7 +1,7 @@
 package org.woheller69.spritpreise.api;
 
 /**
- * This generic interface is for making an HTTP request to some weather API, process the data and
+ * This generic interface is for making an HTTP request to some API, process the data and
  * finally trigger some mechanism to update the UI.
  */
 public interface IHttpRequestForStations {

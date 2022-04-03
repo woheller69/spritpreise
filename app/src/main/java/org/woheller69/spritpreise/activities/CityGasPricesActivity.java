@@ -138,7 +138,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_weather;
+        return R.id.nav_gasprices;
     }
 
     @Override

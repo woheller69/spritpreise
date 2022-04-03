@@ -212,7 +212,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void deleteCityToWatch(CityToWatch cityToWatch) {
 
-        //First delete all weather data for city which is deleted
+        //First delete all price data for city which is deleted
         deleteStationsByCityId(cityToWatch.getCityId());
 
         //Now remove city from CITIES_TO_WATCH
@@ -240,7 +240,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
 
     /**
-     * Methods for TABLE_FORECAST
+     * Methods for TABLE_STATION
      */
     public synchronized void addStation(Station station) {
         SQLiteDatabase database = this.getWritableDatabase();

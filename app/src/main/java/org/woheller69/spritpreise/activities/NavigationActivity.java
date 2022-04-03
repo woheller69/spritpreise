@@ -87,7 +87,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (getNavigationDrawerID()!=R.id.nav_weather)
+            if (getNavigationDrawerID()!=R.id.nav_gasprices)
             {
                 Intent intent = new Intent(this, CityGasPricesActivity.class);
                 startActivity(intent);
@@ -165,7 +165,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        if (itemId==R.id.nav_weather) {
+        if (itemId==R.id.nav_gasprices) {
             intent = new Intent(this, CityGasPricesActivity.class);
             startActivity(intent);
         }else if (itemId==R.id.nav_manage){

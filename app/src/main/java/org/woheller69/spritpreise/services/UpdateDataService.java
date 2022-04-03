@@ -20,7 +20,7 @@ import java.net.InetAddress;
 import java.util.List;
 
 /**
- * This class provides the functionality to fetch forecast data for a given city as a background
+ * This class provides the functionality to fetch price data for a given city as a background
  * task.
  */
 

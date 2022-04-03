@@ -2,10 +2,6 @@ package org.woheller69.spritpreise.api;
 
 import com.android.volley.VolleyError;
 
-/**
- * This interface is used for providing methods for processing success and failure scenarios of
- * HTTP requests. Implementations of this interface can work with any (weather) API.
- */
 public interface IProcessHttpRequest {
 
     /**
