@@ -43,6 +43,7 @@ import static java.lang.Boolean.TRUE;
 import static org.woheller69.spritpreise.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 public class Widget extends AppWidgetProvider {
+    private final static int MINDISTANCE = 5000;
     private static LocationListener locationListenerGPS;
     private LocationManager locationManager;
 
@@ -54,8 +55,6 @@ public class Widget extends AppWidgetProvider {
             int cityID = getWidgetCityID(context);
             if(prefManager.getBoolean("pref_GPS", true)==TRUE) updateLocation(context, cityID,false);
             Intent intent = new Intent(context, UpdateDataService.class);
-            //Log.d("debugtag", "widget calls single update: " + cityID + " with widgetID " + appWidgetId);
-
             intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
             intent.putExtra("cityId", cityID);
             intent.putExtra("Widget",true);
@@ -173,11 +172,23 @@ public class Widget extends AppWidgetProvider {
                     locationListenerGPS = new LocationListener() {
                         @Override
                         public void onLocationChanged(android.location.Location location) {
-                            // There may be multiple widgets active, so update all of them
                             Log.d("GPS", "Location changed");
-                            int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class)); //IDs Might have changed since last call of onUpdate
-                            for (int appWidgetId : appWidgetIds) {
-                                updateAppWidget(context, appWidgetId);
+                            // Check if location change > MINDISTANCE, then update CityToWatch and update widgets accordingly
+                            SQLiteHelper db = SQLiteHelper.getInstance(context);
+                            CityToWatch city=db.getCityToWatch(getWidgetCityID(context));
+                            Location oldlocation = new Location(LocationManager.PASSIVE_PROVIDER);
+                            oldlocation.setLatitude(city.getLatitude());
+                            oldlocation.setLongitude(city.getLongitude());
+                            if (oldlocation.distanceTo(location)>MINDISTANCE){  //update coordinates of CityToWatch
+                                city.setLatitude((float) location.getLatitude());
+                                city.setLongitude((float) location.getLongitude());
+                                city.setCityName(String.format(Locale.getDefault(),"%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
+                                db.updateCityToWatch(city);
+                                // There may be multiple widgets active, so update all of them
+                                int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class)); //IDs Might have changed since last call of onUpdate
+                                for (int appWidgetId : appWidgetIds) {
+                                    updateAppWidget(context, appWidgetId);
+                                }
                             }
                         }
 
@@ -195,7 +206,7 @@ public class Widget extends AppWidgetProvider {
                         }
                     };
                     Log.d("GPS", "Request Updates");
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1800000, 10000, locationListenerGPS);  //Update every 30 min, min distance 10km
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600000, MINDISTANCE, locationListenerGPS);  //Update every 10 min, MINDISTANCE km
                 }
             }else {
                 Log.d("GPS","Remove Updates");
