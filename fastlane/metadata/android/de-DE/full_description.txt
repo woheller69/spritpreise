@@ -3,6 +3,9 @@ Die Daten werden über die Tankerkönig API unter Creative-Commons-Lizenz “CC 
 
 Dazu ist ein API Key nötig, der hier beantragt werden kann: https://creativecommons.tankerkoenig.de/api-key
 
+Sie können ihre eigenen Orte wählen und die aktuellen Spritpreise abfragen.
+Ein Klick auf eine Tankstelle zeigt die Tankstelle in einer Kartenanwendung.
+
 Minimale Berechtigungen:
 Spritpreise Deutschland benötigt nur ein Minimum an Berechtigungen, nämlich nur die INTERNET-Berechtigung. Diese ist nötig, um HTTP-Anfragen an entfernte Server zu stellen, um Wetterdaten zu erhalten.
 Optional: Berechtigung für GPS.

@@ -3,6 +3,9 @@ The data is provided via the Tankerkönig API under the Creative Commons license
 
 This requires an API key, which can be requested here: https://creativecommons.tankerkoenig.de/api-key
 
+You can choose your own locations and get current gas prices.
+Clicking on a gas station shows the gas station in a map application.
+
 Minimum permissions:
 Gas Prices only requires the minimum amount of permission, namely only the INTERNET permission. This permission is necessary to make HTTP requests to remote servers for retrieving weather data.
 Optional: authorization for GPS.

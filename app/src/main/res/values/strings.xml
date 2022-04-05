@@ -14,7 +14,7 @@
     <string name="slide1_heading">Welcome!</string>
     <string name="slide1_text">Gas Prices provides the current gas prices for your locations.</string>
     <string name="slide2_heading">How To</string>
-    <string name="slide2_text">You can choose your own locations and get current gas prices.</string>
+    <string name="slide2_text">You can choose your own locations and get current gas prices. Clicking on a gas station shows the gas station in a map application.</string>
     <string name="slide3_heading" translatable="false">Github</string>
     <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
     <string name="card_stations_heading">Last update</string>
