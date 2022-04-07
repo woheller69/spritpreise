@@ -1,6 +1,6 @@
 # Gas Prices Germany
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="150"/> 
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="150"/> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="150"/> 
 
 Gas Prices Germany provides the prices that the petrol stations report to the market transparency office.
 The data is provided via the Tankerkönig API under the Creative Commons license “CC BY 4.0” from www.tankerkönig.de.
