@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/widget_dist"
         android:layout_alignStart="@id/widget_dist"
-        android:src="@drawable/ic_local_gas_station_black_24dp" />
+        android:src="@drawable/ic_widget_gas_station_24dp" />
 
     <TextView
         android:id="@+id/widget_city_name"
