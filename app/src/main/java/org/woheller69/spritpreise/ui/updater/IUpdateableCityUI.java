@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface IUpdateableCityUI {
 
-    void processUpdateStations(List<Station> stations);
+    void processUpdateStations(List<Station> stations, int cityID);
 
 }

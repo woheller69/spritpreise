@@ -109,12 +109,11 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
     }
 
     @Override
-    public void processUpdateStations(List<Station> stations) {
-        if (stations != null && stations.size() > 0 && stations.get(0).getCity_id() == mCityId) {
-            if (mAdapter != null) {
+    public void processUpdateStations(List<Station> stations, int cityID) {
+
+            if (mAdapter != null && mCityId==cityID) {
                 mAdapter.updateStationsData(stations);
             }
-        }
     }
 
 }

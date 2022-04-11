@@ -92,7 +92,7 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
 
 
     @Override
-    public void processUpdateStations(List<Station> stations) {
+    public void processUpdateStations(List<Station> stations, int cityID) {
         notifyDataSetChanged();
     }
 

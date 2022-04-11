@@ -89,7 +89,7 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
         } else {
             Log.d("Extract","Error, no station found");
         }
-        ViewUpdater.updateStations(stations);
+        ViewUpdater.updateStations(stations,cityId);
         possiblyUpdateWidgets(cityId, stations);
     }
 

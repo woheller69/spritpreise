@@ -114,6 +114,7 @@ public class Widget extends AppWidgetProvider {
         views.setViewVisibility(R.id.widget_E5,View.GONE);
         views.setViewVisibility(R.id.widget_E10,View.GONE);
         views.setViewVisibility(R.id.widget_D,View.GONE);
+        views.setViewVisibility(R.id.widget_image,View.GONE);
         views.setTextViewText(R.id.widget_dist,"");
         views.setTextViewText(R.id.widget_updatetime,"");
         views.setTextViewText(R.id.widget_brand,context.getString(R.string.error_no_open_station));
@@ -128,6 +129,7 @@ public class Widget extends AppWidgetProvider {
                     views.setViewVisibility(R.id.widget_E5,View.VISIBLE);
                     views.setViewVisibility(R.id.widget_E10,View.VISIBLE);
                     views.setViewVisibility(R.id.widget_D,View.VISIBLE);
+                    views.setViewVisibility(R.id.widget_image,View.VISIBLE);
                     views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
                     views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
                     views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));

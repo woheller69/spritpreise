@@ -200,7 +200,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     }
 
     @Override
-    public void processUpdateStations(List<Station> stations) {
+    public void processUpdateStations(List<Station> stations, int cityID) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }

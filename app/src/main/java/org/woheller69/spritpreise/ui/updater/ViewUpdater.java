@@ -22,10 +22,10 @@ public class ViewUpdater {
         subscribers.remove(sub);
     }
 
-    public static void updateStations(List<Station> stations) {
+    public static void updateStations(List<Station> stations, int cityID) {
         ArrayList<IUpdateableCityUI> subcopy = new ArrayList<>(subscribers);
         for (IUpdateableCityUI sub : subcopy) {
-            sub.processUpdateStations(stations);
+            sub.processUpdateStations(stations,cityID);
         }
     }
 }
