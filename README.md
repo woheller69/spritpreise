@@ -7,6 +7,9 @@ The data is provided via the Tankerkönig API under the Creative Commons license
 
 This requires an API key, which can be requested here: https://creativecommons.tankerkoenig.de/api-key
 
+A version with integrated API key can be downloaded from GitHub releases:
+
+<a href="https://github.com/woheller69/spritpreise/releases/download/V1.0/Spritpreise_V1.0.apk"><img src="https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white%20%27Download%27"></a>
 
 ## License
 
