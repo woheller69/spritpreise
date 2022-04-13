@@ -27,7 +27,6 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     private CityPagerAdapter pagerAdapter;
 
     private static MenuItem refreshActionButton;
-    private MenuItem rainviewerButton;
 
     private int cityId = -1;
     private ViewPager viewPager;
@@ -176,14 +175,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         SQLiteHelper db = SQLiteHelper.getInstance(this);
- /*       if (id==R.id.menu_rainviewer) {
-            if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
-                Intent intent = new Intent(this, RainViewerActivity.class);
-                intent.putExtra("latitude", pagerAdapter.getLatForPos((viewPager.getCurrentItem())));
-                intent.putExtra("longitude", pagerAdapter.getLonForPos((viewPager.getCurrentItem())));
-                startActivity(intent);
-            }
-        }else*/ if (id==R.id.menu_refresh){
+        if (id==R.id.menu_refresh){
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
                 CityGasPricesActivity.startRefreshAnimation();

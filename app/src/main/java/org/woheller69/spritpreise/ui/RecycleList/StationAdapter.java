@@ -29,7 +29,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     private TextView recyclerViewHeader;
     private RecyclerView recyclerView;
 
-
+//Adapter for Stations recycler view
     StationAdapter(List<Station> stationList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
         this.context = context;
         this.stationList = stationList;

@@ -1,5 +1,9 @@
 package org.woheller69.spritpreise.ui;
 
+import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.DETAILS;
+import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.OVERVIEW;
+import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.STATIONS;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -26,10 +30,11 @@ import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 
 import java.util.List;
 
+//Fragment with the viewholders for a location
 public class CityFragment extends Fragment implements IUpdateableCityUI {
-    private static final int MINGRIDWIDTH = 500;
+
     private int mCityId = -1;
-    private int[] mDataSetTypes = new int[]{};
+    private static final int[] mDataSetTypes = {OVERVIEW, DETAILS, STATIONS}; //OVERVIEW and DETAILS unused at the moment.
 
     private CityAdapter mAdapter;
 
@@ -101,7 +106,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
         Bundle args = getArguments();
         mCityId = args.getInt("city_id");
-        mDataSetTypes = args.getIntArray("dataSetTypes");
 
         loadData();
 

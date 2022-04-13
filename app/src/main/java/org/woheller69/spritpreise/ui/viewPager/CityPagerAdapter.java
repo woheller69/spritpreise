@@ -21,9 +21,6 @@ import java.util.List;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.woheller69.spritpreise.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
-import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.STATIONS;
-import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.DETAILS;
-import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.OVERVIEW;
 
 /**
  * Created by thomagglaser on 07.08.2017.
@@ -34,12 +31,10 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
     private Context mContext;
 
     private SQLiteHelper database;
-    long lastUpdateTime;
 
     private List<CityToWatch> cities;
 
-    private static int[] mDataSetTypes = {OVERVIEW, DETAILS, STATIONS}; //TODO Make dynamic from Settings
-
+    //Adapter for the Viewpager switching between different locations
     public CityPagerAdapter(Context context, FragmentManager supportFragmentManager) {
         super(supportFragmentManager,FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mContext = context;
@@ -64,7 +59,6 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
     public CityFragment getItem(int position) {
         Bundle args = new Bundle();
         args.putInt("city_id", cities.get(position).getCityId());
-        args.putIntArray("dataSetTypes", mDataSetTypes);
 
         return CityFragment.newInstance(args);
     }
@@ -93,7 +87,7 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
 
     @Override
     public void processUpdateStations(List<Station> stations, int cityID) {
-        notifyDataSetChanged();
+
     }
 
     public int getCityIDForPos(int pos) {
@@ -110,16 +104,5 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
         }
         return 0;
     }
-
-    public float getLatForPos(int pos) {
-        CityToWatch city = cities.get(pos);
-        return city.getLatitude();
-    }
-
-    public float getLonForPos(int pos) {
-        CityToWatch city = cities.get(pos);
-        return city.getLongitude();
-    }
-
 
 }

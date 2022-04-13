@@ -35,7 +35,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     public static final int DETAILS = 1;
     public static final int STATIONS = 2;
 
-
+//Adapter for CityFragment
     public CityAdapter(int cityID, int[] dataSetTypes, Context context) {
 
         this.dataSetTypes = dataSetTypes;
@@ -66,18 +66,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     }
 
     public class OverViewHolder extends ViewHolder {
-        //TextView temperature;
-        //TextView sun;
 
         OverViewHolder(View v) {
             super(v);
-            //this.temperature = v.findViewById(R.id.card_overview_temperature);
-            //this.sun=v.findViewById(R.id.card_overview_sunrise_sunset);
         }
     }
 
     public class DetailViewHolder extends ViewHolder {
-
 
         DetailViewHolder(View v) {
             super(v);
