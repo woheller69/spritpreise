@@ -161,7 +161,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return dataSetTypes.length;
     }
 
     @Override

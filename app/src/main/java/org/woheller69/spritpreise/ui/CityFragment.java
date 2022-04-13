@@ -34,7 +34,7 @@ import java.util.List;
 public class CityFragment extends Fragment implements IUpdateableCityUI {
 
     private int mCityId = -1;
-    private static final int[] mDataSetTypes = {OVERVIEW, DETAILS, STATIONS}; //OVERVIEW and DETAILS unused at the moment.
+    private static final int[] mDataSetTypes = {STATIONS}; //Before: {OVERVIEW, DETAILS, STATIONS} OVERVIEW and DETAILS unused at the moment.
 
     private CityAdapter mAdapter;
 
