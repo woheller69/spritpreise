@@ -11,6 +11,9 @@ A version with integrated API key can be downloaded from GitHub releases:
 
 <a href="https://github.com/woheller69/spritpreise/releases/download/V1.0/Spritpreise_V1.0.apk"><img src="https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white%20%27Download%27"></a>
 
+<a href="https://f-droid.org/packages/org.woheller69.spritpreise"><img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="100"></a
+
+
 ## License
 
 This app is licensed under the GPLv3.
