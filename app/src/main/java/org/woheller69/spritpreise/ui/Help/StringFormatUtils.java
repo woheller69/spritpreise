@@ -29,8 +29,8 @@ public final class StringFormatUtils {
         if (price == 0) pricestring ="0.000";
         else pricestring = Double.toString(price);
         SpannableString priceformat = new SpannableString(prefix + pricestring + suffix);
-        priceformat.setSpan(new SuperscriptSpan(), priceformat.length()-3, priceformat.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         priceformat.setSpan(new TextAppearanceSpan(context, android.R.style.TextAppearance_Small), priceformat.length()-3, priceformat.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        priceformat.setSpan(new SuperscriptSpan(), priceformat.length()-3, priceformat.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         priceformat.setSpan(new ForegroundColorSpan(context.getColor(R.color.colorPrimaryDark)), 0, priceformat.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return priceformat;
     }
