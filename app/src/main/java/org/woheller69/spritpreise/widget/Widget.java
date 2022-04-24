@@ -124,18 +124,48 @@ public class Widget extends AppWidgetProvider {
             long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
             long updateTime = ((time + zoneseconds) * 1000);
             views.setTextViewText(R.id.widget_updatetime, "("+StringFormatUtils.formatTimeWithoutZone(context, updateTime)+")");
-            for (Station station : stations) {
-                if (station.isOpen()) {  //display values of closest open station
-                    views.setViewVisibility(R.id.widget_E5,View.VISIBLE);
-                    views.setViewVisibility(R.id.widget_E10,View.VISIBLE);
-                    views.setViewVisibility(R.id.widget_D,View.VISIBLE);
-                    views.setViewVisibility(R.id.widget_image,View.VISIBLE);
-                    views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
-                    views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
-                    views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
-                    views.setTextViewText(R.id.widget_dist, station.getDistance() + " km");
-                    views.setTextViewText(R.id.widget_brand, station.getBrand());
-                    break;
+
+            boolean foundStation = false;
+            if (prefManager.getBoolean("prefBrands", false)) {  //if preferred brands are defined
+                String[] brands = prefManager.getString("prefBrandsString", "").split(","); //read comma separated list
+                for (Station station : stations) {
+                    if (station.isOpen()) {  //display values of closest open station
+                        for (String brand : brands) {  //search if one of the preferred brands is available
+                            if (station.getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {   //remove leading and trailing spaces and compare
+                                views.setViewVisibility(R.id.widget_E5, View.VISIBLE);
+                                views.setViewVisibility(R.id.widget_E10, View.VISIBLE);
+                                views.setViewVisibility(R.id.widget_D, View.VISIBLE);
+                                views.setViewVisibility(R.id.widget_image, View.VISIBLE);
+                                views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
+                                views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
+                                views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
+                                views.setTextViewText(R.id.widget_dist, station.getDistance() + " km");
+                                views.setTextViewText(R.id.widget_brand, station.getBrand());
+                                views.setTextViewText(R.id.widget_address,station.getAddress2());
+                                foundStation = true;
+                                break;
+                            }
+                            if (foundStation) break;
+                        }
+                    }
+                }
+            }
+
+            if (!foundStation) {
+                for (Station station : stations) {
+                    if (station.isOpen()) {  //display values of closest open station
+                        views.setViewVisibility(R.id.widget_E5, View.VISIBLE);
+                        views.setViewVisibility(R.id.widget_E10, View.VISIBLE);
+                        views.setViewVisibility(R.id.widget_D, View.VISIBLE);
+                        views.setViewVisibility(R.id.widget_image, View.VISIBLE);
+                        views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
+                        views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
+                        views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
+                        views.setTextViewText(R.id.widget_dist, station.getDistance() + " km");
+                        views.setTextViewText(R.id.widget_brand, station.getBrand());
+                        views.setTextViewText(R.id.widget_address,station.getAddress2());
+                        break;
+                    }
                 }
             }
         }

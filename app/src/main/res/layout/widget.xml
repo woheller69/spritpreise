@@ -52,6 +52,20 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/widget_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/widget_D"
+        android:layout_alignEnd="@id/widget_D"
+        android:layout_marginBottom="5dp"
+        android:paddingTop="4dp"
+        android:translationX="-12dp"
+        android:text="12345 Musterstadt"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/widget_dist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

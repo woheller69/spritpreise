@@ -3,10 +3,14 @@ package org.woheller69.spritpreise.ui.RecycleList;
 import android.content.Context;
 
 import androidx.core.content.res.ResourcesCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.woheller69.spritpreise.R;
@@ -28,6 +32,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     private Context context;
     private TextView recyclerViewHeader;
     private RecyclerView recyclerView;
+    private ImageView fav;
 
 //Adapter for Stations recycler view
     StationAdapter(List<Station> stationList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
@@ -46,12 +51,23 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
 
     @Override
     public void onBindViewHolder(StationViewHolder holder, int position) {
+        SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         if (stationList !=null && stationList.size()!=0 && stationList.get(0)!=null) {
             long time = stationList.get(0).getTimestamp();
             long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
             long updateTime = ((time + zoneseconds) * 1000);
             recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_stations_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
+        }
+
+        if (prefManager.getBoolean("prefBrands", false)) {  //if preferred brands are defined
+            String[] brands = prefManager.getString("prefBrandsString", "").split(","); //read comma separated list
+            for (String brand : brands) {
+                if (stationList.get(position).getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {
+                    holder.fav.setVisibility(View.VISIBLE);
+                    break;
+                }
+            }
         }
         holder.diesel.setText(StringFormatUtils.formatPrice(context, "D: ",stationList.get(position).getDiesel()," €"));
         holder.e5.setText( StringFormatUtils.formatPrice(context, "E5: ",stationList.get(position).getE5()," €"));
@@ -83,6 +99,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         TextView dist;
         TextView isOpen;
         TextView address;
+        ImageView fav;
 
         StationViewHolder(View itemView) {
             super(itemView);
@@ -94,6 +111,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
             dist = itemView.findViewById(R.id.station_dist);
             isOpen = itemView.findViewById(R.id.station_isOpen);
             address = itemView.findViewById(R.id.station_address);
+            fav = itemView.findViewById(R.id.station_fav);
 
         }
     }

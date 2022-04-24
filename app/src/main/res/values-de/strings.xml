@@ -71,5 +71,6 @@
     <string name="open">Geöffnet</string>
     <string name="error_no_open_station">Keine offene Tankstelle</string>
     <string name="error_no_station_found">Keine Tankstelle gefunden</string>
+    <string name="preferred_brands">Bevorzugte Marken (Komma getrennt)</string>
 
 </resources>
