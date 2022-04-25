@@ -3,6 +3,14 @@
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="150"/> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="150"/> 
 
 Gas Prices Germany provides the prices that the petrol stations report to the market transparency office.
+You can choose your own locations and get current gas prices.
+Clicking on a gas station in the list or on the icon in the widget shows the gas station in a map application.
+You can also allow the app to use GPS. If you do so and have the app widget installed the position will be updated 
+from time to time and the first tab in the app and the widget will show gas stations for your current location.
+(This will overwrite the city in your first tab.)
+You can also select your favourite brands in settings. In this case the list in the app will mark your favourite brands
+with a star and the widget will show the closest station of one of these brands if available in the search radius.
+
 The data is provided via the Tankerkönig API under the Creative Commons license “CC BY 4.0” from www.tankerkönig.de.
 
 This requires an API key, which can be requested here: https://creativecommons.tankerkoenig.de/api-key
