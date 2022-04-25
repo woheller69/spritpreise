@@ -8,7 +8,7 @@ Clicking on a gas station in the list or on the icon in the widget shows the gas
 You can also allow the app to use GPS. If you do so and have the app widget installed the position will be updated 
 from time to time and the first tab in the app and the widget will show gas stations for your current location.
 (This will overwrite the city in your first tab.)
-You can also select your favourite brands in settings. In this case the list in the app will mark your favourite brands
+You can also enter your favourite brands in settings. In this case the list in the app will mark your favourite brands
 with a star and the widget will show the closest station of one of these brands if available in the search radius.
 
 The data is provided via the Tankerkönig API under the Creative Commons license “CC BY 4.0” from www.tankerkönig.de.
