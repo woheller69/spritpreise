@@ -130,9 +130,9 @@ public class Widget extends AppWidgetProvider {
                                 foundStation = true;
                                 break;
                             }
-                            if (foundStation) break;
                         }
                     }
+                    if (foundStation) break;
                 }
             }
 
