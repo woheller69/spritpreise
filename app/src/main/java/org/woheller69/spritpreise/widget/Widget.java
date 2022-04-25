@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -110,14 +111,7 @@ public class Widget extends AppWidgetProvider {
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Station> stations) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         if(prefManager.getBoolean("pref_GPS", true)==TRUE) views.setViewVisibility(R.id.location_on, View.VISIBLE); else views.setViewVisibility(R.id.location_on,View.GONE);
-        views.setTextViewText(R.id.widget_city_name, city.getCityName());
-        views.setViewVisibility(R.id.widget_E5,View.GONE);
-        views.setViewVisibility(R.id.widget_E10,View.GONE);
-        views.setViewVisibility(R.id.widget_D,View.GONE);
-        views.setViewVisibility(R.id.widget_image,View.GONE);
-        views.setTextViewText(R.id.widget_dist,"");
-        views.setTextViewText(R.id.widget_updatetime,"");
-        views.setTextViewText(R.id.widget_brand,context.getString(R.string.error_no_open_station));
+        resetView(context, views, city);
 
         if (stations.size()>0) {
             long time = stations.get(0).getTimestamp();
@@ -132,16 +126,7 @@ public class Widget extends AppWidgetProvider {
                     if (station.isOpen()) {  //display values of closest open station
                         for (String brand : brands) {  //search if one of the preferred brands is available
                             if (station.getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {   //remove leading and trailing spaces and compare
-                                views.setViewVisibility(R.id.widget_E5, View.VISIBLE);
-                                views.setViewVisibility(R.id.widget_E10, View.VISIBLE);
-                                views.setViewVisibility(R.id.widget_D, View.VISIBLE);
-                                views.setViewVisibility(R.id.widget_image, View.VISIBLE);
-                                views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
-                                views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
-                                views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
-                                views.setTextViewText(R.id.widget_dist, station.getDistance() + " km");
-                                views.setTextViewText(R.id.widget_brand, station.getBrand());
-                                views.setTextViewText(R.id.widget_address,station.getAddress2());
+                                setView(context, views, appWidgetId, station);
                                 foundStation = true;
                                 break;
                             }
@@ -154,16 +139,7 @@ public class Widget extends AppWidgetProvider {
             if (!foundStation) {
                 for (Station station : stations) {
                     if (station.isOpen()) {  //display values of closest open station
-                        views.setViewVisibility(R.id.widget_E5, View.VISIBLE);
-                        views.setViewVisibility(R.id.widget_E10, View.VISIBLE);
-                        views.setViewVisibility(R.id.widget_D, View.VISIBLE);
-                        views.setViewVisibility(R.id.widget_image, View.VISIBLE);
-                        views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
-                        views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
-                        views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
-                        views.setTextViewText(R.id.widget_dist, station.getDistance() + " km");
-                        views.setTextViewText(R.id.widget_brand, station.getBrand());
-                        views.setTextViewText(R.id.widget_address,station.getAddress2());
+                        setView(context, views, appWidgetId, station);
                         break;
                     }
                 }
@@ -184,6 +160,33 @@ public class Widget extends AppWidgetProvider {
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    private static void resetView(Context context, RemoteViews views, CityToWatch city) {
+        views.setTextViewText(R.id.widget_city_name, city.getCityName());
+        views.setViewVisibility(R.id.widget_E5,View.GONE);
+        views.setViewVisibility(R.id.widget_E10,View.GONE);
+        views.setViewVisibility(R.id.widget_D,View.GONE);
+        views.setViewVisibility(R.id.widget_image,View.GONE);
+        views.setTextViewText(R.id.widget_dist,"");
+        views.setTextViewText(R.id.widget_updatetime,"");
+        views.setTextViewText(R.id.widget_brand, context.getString(R.string.error_no_open_station));
+    }
+
+    private static void setView(Context context, RemoteViews views, int appWidgetId, Station station) {
+        views.setViewVisibility(R.id.widget_E5, View.VISIBLE);
+        views.setViewVisibility(R.id.widget_E10, View.VISIBLE);
+        views.setViewVisibility(R.id.widget_D, View.VISIBLE);
+        views.setViewVisibility(R.id.widget_image, View.VISIBLE);
+        views.setTextViewText(R.id.widget_E5, StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €"));
+        views.setTextViewText(R.id.widget_E10, StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €"));
+        views.setTextViewText(R.id.widget_D, StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €"));
+        views.setTextViewText(R.id.widget_dist, station.getDistance() + " km");
+        views.setTextViewText(R.id.widget_brand, station.getBrand());
+        String loc = station.getLatitude() + "," + station.getLongitude();
+        Intent intent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc));
+        PendingIntent pendingIntentMap = PendingIntent.getActivity(context, appWidgetId, intent3, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.widget_image, pendingIntentMap);
     }
 
     @Override
