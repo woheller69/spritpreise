@@ -26,6 +26,15 @@
         android:layout_alignStart="@id/widget_dist"
         android:src="@drawable/ic_widget_gas_station_24dp" />
 
+    <ImageView
+        android:id="@+id/widget_fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/widget_image"
+        android:layout_alignBottom="@id/widget_image"
+        android:layout_toRightOf="@id/widget_image"
+        android:src="@drawable/star_primary_dark_24" />
+
     <TextView
         android:id="@+id/widget_city_name"
         android:layout_width="wrap_content"
@@ -43,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:paddingBottom="5dp"
         android:layout_below="@id/widget_D"
         android:paddingTop="4dp"
         android:text="OMV"

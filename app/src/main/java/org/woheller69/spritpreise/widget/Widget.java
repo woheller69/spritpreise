@@ -127,6 +127,7 @@ public class Widget extends AppWidgetProvider {
                         for (String brand : brands) {  //search if one of the preferred brands is available
                             if (station.getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {   //remove leading and trailing spaces and compare
                                 setView(context, views, appWidgetId, station);
+                                views.setViewVisibility(R.id.widget_fav,View.VISIBLE);
                                 foundStation = true;
                                 break;
                             }
@@ -168,6 +169,7 @@ public class Widget extends AppWidgetProvider {
         views.setViewVisibility(R.id.widget_E10,View.GONE);
         views.setViewVisibility(R.id.widget_D,View.GONE);
         views.setViewVisibility(R.id.widget_image,View.GONE);
+        views.setViewVisibility(R.id.widget_fav,View.GONE);
         views.setTextViewText(R.id.widget_dist,"");
         views.setTextViewText(R.id.widget_updatetime,"");
         views.setTextViewText(R.id.widget_brand, context.getString(R.string.error_no_open_station));
