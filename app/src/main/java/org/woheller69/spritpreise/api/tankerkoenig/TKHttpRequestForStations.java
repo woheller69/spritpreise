@@ -46,11 +46,12 @@ public class TKHttpRequestForStations implements IHttpRequestForStations {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         return String.format(
-                "%slist.php?lat=%s&lng=%s&rad=%s&sort=dist&type=all&apikey=%s",
+                "%slist.php?lat=%s&lng=%s&rad=%s&sort=dist&type=%s&apikey=%s",
                 BuildConfig.BASE_URL,
                 lat,
                 lon,
                 sharedPreferences.getString("pref_searchRadius","3"),
+                sharedPreferences.getString("pref_type","all"),
                 prefManager.getTKApiKey(context)
         );
     }

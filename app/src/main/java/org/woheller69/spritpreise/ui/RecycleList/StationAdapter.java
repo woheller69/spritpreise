@@ -69,9 +69,15 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
                 }
             }
         }
-        holder.diesel.setText(StringFormatUtils.formatPrice(context, "D: ",stationList.get(position).getDiesel()," €"));
-        holder.e5.setText( StringFormatUtils.formatPrice(context, "E5: ",stationList.get(position).getE5()," €"));
-        holder.e10.setText(StringFormatUtils.formatPrice(context, "E10: ",stationList.get(position).getE10()," €"));
+        if (stationList.get(position).getDiesel()>0){
+            holder.diesel.setText(StringFormatUtils.formatPrice(context, "D: ",stationList.get(position).getDiesel()," €"));
+        }   else holder.diesel.setVisibility(View.GONE);
+        if (stationList.get(position).getE5()>0){
+            holder.e5.setText( StringFormatUtils.formatPrice(context, "E5: ",stationList.get(position).getE5()," €"));
+        }   else holder.e5.setVisibility(View.GONE);
+        if (stationList.get(position).getE10()>0){
+            holder.e10.setText(StringFormatUtils.formatPrice(context, "E10: ",stationList.get(position).getE10()," €"));
+        }   else holder.e10.setVisibility(View.GONE);
         holder.dist.setText(stationList.get(position).getDistance()+" km");
         holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
         if (stationList.get(position).isOpen()) {

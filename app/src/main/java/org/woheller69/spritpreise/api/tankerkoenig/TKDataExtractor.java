@@ -1,6 +1,8 @@
 package org.woheller69.spritpreise.api.tankerkoenig;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.SharedPreferences;
+import androidx.preference.PreferenceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,9 +26,9 @@ public class TKDataExtractor implements IDataExtractor {
     }
 
     @Override
-    public Station extractStation(String data) {
+    public Station extractStation(String data, Context context) {
         try {
-
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             Station station = new Station();
             TimeZone tz = TimeZone.getDefault();
             Date now = new Date();
@@ -36,9 +38,24 @@ public class TKDataExtractor implements IDataExtractor {
             JSONObject json = new JSONObject(data);
 
             if (json.has("diesel") && !json.isNull("diesel")) station.setDiesel(json.getDouble("diesel"));
-            Log.d("Extract Diesel", String.valueOf(json.getDouble("diesel")));
             if (json.has("e5") && !json.isNull("e5")) station.setE5( json.getDouble("e5"));
             if (json.has("e10") && !json.isNull("e10")) station.setE10( json.getDouble("e10"));
+
+            if (json.has("price")) {
+                if (!json.isNull("price")) {
+                    switch (sharedPreferences.getString("pref_type", "all")) {
+                        case "diesel":
+                            station.setDiesel(json.getDouble("price"));
+                            break;
+                        case "e5":
+                            station.setE5(json.getDouble("price"));
+                            break;
+                        case "e10":
+                            station.setE10(json.getDouble("price"));
+                            break;
+                    }
+                } else return null;
+            }
             station.setOpen(json.getBoolean("isOpen"));
             station.setBrand(json.getString("brand"));
             if (json.getString("brand").equals("")) station.setBrand(json.getString("name"));
@@ -49,7 +66,6 @@ public class TKDataExtractor implements IDataExtractor {
             station.setLatitude(json.getDouble("lat"));
             station.setLongitude(json.getDouble("lng"));
             station.setUuid(json.getString("id"));
-
 
             return station;
         } catch (JSONException e) {

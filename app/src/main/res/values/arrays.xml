@@ -33,6 +33,20 @@
         <item>10</item>
     </string-array>
 
+    <string-array name="types">
+        <item>@string/settings_type_all</item>
+        <item>E5</item>
+        <item>E10</item>
+        <item>D</item>
+    </string-array>
+
+    <string-array name="typesValues">
+        <item>all</item>
+        <item>e5</item>
+        <item>e10</item>
+        <item>diesel</item>
+    </string-array>
+
     <!-- dots inactive colors -->
     <color name="dot_dark_screen">#026499</color>
 

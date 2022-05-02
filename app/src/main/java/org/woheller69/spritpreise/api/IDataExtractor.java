@@ -1,5 +1,7 @@
 package org.woheller69.spritpreise.api;
 
+import android.content.Context;
+
 import org.woheller69.spritpreise.database.Station;
 
 /**
@@ -12,7 +14,7 @@ public interface IDataExtractor {
     boolean wasCityFound(String data);
 
 
-    Station extractStation(String data);
+    Station extractStation(String data, Context context);
 
 
 }

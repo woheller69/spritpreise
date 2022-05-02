@@ -33,42 +33,54 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorPrimaryDark" />
 
-    <TextView
-        android:id="@+id/station_e5"
-        android:layout_width="wrap_content"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginBottom="3dp"
-        android:text="E5: 2,049 €"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_row="1"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimaryDark" />
-    <TextView
-        android:id="@+id/station_e10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginBottom="3dp"
-        android:text="E10: 2,049 €"
+        android:layout_rowSpan="3"
         android:layout_column="0"
         android:layout_columnSpan="2"
-        android:layout_row="2"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimaryDark" />
-    <TextView
-        android:id="@+id/station_diesel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginBottom="3dp"
-        android:text="D: 2,049 €"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:layout_row="3"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimaryDark" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/station_e5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="3dp"
+            android:text="E5: 2,049 €"
+            android:layout_column="0"
+            android:layout_columnSpan="2"
+            android:layout_row="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark" />
+        <TextView
+            android:id="@+id/station_e10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="3dp"
+            android:text="E10: 2,049 €"
+            android:layout_column="0"
+            android:layout_columnSpan="2"
+            android:layout_row="2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark" />
+        <TextView
+            android:id="@+id/station_diesel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="3dp"
+            android:text="D: 2,049 €"
+            android:layout_column="0"
+            android:layout_columnSpan="2"
+            android:layout_row="3"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/station_address"
@@ -89,11 +101,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="3dp"
+        android:layout_marginStart="15dp"
         android:text="Geöffnet"
         android:layout_column="2"
-        android:layout_columnSpan="2"
-        android:layout_rowSpan="2"
-        android:layout_row="2"
+        android:layout_columnSpan="1"
+        android:layout_rowSpan="3"
+        android:layout_row="1"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/colorPrimaryDark" />
 

@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/widget_image"
         android:layout_alignBottom="@id/widget_image"
-        android:layout_toRightOf="@id/widget_image"
+        android:layout_toEndOf="@id/widget_image"
         android:src="@drawable/star_primary_dark_24" />
 
     <TextView
@@ -51,10 +51,10 @@
         android:id="@+id/widget_brand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/widget_types"
         android:layout_marginStart="12dp"
-        android:paddingBottom="5dp"
-        android:layout_below="@id/widget_D"
         android:paddingTop="4dp"
+        android:paddingBottom="5dp"
         android:text="OMV"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
@@ -64,9 +64,9 @@
         android:id="@+id/widget_dist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/widget_brand"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="5dp"
-        android:layout_below="@id/widget_E10"
+
         android:paddingTop="4dp"
         android:text="1.5 km"
         android:textColor="@color/colorPrimaryDark"
@@ -102,64 +102,69 @@
         android:layout_below="@id/widget_update"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="-2dp"
+        android:layout_marginBottom="5dp"
         android:text="(19:15)"
         android:textColor="#FFFFFF"
         android:textSize="14dp"
         android:translationX="-12dp" />
 
-    <TextView
-        android:id="@+id/widget_E5"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/widget_types"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@id/widget_updatetime"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/rounded_grey"
-        android:paddingLeft="7dp"
-        android:paddingTop="0dp"
-        android:paddingRight="7dp"
-        android:paddingBottom="1dp"
-        android:text="2.099 €"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:translationX="-12dp" />
+        android:orientation="vertical"
+        android:minHeight="50dp"
+        android:translationX="-12dp">
 
-    <TextView
-        android:id="@+id/widget_E10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/widget_E5"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/rounded_grey"
-        android:paddingLeft="7dp"
-        android:paddingTop="0dp"
-        android:paddingRight="7dp"
-        android:paddingBottom="1dp"
-        android:text="2.099 €"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:translationX="-12dp" />
+        <TextView
+            android:id="@+id/widget_E5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_gravity="center|end"
+            android:background="@drawable/rounded_grey"
+            android:paddingLeft="7dp"
+            android:paddingTop="0dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="1dp"
+            android:text="2.099 €"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/widget_D"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/widget_E10"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/rounded_grey"
-        android:paddingLeft="7dp"
-        android:paddingTop="0dp"
-        android:paddingRight="7dp"
-        android:paddingBottom="1dp"
-        android:text="2.099 €"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:translationX="-12dp" />
+        <TextView
+            android:id="@+id/widget_E10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_gravity="center|end"
+            android:background="@drawable/rounded_grey"
+            android:paddingLeft="7dp"
+            android:paddingTop="0dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="1dp"
+            android:text="2.099 €"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/widget_D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_gravity="center|end"
+            android:background="@drawable/rounded_grey"
+            android:paddingLeft="7dp"
+            android:paddingTop="0dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="1dp"
+            android:text="2.099 €"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </RelativeLayout>
 

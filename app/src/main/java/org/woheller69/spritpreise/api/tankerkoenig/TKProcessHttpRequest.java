@@ -67,16 +67,8 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
                 for (int i = 0; i < list.length(); i++) {
                     String currentItem = list.get(i).toString();
                     Log.d("Extract", currentItem);
-                    Station station = extractor.extractStation(currentItem);
-                    // Data were not well-formed, abort
-                    if (station == null) {
-                        final String ERROR_MSG = context.getResources().getString(R.string.error_convert_to_json);
-                        if (NavigationActivity.isVisible)
-                            Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    // Could retrieve all data, so proceed
-                    else {
+                    Station station = extractor.extractStation(currentItem,context);
+                    if (station != null) { // Could retrieve all data, so add it to the list
                         station.setCity_id(cityId);
                         // add it to the database
                         dbHelper.addStation(station);

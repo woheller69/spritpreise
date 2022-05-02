@@ -81,6 +81,7 @@
     <string name="error_no_open_station">No open station found</string>
     <string name="error_no_station_found">No station found</string>
     <string name="preferred_brands">Preferred brands (comma separated)</string>
-
+    <string name="settings_type">Type</string>
+    <string name="settings_type_all">All</string>
 
 </resources>

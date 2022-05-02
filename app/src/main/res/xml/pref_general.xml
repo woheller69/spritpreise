@@ -21,6 +21,14 @@
             android:key="pref_searchRadius"
             android:title="@string/settings_search_radius" />
 
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/types"
+            android:entryValues="@array/typesValues"
+            android:key="pref_type"
+            android:title="@string/settings_type"
+            />
+
         <org.woheller69.preferences.EditTextSwitchPreference
             android:selectable="true"
             app:useSimpleSummaryProvider="true"
