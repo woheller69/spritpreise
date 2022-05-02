@@ -15,8 +15,8 @@ android {
         // do not increase targetSdkVersion beyond 29, this will make permission requests for GPS much more complex
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
-        versionCode 11
-        versionName "1.1"
+        versionCode 12
+        versionName "1.2"
 
         buildConfigField "String", "DEFAULT_API_KEY", "\"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX\""
         buildConfigField "String", "UNPATCHED_API_KEY", "\"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX\""
