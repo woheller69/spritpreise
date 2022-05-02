@@ -83,5 +83,7 @@
     <string name="preferred_brands">Preferred brands (comma separated)</string>
     <string name="settings_type">Type</string>
     <string name="settings_type_all">All</string>
+    <string name="settings_sort">Sort by price</string>
+    <string name="settings_sort_summary">Only if single type selected</string>
 
 </resources>

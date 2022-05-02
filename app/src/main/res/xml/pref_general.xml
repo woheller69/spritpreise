@@ -29,6 +29,13 @@
             android:title="@string/settings_type"
             />
 
+        <SwitchPreference
+            android:key="pref_sort"
+            android:summary="@string/settings_sort_summary"
+            android:title="@string/settings_sort"
+            android:defaultValue="false"
+            />
+
         <org.woheller69.preferences.EditTextSwitchPreference
             android:selectable="true"
             app:useSimpleSummaryProvider="true"

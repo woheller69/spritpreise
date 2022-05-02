@@ -44,13 +44,13 @@ public class TKHttpRequestForStations implements IHttpRequestForStations {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
         return String.format(
-                "%slist.php?lat=%s&lng=%s&rad=%s&sort=dist&type=%s&apikey=%s",
+                "%slist.php?lat=%s&lng=%s&rad=%s&sort=%s&type=%s&apikey=%s",
                 BuildConfig.BASE_URL,
                 lat,
                 lon,
                 sharedPreferences.getString("pref_searchRadius","3"),
+                sharedPreferences.getBoolean("pref_sort",false)&&(!sharedPreferences.getString("pref_type","all").equals("all")) ? "price" : "dist",
                 sharedPreferences.getString("pref_type","all"),
                 prefManager.getTKApiKey(context)
         );

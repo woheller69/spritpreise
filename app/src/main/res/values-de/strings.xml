@@ -74,4 +74,6 @@
     <string name="preferred_brands">Bevorzugte Marken (Komma getrennt)</string>
     <string name="settings_type">Sorte</string>
     <string name="settings_type_all">Alle</string>
+    <string name="settings_sort">Nach Preis sortieren</string>
+    <string name="settings_sort_summary">Nur wenn einzelne Sorte gewählt</string>
 </resources>
