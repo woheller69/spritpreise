@@ -37,7 +37,7 @@
         <item>@string/settings_type_all</item>
         <item>E5</item>
         <item>E10</item>
-        <item>D</item>
+        <item>Diesel</item>
     </string-array>
 
     <string-array name="typesValues">
