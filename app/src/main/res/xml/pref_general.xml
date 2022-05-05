@@ -22,7 +22,7 @@
             android:title="@string/settings_search_radius" />
 
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="all"
             android:entries="@array/types"
             android:entryValues="@array/typesValues"
             android:key="pref_type"
