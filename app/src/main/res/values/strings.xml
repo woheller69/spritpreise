@@ -39,7 +39,7 @@
     <string name="dialog_add_add_button">Add</string>
     <string name="error_convert_to_json">The retrieved data was not well-formed. </string>
     <string name="error_no_internet">Your Device is not connected to the Internet</string>
-    <string name="error_fetch_stations">Error retrieving data, please try again!</string>
+    <string name="error_fetch_stations">Error retrieving data, please try again! Check your API-key!</string>
     <string name="error_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
     <string name="error_no_radius_search_result">No city found. Increase search radius</string>
     <string name="error_no_map_app">No map application installed</string>

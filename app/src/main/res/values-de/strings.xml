@@ -21,7 +21,7 @@
     <string name="card_stations_heading">Letzte Abfrage</string>
     <string name="error_convert_to_json">Die erhaltenen Daten entsprachen nicht dem erwarteten Format.</string>
     <string name="error_no_internet">Das Gerät ist nicht mit dem Internet verbunden!</string>
-    <string name="error_fetch_stations">Es ist ein Fehler Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut!</string>
+    <string name="error_fetch_stations">Es ist ein Fehler Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut! Prüfen Sie Ihren API-Key</string>
     <string name="error_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
     <string name="error_no_map_app">Keine Kartenanwendung installiert</string>
     <string name="error_no_radius_search_result">Kein Ort gefunden. Suchradius vergrößern</string>
@@ -31,11 +31,11 @@
     <string name="dialog_add_label">Ort, der hinzugefügt werden soll:</string>
     <string name="dialog_add_no_city_found">Es wurde kein Ort gefunden, der der Eingabe entspricht. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
-    <string name="settings_description_API">Spritpreise erhält die Informationen von dem freien Service tankerkoenig.de. Bitte registrieren Sie ihren eigenen API Key.</string>
+    <string name="settings_description_API">Spritpreise erhält die Informationen von dem freien Service tankerkoenig.de. Bitte registrieren Sie ihren eigenen API-Key.</string>
     <string name="settings_interval_summary">Setzen Sie das Interval der automatischen Updates</string>
     <string name="settings_intervals">Intervalle</string>
-    <string name="settings_title_API">API Key</string>
-    <string name="settings_title_API_key">API Key eingeben</string>
+    <string name="settings_title_API">API-Key</string>
+    <string name="settings_title_API_key">API-Key eingeben</string>
     <string name="settings_update_interval">Update Intervall</string>
     <string name="settings_title_display_options">Anzeigeoptionen</string>
 
@@ -51,7 +51,7 @@
     <string name="long_press_text">Halten und ziehen Sie, um die Städte zu sortieren.</string>
     <string name="swipe_to_delete">Wischen Sie zum Löschen</string>
     <string name="RainViewer">Regenradar</string>
-    <string name="registerTK">Die Informationen stammen von Tankerkönig. Bitte geben Sie Ihren API Key in den Einstellungen ein. Wenn Sie noch keinen API Key haben, drücken Sie den Button unterhalb, um sich kostenlos zu registrieren:</string>
+    <string name="registerTK">Die Informationen stammen von Tankerkönig. Bitte geben Sie Ihren API-Key in den Einstellungen ein. Wenn Sie noch keinen API-Key haben, drücken Sie den Button unterhalb, um sich kostenlos zu registrieren:</string>
     <string name="registerTKbutton">Kostenfrei registrieren</string>
     <string name="dialog_edit_change_button">Ändern</string>
     <string name="dialog_edit_label">ACHTUNG: Dies ändert die interne Städteliste!</string>

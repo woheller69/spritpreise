@@ -79,7 +79,9 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
                 e.printStackTrace();
             }
         } else {
-            Log.d("Extract","Error, no station found");
+            final String ERROR_MSG = context.getResources().getString(R.string.error_fetch_stations);
+            if (NavigationActivity.isVisible)
+                Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
         }
         ViewUpdater.updateStations(stations,cityId);
         possiblyUpdateWidgets(cityId, stations);
