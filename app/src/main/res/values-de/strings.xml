@@ -21,7 +21,7 @@
     <string name="card_stations_heading">Letzte Abfrage</string>
     <string name="error_convert_to_json">Die erhaltenen Daten entsprachen nicht dem erwarteten Format.</string>
     <string name="error_no_internet">Das Gerät ist nicht mit dem Internet verbunden!</string>
-    <string name="error_fetch_stations">Es ist ein Fehler Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut! Prüfen Sie Ihren API-Key!</string>
+    <string name="error_fetch_stations">Es ist ein Fehler beim Abrufen der Daten aufgetreten, bitte versuchen Sie es erneut! Prüfen Sie Ihren API-Key!</string>
     <string name="error_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
     <string name="error_no_map_app">Keine Kartenanwendung installiert</string>
     <string name="error_no_radius_search_result">Kein Ort gefunden. Suchradius vergrößern</string>
