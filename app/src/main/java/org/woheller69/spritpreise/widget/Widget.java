@@ -58,7 +58,6 @@ public class Widget extends AppWidgetProvider {
             Intent intent = new Intent(context, UpdateDataService.class);
             intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
             intent.putExtra("cityId", cityID);
-            intent.putExtra("Widget",true);
             intent.putExtra(SKIP_UPDATE_INTERVAL, true);
             enqueueWork(context, UpdateDataService.class, 0, intent);
         }
@@ -159,8 +158,6 @@ public class Widget extends AppWidgetProvider {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
 
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     private static void resetView(Context context, RemoteViews views, CityToWatch city) {

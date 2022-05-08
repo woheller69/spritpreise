@@ -5,7 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.tabs.TabLayoutMediator;
+import androidx.viewpager2.widget.ViewPager2;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,8 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     private static MenuItem refreshActionButton;
 
     private int cityId = -1;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager2;
+    private TabLayout tabLayout;
     private TextView noCityText;
 
     @Override
@@ -49,21 +51,23 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         SQLiteHelper db = SQLiteHelper.getInstance(this);
         if (db.getAllCitiesToWatch().isEmpty()) {
             // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
-            viewPager.setVisibility(View.GONE);
+            viewPager2.setVisibility(View.GONE);
             noCityText.setVisibility(View.VISIBLE);
 
         } else {
             noCityText.setVisibility(View.GONE);
-            viewPager.setVisibility(View.VISIBLE);
-            viewPager.setAdapter(pagerAdapter);
+            viewPager2.setVisibility(View.VISIBLE);
+            viewPager2.setAdapter(pagerAdapter);
+            TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,false,false, (tab, position) -> tab.setText(pagerAdapter.getPageTitle(position)));
+            tabLayoutMediator.attach();
         }
 
         ViewUpdater.addSubscriber(this);
         ViewUpdater.addSubscriber(pagerAdapter);
 
-        if (pagerAdapter.getCount()>0) {  //only if at least one city is watched
+        if (pagerAdapter.getItemCount()>0) {  //only if at least one city is watched
              //if pagerAdapter has item with current cityId go there, otherwise use cityId from current item
-            if (pagerAdapter.getPosForCityID(cityId)==0) cityId=pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());
+            if (pagerAdapter.getPosForCityID(cityId)==0) cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());
             List <Station> stations = db.getStationsByCityId(cityId);
 
             long timestamp = 0;
@@ -76,8 +80,8 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
                 CityGasPricesActivity.startRefreshAnimation();
             }
+            viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
         }
-        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
     @Override
@@ -88,13 +92,11 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
         initResources();
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 
             @Override
             public void onPageSelected(int position) {
-
+                super.onPageSelected(position);
                 //Update current tab if outside update interval, show animation
                 SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SQLiteHelper database = SQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
@@ -109,16 +111,11 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                     CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
                     CityGasPricesActivity.startRefreshAnimation();
                 }
-                viewPager.setNextFocusRightId(position);
-                cityId=pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());  //save current cityId for next resume
+                viewPager2.setNextFocusRightId(position);
+                cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());  //save current cityId for next resume
             }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {}
         });
-
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(viewPager, true);
 
     }
 
@@ -130,8 +127,9 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     }
 
     private void initResources() {
-        viewPager = findViewById(R.id.viewPager);
-        pagerAdapter = new CityPagerAdapter(this, getSupportFragmentManager());
+        viewPager2 = findViewById(R.id.viewPager2);
+        tabLayout = findViewById(R.id.tab_layout);
+        pagerAdapter = new CityPagerAdapter(this, getSupportFragmentManager(),getLifecycle());
         noCityText = findViewById(R.id.noCitySelectedText);
     }
 
@@ -155,15 +153,6 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                 m.performIdentifierAction(refreshActionButton.getItemId(), 0);
             }
         });
-        /*
-        rainviewerButton = menu.findItem(R.id.menu_rainviewer);
-        rainviewerButton.setActionView(R.layout.menu_rainviewer_view);
-        rainviewerButton.getActionView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m.performIdentifierAction(rainviewerButton.getItemId(), 0);
-            }
-        });*/
 
         return true;
     }
@@ -177,7 +166,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         SQLiteHelper db = SQLiteHelper.getInstance(this);
         if (id==R.id.menu_refresh){
             if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
-                CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
+                CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem()));
                 CityGasPricesActivity.startRefreshAnimation();
             }
         }

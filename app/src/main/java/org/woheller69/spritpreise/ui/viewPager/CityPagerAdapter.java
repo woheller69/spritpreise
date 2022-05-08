@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.CityToWatch;
@@ -22,11 +23,7 @@ import java.util.List;
 import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.woheller69.spritpreise.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
-/**
- * Created by thomagglaser on 07.08.2017.
- */
-
-public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpdateableCityUI {
+public class CityPagerAdapter extends FragmentStateAdapter implements IUpdateableCityUI {
 
     private Context mContext;
 
@@ -35,8 +32,8 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
     private List<CityToWatch> cities;
 
     //Adapter for the Viewpager switching between different locations
-    public CityPagerAdapter(Context context, FragmentManager supportFragmentManager) {
-        super(supportFragmentManager,FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+    public CityPagerAdapter(Context context, @NonNull FragmentManager supportFragmentManager, @NonNull Lifecycle lifecycle) {
+        super(supportFragmentManager,lifecycle);
         this.mContext = context;
         this.database = SQLiteHelper.getInstance(context);
         this.cities = database.getAllCitiesToWatch();
@@ -56,7 +53,7 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
 
     @NonNull
     @Override
-    public CityFragment getItem(int position) {
+    public CityFragment createFragment(int position) {
         Bundle args = new Bundle();
         args.putInt("city_id", cities.get(position).getCityId());
 
@@ -64,11 +61,11 @@ public class CityPagerAdapter extends FragmentStatePagerAdapter implements IUpda
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return cities.size();
     }
 
-    @Override
+
     public CharSequence getPageTitle(int position) {
         if (cities.size() == 0) {
             return mContext.getString(R.string.app_name);
