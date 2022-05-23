@@ -6,6 +6,7 @@ und der erste Tab in der App und das Widget zeigen Tankstellen für Ihren aktuel
 (Dadurch wird die Stadt in Ihrem ersten Tab überschrieben.)
 Sie können Ihre bevorzugten Marken auch in den Einstellungen eintragen. In diesem Fall markiert die Liste in der App Ihre bevorzugten Marken
 mit einem Stern und das Widget zeigt die nächstgelegene Station einer dieser Marken an, sofern im Suchradius verfügbar.
+Sie können die bevorzugte Spritsorte einstellen. In diesem Fall ist dann auch eine Sortierung nach Preis möglich.
 
 Die Daten werden über die Tankerkönig API unter Creative-Commons-Lizenz “CC BY 4.0” von www.tankerkönig.de bereitgestellt.
 Dazu ist ein API Key nötig, der hier beantragt werden kann: https://creativecommons.tankerkoenig.de/api-key

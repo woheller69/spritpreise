@@ -6,6 +6,7 @@ from time to time and the first tab in the app and the widget will show gas stat
 (This will overwrite the city in your first tab.)
 You can also enter your favourite brands in settings. In this case the list in the app will mark your favourite brands
 with a star and the widget will show the closest station of one of these brands if available in the search radius.
+You can set your preferred fuel type. In this case it is also possible to sort results by price.
 
 The data is provided via the Tankerkönig API under the Creative Commons license “CC BY 4.0” from www.tankerkönig.de.
 This requires an API key, which can be requested here: https://creativecommons.tankerkoenig.de/api-key

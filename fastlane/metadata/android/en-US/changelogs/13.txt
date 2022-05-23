@@ -1,0 +1,1 @@
+Added option to set preferred fuel type
