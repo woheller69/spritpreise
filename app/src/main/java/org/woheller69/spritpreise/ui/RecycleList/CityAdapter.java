@@ -89,7 +89,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         StationViewHolder(View v) {
             super(v);
             recyclerView = v.findViewById(R.id.recycler_view_stations);
-            recyclerView.setHasFixedSize(true);
+            recyclerView.setHasFixedSize(false);
             recyclerViewHeader=v.findViewById(R.id.recycler_view_header);
         }
     }
