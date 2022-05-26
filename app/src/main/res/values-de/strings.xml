@@ -69,7 +69,6 @@
     <string name="dialog_StarOnGitHub">Mögen Sie diese App? Bitte vergeben Sie einen Stern auf GitHub.</string>
     <string name="closed">Geschlossen</string>
     <string name="open">Geöffnet</string>
-    <string name="error_no_open_station">Keine offene Tankstelle</string>
     <string name="error_no_station_found">Keine Tankstelle gefunden</string>
     <string name="preferred_brands">Bevorzugte Marken (Komma getrennt)</string>
     <string name="settings_type">Sorte</string>

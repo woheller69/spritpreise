@@ -170,7 +170,7 @@ public class Widget extends AppWidgetProvider {
         views.setViewVisibility(R.id.widget_types,View.GONE);
         views.setTextViewText(R.id.widget_dist,"");
         views.setTextViewText(R.id.widget_updatetime,"");
-        views.setTextViewText(R.id.widget_brand, context.getString(R.string.error_no_open_station));
+        views.setTextViewText(R.id.widget_brand, context.getString(R.string.error_no_station_found));
     }
 
     private static void setView(Context context, RemoteViews views, int appWidgetId, Station station) {
