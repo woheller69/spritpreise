@@ -84,5 +84,6 @@
     <string name="settings_type_all">All</string>
     <string name="settings_sort">Sort by price</string>
     <string name="settings_sort_summary">Only if single type selected</string>
+    <string name="action_position">UpdateLocation</string>
 
 </resources>
