@@ -163,7 +163,8 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         final Menu m = menu;
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         updateLocationButton = menu.findItem(R.id.menu_update_location);
-        if(prefManager.getBoolean("pref_GPS", true)==TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        SQLiteHelper db = SQLiteHelper.getInstance(this);
+        if(prefManager.getBoolean("pref_GPS", true)==TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && !db.getAllCitiesToWatch().isEmpty()) {
             updateLocationButton.setVisible(true);
             updateLocationButton.setActionView(R.layout.menu_update_location_view);
             updateLocationButton.getActionView().clearAnimation();
@@ -220,8 +221,10 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                                     city.setLongitude((float) location.getLongitude());
                                     city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                                     db.updateCityToWatch(city);
+                                    db.deleteStationsByCityId(getWidgetCityID(context));
                                     tabLayout.getTabAt(0).setText(city.getCityName());
                                     CityPagerAdapter.refreshSingleData(getApplicationContext(),true, getWidgetCityID(context));
+                                    CityGasPricesActivity.startRefreshAnimation();
                                     if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
                                     locationListenerGPS=null;
                                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
