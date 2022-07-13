@@ -172,13 +172,12 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                     startUpdateLocatationAnimation();
                 }
             }
-            updateLocationButton.getActionView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    m.performIdentifierAction(updateLocationButton.getItemId(), 0);
-                }
-            });
+            updateLocationButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(updateLocationButton.getItemId(), 0));
         }else{
+            if (locationListenerGPS!=null) {
+                locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
+            }
             locationListenerGPS=null;
             if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                 updateLocationButton.getActionView().clearAnimation();
@@ -187,12 +186,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
         refreshActionButton = menu.findItem(R.id.menu_refresh);
         refreshActionButton.setActionView(R.layout.menu_refresh_action_view);
-        refreshActionButton.getActionView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m.performIdentifierAction(refreshActionButton.getItemId(), 0);
-            }
-        });
+        refreshActionButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(refreshActionButton.getItemId(), 0));
 
         return true;
     }
@@ -250,7 +244,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                         };
                         Log.d("GPS", "Request Updates");
                         CityGasPricesActivity.startUpdateLocatationAnimation();
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locationListenerGPS);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListenerGPS);
                     }
                 }
             }
