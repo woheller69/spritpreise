@@ -33,6 +33,7 @@ import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
+import org.woheller69.spritpreise.widget.Widget;
 
 import java.util.List;
 import java.util.Locale;
@@ -216,14 +217,14 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                             public void onLocationChanged(android.location.Location location) {
                                 Log.d("GPS", "Location changed");
                                 SQLiteHelper db = SQLiteHelper.getInstance(context);
-                                CityToWatch city = db.getCityToWatch(getWidgetCityID(context));
+                                CityToWatch city = db.getCityToWatch(Widget.getWidgetCityID(context));
                                     city.setLatitude((float) location.getLatitude());
                                     city.setLongitude((float) location.getLongitude());
                                     city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                                     db.updateCityToWatch(city);
-                                    db.deleteStationsByCityId(getWidgetCityID(context));
+                                    db.deleteStationsByCityId(Widget.getWidgetCityID(context));
                                     tabLayout.getTabAt(0).setText(city.getCityName());
-                                    CityPagerAdapter.refreshSingleData(getApplicationContext(),true, getWidgetCityID(context));
+                                    CityPagerAdapter.refreshSingleData(getApplicationContext(),true, Widget.getWidgetCityID(context));
                                     CityGasPricesActivity.startRefreshAnimation();
                                     if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
                                     locationListenerGPS=null;
@@ -331,21 +332,6 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                 updateLocationButton.getActionView().startAnimation(rotate);
             }
         }
-    }
-
-    public static int getWidgetCityID(Context context) {
-        SQLiteHelper db = SQLiteHelper.getInstance(context);
-        int cityID=0;
-        List<CityToWatch> cities = db.getAllCitiesToWatch();
-        int rank=cities.get(0).getRank();
-        for (int i = 0; i < cities.size(); i++) {   //find cityID for first city to watch = lowest Rank
-            CityToWatch city = cities.get(i);
-            if (city.getRank() <= rank ){
-                rank=city.getRank();
-                cityID = city.getCityId();
-            }
-        }
-        return cityID;
     }
 }
 
