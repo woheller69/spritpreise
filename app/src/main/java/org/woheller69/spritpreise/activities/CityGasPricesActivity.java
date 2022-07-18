@@ -97,7 +97,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                 CityPagerAdapter.refreshSingleData(getApplicationContext(),true, cityId); //only update current tab at start
                 CityGasPricesActivity.startRefreshAnimation();
             }
-            viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+            if (viewPager2.getCurrentItem()!=pagerAdapter.getPosForCityID(cityId)) viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId),false);
         }
     }
 
@@ -129,7 +129,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                     CityPagerAdapter.refreshSingleData(getApplicationContext(),true, pagerAdapter.getCityIDForPos(position));
                     CityGasPricesActivity.startRefreshAnimation();
                 }
-                viewPager2.setNextFocusRightId(position);
+
                 cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());  //save current cityId for next resume
             }
 
@@ -305,12 +305,12 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     public static void startUpdateLocatationAnimation(){
         {
             if(updateLocationButton !=null && updateLocationButton.getActionView() != null) {
-                Animation rotate = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
-                rotate.setDuration(1000);
-                rotate.setRepeatCount(Animation.INFINITE);
-                rotate.setInterpolator(new LinearInterpolator());
-                rotate.setRepeatMode(Animation.REVERSE);
-                rotate.setAnimationListener(new Animation.AnimationListener() {
+                Animation blink = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+                blink.setDuration(1000);
+                blink.setRepeatCount(Animation.INFINITE);
+                blink.setInterpolator(new LinearInterpolator());
+                blink.setRepeatMode(Animation.REVERSE);
+                blink.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
                         updateLocationButton.getActionView().setActivated(false);
@@ -329,7 +329,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                     public void onAnimationRepeat(Animation animation) {
                     }
                 });
-                updateLocationButton.getActionView().startAnimation(rotate);
+                updateLocationButton.getActionView().startAnimation(blink);
             }
         }
     }
