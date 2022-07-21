@@ -63,8 +63,6 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     protected void onResume() {
         super.onResume();
 
-        initResources();
-
         SQLiteHelper db = SQLiteHelper.getInstance(this);
         if (db.getAllCitiesToWatch().isEmpty()) {
             // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
@@ -84,7 +82,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
         if (pagerAdapter.getItemCount()>0) {  //only if at least one city is watched
              //if pagerAdapter has item with current cityId go there, otherwise use cityId from current item
-            if (pagerAdapter.getPosForCityID(cityId)==0) cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());
+            if (pagerAdapter.getPosForCityID(cityId)==-1) cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());
             List <Station> stations = db.getStationsByCityId(cityId);
 
             long timestamp = 0;
@@ -141,7 +139,10 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        if (intent.hasExtra("cityId")) cityId = intent.getIntExtra("cityId",-1);
+        if (intent.hasExtra("cityId")) {
+            cityId = intent.getIntExtra("cityId",-1);
+            if (pagerAdapter.getItemCount()>0) viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId),false);
+        }
     }
 
     private void initResources() {
@@ -223,9 +224,9 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                                     city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                                     db.updateCityToWatch(city);
                                     db.deleteStationsByCityId(Widget.getWidgetCityID(context));
+                                    pagerAdapter.loadCities();
+                                    viewPager2.setAdapter(pagerAdapter);
                                     tabLayout.getTabAt(0).setText(city.getCityName());
-                                    CityPagerAdapter.refreshSingleData(getApplicationContext(),true, Widget.getWidgetCityID(context));
-                                    CityGasPricesActivity.startRefreshAnimation();
                                     if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
                                     locationListenerGPS=null;
                                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
