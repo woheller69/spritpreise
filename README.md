@@ -18,7 +18,7 @@ This requires an API key, which can be requested here: https://creativecommons.t
 
 A version with integrated API key can be downloaded from GitHub releases:
 
-<a href="https://github.com/woheller69/spritpreise/releases/download/V1.3/Spritpreise_V1.3.apk"><img src="https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white%20%27Download%27" height="60" ></a>
+<a href="https://github.com/woheller69/spritpreise/releases/download/V1.4/Spritpreise_V1.4.apk"><img src="https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white%20%27Download%27" height="60" ></a>
 
 For the version from F-Droid you need your own API key!
 
