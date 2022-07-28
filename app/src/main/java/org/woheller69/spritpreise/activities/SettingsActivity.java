@@ -17,6 +17,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import org.woheller69.spritpreise.R;
+import org.woheller69.spritpreise.database.SQLiteHelper;
 
 import static java.lang.Boolean.TRUE;
 
@@ -32,11 +33,12 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) && (Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q)){
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION},1);
+                if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 1);
                     }
                 }
             }
@@ -76,6 +78,9 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
                                     Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 1);
                 }
             }
+        } else if (s.equals("pref_type")|s.equals("pref_sort")){
+            SQLiteHelper database = SQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
+            database.deleteAllStations();
         }
     }
 

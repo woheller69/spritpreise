@@ -264,6 +264,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
+    public synchronized void deleteAllStations() {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("delete from " + TABLE_STATIONS);
+        database.close();
+    }
+
     public synchronized void deleteStationsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_STATIONS, STATION_CITY_ID + " = ?",
