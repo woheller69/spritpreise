@@ -9,7 +9,6 @@ with a star and the widget will show the closest station of one of these brands 
 You can set your preferred fuel type. In this case it is also possible to sort results by price.
 
 The data is provided via the Tankerkönig API under the Creative Commons license “CC BY 4.0” from www.tankerkönig.de.
-This requires an API key, which can be requested here: https://creativecommons.tankerkoenig.de/api-key
 
 Minimum permissions:
 Gas Prices only requires the minimum amount of permission, namely only the INTERNET permission. This permission is necessary to make HTTP requests to remote servers for retrieving weather data.

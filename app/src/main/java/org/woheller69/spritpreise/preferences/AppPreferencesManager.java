@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import org.woheller69.spritpreise.BuildConfig;
 import org.woheller69.spritpreise.R;
-import static org.woheller69.preferences.Utils.apiKey;
+import static org.woheller69.preferences.Utils.getKey;
 
 /**
  * This class provides access and methods for relevant preferences.
@@ -42,7 +42,7 @@ public class AppPreferencesManager {
             new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(context, context.getResources().getString(R.string.settings_title_API_key), Toast.LENGTH_LONG).show());
             return "";
         } else {
-            return apiKey(BuildConfig.DEFAULT_API_KEY);
+            return getKey(BuildConfig.DEFAULT_API_KEY);
         }
     }
 

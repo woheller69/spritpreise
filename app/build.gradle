@@ -15,8 +15,8 @@ android {
         // do not increase targetSdkVersion beyond 29, this will make permission requests for GPS much more complex
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
-        versionCode 14
-        versionName "1.4"
+        versionCode 15
+        versionName "1.5"
 
         buildConfigField "String", "DEFAULT_API_KEY", "\"${project.findProperty("prop1")}\""
         buildConfigField "String", "UNPATCHED_API_KEY", "\"OTgxMjBmODAtNzYwNy0zOTQxLTI3NGUtMDE5MGI0NDg2NmZh\""
@@ -40,5 +40,5 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.github.woheller69:preferences:1.1'
+    implementation 'com.github.woheller69:preferences:1.2'
 }
