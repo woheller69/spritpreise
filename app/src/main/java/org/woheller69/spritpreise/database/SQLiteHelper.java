@@ -328,4 +328,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    public static int getWidgetCityID(Context context) {
+        SQLiteHelper db = SQLiteHelper.getInstance(context);
+        int cityID=0;
+        List<CityToWatch> cities = db.getAllCitiesToWatch();
+        int rank=cities.get(0).getRank();
+        for (int i = 0; i < cities.size(); i++) {   //find cityID for first city to watch = lowest Rank
+            CityToWatch city = cities.get(i);
+            if (city.getRank() <= rank ){
+                rank=city.getRank();
+                cityID = city.getCityId();
+            }
+        }
+        return cityID;
+    }
 }

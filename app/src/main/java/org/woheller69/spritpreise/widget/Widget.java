@@ -39,8 +39,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
+import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
 
-import static java.lang.Boolean.TRUE;
 import static org.woheller69.spritpreise.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 public class Widget extends AppWidgetProvider {
@@ -62,21 +62,6 @@ public class Widget extends AppWidgetProvider {
             enqueueWork(context, UpdateDataService.class, 0, intent);
         }
     }
-
-    public static int getWidgetCityID(Context context) {
-        SQLiteHelper db = SQLiteHelper.getInstance(context);
-        int cityID=0;
-        List<CityToWatch> cities = db.getAllCitiesToWatch();
-        int rank=cities.get(0).getRank();
-        for (int i = 0; i < cities.size(); i++) {   //find cityID for first city to watch = lowest Rank
-            CityToWatch city = cities.get(i);
-            if (city.getRank() <= rank ){
-                rank=city.getRank();
-                cityID = city.getCityId();
-            }
-         }
-        return cityID;
-}
 
     public static void updateLocation(final Context context, int cityID, boolean manual) {
         SQLiteHelper db = SQLiteHelper.getInstance(context);
@@ -271,7 +256,7 @@ public class Widget extends AppWidgetProvider {
         // Enter relevant functionality for when the first widget is created
         SQLiteHelper dbHelper = SQLiteHelper.getInstance(context);
 
-        int widgetCityID= Widget.getWidgetCityID(context);
+        int widgetCityID= getWidgetCityID(context);
 
         List<Station> stations =dbHelper.getStationsByCityId(widgetCityID);
 

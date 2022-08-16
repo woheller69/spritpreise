@@ -23,6 +23,7 @@ import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.api.IDataExtractor;
 import org.woheller69.spritpreise.api.IProcessHttpRequest;
 import org.woheller69.spritpreise.widget.Widget;
+import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +107,7 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
 
     private void possiblyUpdateWidgets(int cityID, List<Station> stations) {
         //search for widgets with same city ID
-        int widgetCityID = Widget.getWidgetCityID(context);
+        int widgetCityID = getWidgetCityID(context);
 
         int[] widgetIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class));
 

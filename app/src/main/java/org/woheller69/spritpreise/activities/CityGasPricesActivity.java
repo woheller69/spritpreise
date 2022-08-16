@@ -33,7 +33,7 @@ import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
 import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
-import org.woheller69.spritpreise.widget.Widget;
+import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
 
 import java.util.List;
 import java.util.Locale;
@@ -218,12 +218,12 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                             public void onLocationChanged(android.location.Location location) {
                                 Log.d("GPS", "Location changed");
                                 SQLiteHelper db = SQLiteHelper.getInstance(context);
-                                CityToWatch city = db.getCityToWatch(Widget.getWidgetCityID(context));
+                                CityToWatch city = db.getCityToWatch(getWidgetCityID(context));
                                     city.setLatitude((float) location.getLatitude());
                                     city.setLongitude((float) location.getLongitude());
                                     city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                                     db.updateCityToWatch(city);
-                                    db.deleteStationsByCityId(Widget.getWidgetCityID(context));
+                                    db.deleteStationsByCityId(getWidgetCityID(context));
                                     pagerAdapter.loadCities();
                                     viewPager2.setAdapter(pagerAdapter);
                                     tabLayout.getTabAt(0).setText(city.getCityName());
