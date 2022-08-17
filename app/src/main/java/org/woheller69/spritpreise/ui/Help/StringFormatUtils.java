@@ -25,9 +25,9 @@ public final class StringFormatUtils {
     private static final DecimalFormat intFormat = new DecimalFormat("0");
 
     public static SpannableString formatPrice(Context context, String prefix, Double price, String suffix){
-        String pricestring;
-        if (price == 0) pricestring ="0.000";
-        else pricestring = Double.toString(price);
+        DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(Locale.ENGLISH);
+        format.applyPattern("0.000");
+        String pricestring = format.format(price);
         SpannableString priceformat = new SpannableString(prefix + pricestring + suffix);
         priceformat.setSpan(new TextAppearanceSpan(context, android.R.style.TextAppearance_Small), priceformat.length()-3, priceformat.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         priceformat.setSpan(new SuperscriptSpan(), priceformat.length()-3, priceformat.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
