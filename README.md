@@ -30,7 +30,7 @@ For the version from F-Droid you need your own API key!
 This app is licensed under the GPLv3.
 
 The app also uses:
-- Data is provided via the Tankerkönig API (www.tankerkönig.de) under Creative-Commons-Lizenz “CC BY 4.0”, <a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons licence CC BY-SA 4.0</a>
+- Data is provided via the Tankerkönig API (www.tankerkönig.de) under Creative-Commons-Licence “CC BY 4.0”, <a href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons licence CC BY-SA 4.0</a>
 - The code is based on Privacy Friendly Weather (https://github.com/SecUSo/privacy-friendly-weather), which is published under GPLv3
 - Icons from [Google Material Design Icons](https://material.io/resources/icons/) licensed under <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License Version 2.0</a>
 - Material Components for Android (https://github.com/material-components/material-components-android) which is licensed under <a href='https://github.com/material-components/material-components-android/blob/master/LICENSE'>Apache License Version 2.0</a>

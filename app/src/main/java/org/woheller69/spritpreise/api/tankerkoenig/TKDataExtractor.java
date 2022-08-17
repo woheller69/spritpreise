@@ -30,10 +30,7 @@ public class TKDataExtractor implements IDataExtractor {
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             Station station = new Station();
-            TimeZone tz = TimeZone.getDefault();
-            Date now = new Date();
-            double offsetFromUtc = tz.getOffset(now.getTime()) / 3600.0;
-            station.setTimestamp((long) ((System.currentTimeMillis() + offsetFromUtc)/ 1000));
+            station.setTimestamp((long) ((System.currentTimeMillis())/ 1000));
 
             JSONObject json = new JSONObject(data);
 
