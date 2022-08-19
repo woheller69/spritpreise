@@ -14,14 +14,6 @@ You can set your preferred fuel type. In this case it is also possible to sort r
 
 The data is provided via the Tankerkönig API under the Creative Commons license “CC BY 4.0” from www.tankerkönig.de.
 
-This requires an API key, which can be requested here: https://creativecommons.tankerkoenig.de/api-key
-
-A version with integrated API key can be downloaded from GitHub releases:
-
-<a href="https://github.com/woheller69/spritpreise/releases/download/V1.4/Spritpreise_V1.4.apk"><img src="https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white%20%27Download%27" height="60" ></a>
-
-For the version from F-Droid you need your own API key!
-
 <a href="https://f-droid.org/packages/org.woheller69.spritpreise"><img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="100"></a>
 
 
