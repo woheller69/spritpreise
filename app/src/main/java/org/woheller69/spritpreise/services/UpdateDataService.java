@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager;
 import androidx.core.app.JobIntentService;
 import android.widget.Toast;
 
+import org.woheller69.spritpreise.BuildConfig;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.NavigationActivity;
 import org.woheller69.spritpreise.database.CityToWatch;
@@ -17,6 +18,7 @@ import org.woheller69.spritpreise.api.tankerkoenig.TKHttpRequestForStations;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -102,7 +104,8 @@ public class UpdateDataService extends JobIntentService {
 
     private boolean isOnline() {
         try {
-            InetAddress inetAddress = InetAddress.getByName("creativecommons.tankerkoenig.de");
+            URL url = new URL(BuildConfig.BASE_URL);
+            InetAddress inetAddress = InetAddress.getByName(url.getHost());
             return inetAddress.isReachable(2000);
         } catch (IOException | IllegalArgumentException e) {
             return false;
