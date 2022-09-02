@@ -1,9 +1,7 @@
-Spritpreise stellt die Preise, die die Tankstellen in Deutschland and die Markttransparenzstelle melden zur Verfügung.
+Spritpreise stellt die Preise, die die Tankstellen in Deutschland und die Markttransparenzstelle melden, zur Verfügung.
 Sie können Ihre eigenen Standorte auswählen und erhalten aktuelle Spritpreise.
 Durch Klicken auf eine Tankstelle in der Liste oder auf das Symbol im Widget wird die Tankstelle in einer Kartenanwendung angezeigt.
-Sie können der App auch erlauben, GPS zu verwenden. Wenn Sie dies tun und das App-Widget installiert haben, wird die Position von Zeit zu Zeit aktualisiert
-und der erste Tab in der App und das Widget zeigen Tankstellen für Ihren aktuellen Standort an.
-(Dadurch wird die Stadt in Ihrem ersten Tab überschrieben.)
+Sie können der App auch erlauben, GPS zu verwenden. Wenn Sie dies tun und das App-Widget installiert haben, wird die Position von Zeit zu Zeit aktualisiert und der erste Tab in der App und das Widget zeigen Tankstellen für Ihren aktuellen Standort an. (Dadurch wird die Stadt in Ihrem ersten Tab überschrieben.)
 Sie können Ihre bevorzugten Marken auch in den Einstellungen eintragen. In diesem Fall markiert die Liste in der App Ihre bevorzugten Marken
 mit einem Stern und das Widget zeigt die nächstgelegene Station einer dieser Marken an, sofern im Suchradius verfügbar.
 Sie können die bevorzugte Spritsorte einstellen. In diesem Fall ist dann auch eine Sortierung nach Preis möglich.
@@ -11,7 +9,5 @@ Sie können die bevorzugte Spritsorte einstellen. In diesem Fall ist dann auch e
 Die Daten werden über die Tankerkönig API unter Creative-Commons-Lizenz “CC BY 4.0” von www.tankerkönig.de bereitgestellt.
 
 Minimale Berechtigungen:
-Spritpreise Deutschland benötigt nur ein Minimum an Berechtigungen, nämlich nur die INTERNET-Berechtigung. Diese ist nötig, um HTTP-Anfragen an entfernte Server zu stellen, um Wetterdaten zu erhalten.
+Spritpreise benötigt nur ein Minimum an Berechtigungen, nämlich nur die INTERNET-Berechtigung. Diese ist nötig, um HTTP-Anfragen an entfernte Server zu stellen, um Spritpreise zu erhalten.
 Optional: Berechtigung für GPS.
-
-
