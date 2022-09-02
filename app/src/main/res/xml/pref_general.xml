@@ -18,6 +18,7 @@
             android:defaultValue="3"
             android:entries="@array/searchRadiusArray"
             android:entryValues="@array/searchRadiusValues"
+            app:useSimpleSummaryProvider="true"
             android:key="pref_searchRadius"
             android:title="@string/settings_search_radius" />
 
@@ -25,6 +26,7 @@
             android:defaultValue="all"
             android:entries="@array/types"
             android:entryValues="@array/typesValues"
+            app:useSimpleSummaryProvider="true"
             android:key="pref_type"
             android:title="@string/settings_type"
             />
@@ -48,6 +50,7 @@
             android:defaultValue="15"
             android:entries="@array/refreshIntervalArray"
             android:entryValues="@array/refreshIntervalValues"
+            app:useSimpleSummaryProvider="true"
             android:key="pref_updateInterval"
             android:title="@string/settings_update_interval" />
 
