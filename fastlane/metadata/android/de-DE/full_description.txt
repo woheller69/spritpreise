@@ -1,4 +1,4 @@
-Spritpreise stellt die Preise, die die Tankstellen in Deutschland und die Markttransparenzstelle melden, zur Verfügung.
+Spritpreise stellt die Preise, die die Tankstellen in Deutschland an die Markttransparenzstelle melden, zur Verfügung.
 Sie können Ihre eigenen Standorte auswählen und erhalten aktuelle Spritpreise.
 Durch Klicken auf eine Tankstelle in der Liste oder auf das Symbol im Widget wird die Tankstelle in einer Kartenanwendung angezeigt.
 Sie können der App auch erlauben, GPS zu verwenden. Wenn Sie dies tun und das App-Widget installiert haben, wird die Position von Zeit zu Zeit aktualisiert und der erste Tab in der App und das Widget zeigen Tankstellen für Ihren aktuellen Standort an. (Dadurch wird die Stadt in Ihrem ersten Tab überschrieben.)
