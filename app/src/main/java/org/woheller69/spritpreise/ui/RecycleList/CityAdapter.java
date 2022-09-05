@@ -1,8 +1,10 @@
 package org.woheller69.spritpreise.ui.RecycleList;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.woheller69.spritpreise.R;
+import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
+import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +95,21 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             recyclerView = v.findViewById(R.id.recycler_view_stations);
             recyclerView.setHasFixedSize(false);
             recyclerViewHeader=v.findViewById(R.id.recycler_view_header);
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+                @SuppressLint("ClickableViewAccessibility")
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    if (!recyclerView.canScrollVertically(-1)){
+                        recyclerView.setOnTouchListener(new OnSwipeDownListener(context) {
+                            public void onSwipeDown() {
+                                CityPagerAdapter.refreshSingleData(context,true,stationList.get(0).getCity_id());
+                                CityGasPricesActivity.startRefreshAnimation();
+                            }
+                        });
+                    }else recyclerView.setOnTouchListener(null);
+                }
+            });
         }
     }
 
