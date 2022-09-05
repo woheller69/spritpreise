@@ -78,7 +78,7 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
                                     Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 1);
                 }
             }
-        } else if (s.equals("pref_type")|s.equals("pref_sort")){
+        } else if (s.equals("pref_type")||s.equals("pref_sort")||s.equals(("pref_searchRadius"))){
             SQLiteHelper database = SQLiteHelper.getInstance(getApplicationContext().getApplicationContext());
             database.deleteAllStations();
         }
