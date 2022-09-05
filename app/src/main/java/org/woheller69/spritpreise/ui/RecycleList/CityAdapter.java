@@ -30,10 +30,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     private int[] dataSetTypes;
     private List<Station> stationList;
-
+    private int cityID;
     private Context context;
-
-
 
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
@@ -44,6 +42,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         this.dataSetTypes = dataSetTypes;
         this.context = context;
+        this.cityID = cityID;
 
         SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
 
@@ -103,7 +102,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     if (!recyclerView.canScrollVertically(-1)){
                         recyclerView.setOnTouchListener(new OnSwipeDownListener(context) {
                             public void onSwipeDown() {
-                                CityPagerAdapter.refreshSingleData(context,true,stationList.get(0).getCity_id());
+                                CityPagerAdapter.refreshSingleData(context,true,cityID);
                                 CityGasPricesActivity.startRefreshAnimation();
                             }
                         });
