@@ -58,7 +58,7 @@ public class TKDataExtractor implements IDataExtractor {
             if (json.getString("brand").equals("")) station.setBrand(json.getString("name"));
             station.setName(json.getString("name"));
             station.setAddress1(json.getString("street")+" "+json.getString("houseNumber"));
-            station.setAddress2(json.getString("postCode") +" "+json.getString("place"));
+            station.setAddress2(formatPostCode(json.getString("postCode")) +" "+json.getString("place"));
             station.setDistance(json.getDouble("dist"));
             station.setLatitude(json.getDouble("lat"));
             station.setLongitude(json.getDouble("lng"));
@@ -71,4 +71,8 @@ public class TKDataExtractor implements IDataExtractor {
         return null;
     }
 
+    public static String formatPostCode(String string) {
+        // Adds a leading 0 to the postcode string if needed
+        return string.length() == 4 ? ("0" + string) : string;
+    }
 }
