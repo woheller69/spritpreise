@@ -59,9 +59,6 @@ public class CityPagerAdapter extends FragmentStateAdapter implements IUpdateabl
 
 
     public CharSequence getPageTitle(int position) {
-        if (cities.size() == 0) {
-            return mContext.getString(R.string.app_name);
-        }
         return cities.get(position).getCityName();
     }
 
