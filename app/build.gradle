@@ -21,6 +21,7 @@ android {
         buildConfigField "String", "DEFAULT_API_KEY", "\"${project.findProperty("prop1")}\""
         buildConfigField "String", "UNPATCHED_API_KEY", "\"OTgxMjBmODAtNzYwNy0zOTQxLTI3NGUtMDE5MGI0NDg2NmZh\""
         buildConfigField "String", "BASE_URL", "\"https://creativecommons.tankerkoenig.de/json/\""
+        buildConfigField "String", "GITHUB_URL","\"https://github.com/woheller69/spritpreise/\""
     }
 
     buildTypes {
