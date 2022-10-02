@@ -20,7 +20,8 @@
 
         <activity
             android:name="org.woheller69.spritpreise.activities.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -67,7 +68,8 @@
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
 
-        <receiver android:name="org.woheller69.spritpreise.widget.Widget">
+        <receiver android:name="org.woheller69.spritpreise.widget.Widget"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
