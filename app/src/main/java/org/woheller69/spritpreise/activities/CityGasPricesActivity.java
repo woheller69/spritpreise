@@ -72,6 +72,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         } else {
             noCityText.setVisibility(View.GONE);
             viewPager2.setVisibility(View.VISIBLE);
+            pagerAdapter.loadCities();
             viewPager2.setAdapter(pagerAdapter);
             TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,false,false, (tab, position) -> tab.setText(pagerAdapter.getPageTitle(position)));
             tabLayoutMediator.attach();
