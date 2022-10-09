@@ -50,14 +50,7 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Checking for first time launch - before calling setContentView()
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
-
-        if (!prefManager.isFirstTimeLaunch()) {
-            launchHomeScreen();
-            finish();
-        }
 
         setContentView(R.layout.activity_tutorial);
 
@@ -69,12 +62,18 @@ public class TutorialActivity extends AppCompatActivity {
 
         // layouts of all welcome sliders
         // add few more layouts if you want
-        layouts = new int[]{
-                R.layout.tutorial_slide1,
-                R.layout.tutorial_slide2,
-                R.layout.tutorial_slide3,
-                R.layout.tutorial_slide4};
-
+        if (prefManager.isApiKeyMissing()) {
+            layouts = new int[]{
+                    R.layout.tutorial_slide1,
+                    R.layout.tutorial_slide2,
+                    R.layout.tutorial_slide3,
+                    R.layout.tutorial_slide4};
+        } else {
+            layouts = new int[]{
+                    R.layout.tutorial_slide1,
+                    R.layout.tutorial_slide2,
+                    R.layout.tutorial_slide3};  //do not show slide for API key registration if app has built in API key
+        }
         // adding bottom dots
         addBottomDots(0);
 
@@ -97,7 +96,8 @@ public class TutorialActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchSettings();
+                    if (prefManager.isApiKeyMissing()) launchSettings();
+                    else launchHomeScreen();
                 }
             }
         });

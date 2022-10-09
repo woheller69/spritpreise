@@ -54,7 +54,7 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mHandler = new Handler(Looper.getMainLooper());
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
-        if (prefManager.showStarDialog()) {
+        if (prefManager.showStarDialog(this)) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setMessage(R.string.dialog_StarOnGitHub);
             alertDialogBuilder.setPositiveButton(getString(R.string.dialog_OK_button), new DialogInterface.OnClickListener() {

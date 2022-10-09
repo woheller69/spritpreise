@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
-        if (prefManager.isFirstTimeLaunch()){  //First time got to TutorialActivity
+        if (prefManager.isFirstTimeLaunch(this)){  //First time got to TutorialActivity
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
         } else { //otherwise directly start CityGasPricesActivity
