@@ -78,4 +78,5 @@
     <string name="action_position">Position aktualisieren</string>
     <string name="settings_GPS_manual">Nur manuell aktualisieren</string>
     <string name="rationale_background_location">Bitte erlauben Sie auch die GPS Nutzung im Hintergrund für die Verwendung im Widget</string>
+    <string name="error_no_gps">Bitte GPS einschalten</string>
 </resources>
