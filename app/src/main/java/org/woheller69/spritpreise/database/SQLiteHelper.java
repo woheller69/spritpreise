@@ -155,7 +155,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
             cursor.close();
         }
-
+        database.close();
         return cityToWatch;
 
     }
@@ -193,6 +193,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
+        database.close();
         return cityToWatchList;
     }
 
@@ -208,9 +209,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         database.update(TABLE_CITIES_TO_WATCH, values, CITIES_TO_WATCH_ID + " = ?",
                 new String[]{String.valueOf(cityToWatch.getId())});
+        database.close();
     }
 
-    public void deleteCityToWatch(CityToWatch cityToWatch) {
+    public synchronized void deleteCityToWatch(CityToWatch cityToWatch) {
 
         //First delete all price data for city which is deleted
         deleteStationsByCityId(cityToWatch.getCityId());
@@ -222,7 +224,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-    public int getWatchedCitiesCount() {
+    public synchronized int getWatchedCitiesCount() {
         SQLiteDatabase database = this.getWritableDatabase();
         long count = DatabaseUtils.queryNumEntries(database, TABLE_CITIES_TO_WATCH);
         database.close();
@@ -325,6 +327,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
             cursor.close();
         }
+        database.close();
         return list;
     }
 
