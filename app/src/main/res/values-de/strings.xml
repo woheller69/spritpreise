@@ -66,7 +66,7 @@
     <string name="dialog_OK_button">OK</string>
     <string name="dialog_NO_button">Nein</string>
     <string name="dialog_Later_button">Vielleicht später</string>
-    <string name="dialog_StarOnGitHub">Mögen Sie diese App? Bitte vergeben Sie einen Stern auf GitHub.</string>
+    <string name="dialog_StarOnGitHub">Mögen Sie diese App? Bitte vergeben Sie einen Stern auf GitHub oder spendieren Sie dem Entwickler einen Kaffee über PayPal.</string>
     <string name="closed">Geschlossen</string>
     <string name="open">Geöffnet</string>
     <string name="error_no_station_found">Keine Tankstelle gefunden</string>
