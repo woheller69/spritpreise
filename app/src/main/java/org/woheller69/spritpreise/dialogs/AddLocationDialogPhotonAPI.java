@@ -39,6 +39,9 @@ import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.util.photonApiCall;
 import org.woheller69.spritpreise.ui.util.AutoSuggestAdapter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -149,7 +152,11 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
             public boolean handleMessage(Message msg) {
                 if (msg.what == TRIGGER_AUTO_COMPLETE) {
                     if (!TextUtils.isEmpty(autoCompleteTextView.getText())) {
-                        makeApiCall(autoCompleteTextView.getText().toString().replaceAll("\\s", "%20"));
+                        try {
+                            makeApiCall(URLEncoder.encode(autoCompleteTextView.getText().toString(), StandardCharsets.UTF_8.name()));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 return false;
