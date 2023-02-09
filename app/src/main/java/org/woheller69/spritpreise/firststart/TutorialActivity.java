@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.woheller69.spritpreise.BuildConfig;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.activities.SettingsActivity;
@@ -165,7 +166,7 @@ public class TutorialActivity extends AppCompatActivity {
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 btnNext.setText(getString(R.string.okay));
-                btnRegister.setVisibility(View.VISIBLE);
+                if (BuildConfig.DEFAULT_API_KEY.equals(BuildConfig.UNPATCHED_API_KEY)) btnRegister.setVisibility(View.VISIBLE);
             } else {
                 // still pages are left
                 btnNext.setText(getString(R.string.next));
