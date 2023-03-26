@@ -53,6 +53,7 @@ public class TKDataExtractor implements IDataExtractor {
                     }
                 } else return null;
             }
+            if (sharedPreferences.getBoolean("pref_hide_closed",false) && !json.getBoolean("isOpen")) return null;
             station.setOpen(json.getBoolean("isOpen"));
             station.setBrand(json.getString("brand"));
             if (json.getString("brand").equals("")) station.setBrand(json.getString("name"));

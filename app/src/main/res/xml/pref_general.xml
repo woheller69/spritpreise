@@ -55,6 +55,12 @@
             android:title="@string/settings_update_interval" />
 
         <SwitchPreference
+            android:key="pref_hide_closed"
+            android:title="@string/settings_closed"
+            android:defaultValue="false"
+            />
+
+        <SwitchPreference
             android:key="pref_DarkMode"
             android:title="@string/settings_darkmode"
             android:defaultValue="false"
