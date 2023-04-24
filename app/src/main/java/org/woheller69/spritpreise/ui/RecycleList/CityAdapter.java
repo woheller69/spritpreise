@@ -26,6 +26,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.TilesOverlay;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.database.Station;
@@ -85,6 +86,11 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
             map = v.findViewById(R.id.map);
             map.setTileSource(TileSourceFactory.MAPNIK);
+
+            int nightmodeflag = context.getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+            if (nightmodeflag == android.content.res.Configuration.UI_MODE_NIGHT_YES) map.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
+            else map.getOverlayManager().getTilesOverlay().setColorFilter(null);
+
             SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
 
             IMapController mapController = map.getController();
