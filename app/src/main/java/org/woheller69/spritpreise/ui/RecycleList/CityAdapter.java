@@ -113,11 +113,11 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     else stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_red_24dp));
                     String priceinfo = "";
                     if (station.getE5() > 0)
-                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E5: ", station.getDiesel(), " € ");
+                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €  ");
                     if (station.getE10() > 0)
-                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E10: ", station.getDiesel(), " € ");
+                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €  ");
                     if (station.getDiesel() > 0)
-                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " € ");
+                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €  ");
                     stationMarker.setSnippet(priceinfo);
                     stationMarker.setTitle(stationName);
                     map.getOverlays().add(stationMarker);
