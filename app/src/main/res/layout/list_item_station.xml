@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
                     android:paddingHorizontal="5dp"
-                    android:src="@drawable/ic_door_open_24px"
+                    android:src="@drawable/ic_local_gas_station_green_24dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/colorPrimaryDark" />
 

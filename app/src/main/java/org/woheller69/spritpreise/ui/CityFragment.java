@@ -64,6 +64,12 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
 
     @Override
+    public void onResume() {
+        loadData();
+        super.onResume();
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
@@ -92,8 +98,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
         Bundle args = getArguments();
         mCityId = args.getInt("city_id");
-
-        loadData();
 
         return v;
     }

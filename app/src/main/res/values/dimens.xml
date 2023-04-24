@@ -6,6 +6,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="card_margin">5dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="map_height">180dp</dimen>
+    <dimen name="default_margin">10dp</dimen>
 
     <dimen name="img_width_height">120dp</dimen>
     <dimen name="slide_title">30dp</dimen>

@@ -24,7 +24,7 @@
     <string name="about">About</string>
     <string name="version_number" translatable="false">Version</string>
     <string name="about_license">License</string>
-    <string name="about_license_text">This application is derived from Privacy Friendly Weather, developed by the research group SECUSO. Source code licensed under GPLv3. The app uses icons from Google Material Design Icons licensed under Apache License Version 2.0, Android Volley which is licensed under Apache License Version 2.0, AndroidX libraries which is licensed under Apache License Version 2.0, and AutoSuggestTextViewAPICall which is licensed under Apache License Version 2.0</string>
+    <string name="about_license_text">This application is derived from Privacy Friendly Weather, developed by the research group SECUSO. Source code licensed under GPLv3. The app uses icons from Google Material Design Icons licensed under Apache License Version 2.0, Android Volley which is licensed under Apache License Version 2.0, AndroidX libraries which is licensed under Apache License Version 2.0, osmdroid which is licensed under Apache License Version 2.0, and AutoSuggestTextViewAPICall which is licensed under Apache License Version 2.0</string>
     <string name="about_more_info">More information can be found on:</string>
     <string name="about_github" translatable="false"><a href="https://github.com/woheller69/spritpreise">Github-Repo</a></string>
     <string name="about_tankerkoenig" translatable="false"><a href="https://creativecommons.tankerkoenig.de/">Tankerkönig</a></string>
@@ -87,4 +87,5 @@
     <string name="rationale_background_location">Please also allow GPS usage in the background for use in the widget</string>
     <string name="error_no_gps">Please turn on GPS</string>
     <string name="settings_closed">Hide closed stations</string>
+    <string name="settings_map">Show map</string>
 </resources>
