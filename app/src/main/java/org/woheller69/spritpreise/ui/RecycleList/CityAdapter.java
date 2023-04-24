@@ -86,6 +86,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
             map = v.findViewById(R.id.map);
             map.setTileSource(TileSourceFactory.MAPNIK);
+            map.setTilesScaledToDpi(true);
 
             int nightmodeflag = context.getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
             if (nightmodeflag == android.content.res.Configuration.UI_MODE_NIGHT_YES) map.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
