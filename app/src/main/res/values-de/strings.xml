@@ -78,4 +78,5 @@
     <string name="rationale_background_location">Bitte erlauben Sie auch die GPS Nutzung im Hintergrund für die Verwendung im Widget</string>
     <string name="error_no_gps">Bitte GPS einschalten</string>
     <string name="settings_closed">Geschlossene Tankstellen ausblenden</string>
+    <string name="settings_map">Karte anzeigen</string>
 </resources>

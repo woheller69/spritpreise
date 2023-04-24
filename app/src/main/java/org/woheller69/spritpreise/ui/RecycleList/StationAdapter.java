@@ -81,10 +81,10 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         holder.dist.setText(stationList.get(position).getDistance()+" km");
         holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
         if (stationList.get(position).isOpen()) {
-            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_door_open_24px, null));
+            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_green_24dp, null));
         }
         else  {
-            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_door_closed_24px, null));
+            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_red_24dp, null));
         }
 
         holder.name.setText(stationList.get(position).getBrand());

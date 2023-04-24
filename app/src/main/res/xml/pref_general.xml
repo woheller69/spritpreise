@@ -14,6 +14,12 @@
 
     <PreferenceCategory android:title="@string/settings_title_display_options">
 
+        <SwitchPreference
+            android:key="pref_map"
+            android:title="@string/settings_map"
+            android:defaultValue="true"
+            />
+
         <ListPreference
             android:defaultValue="3"
             android:entries="@array/searchRadiusArray"
