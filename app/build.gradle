@@ -13,8 +13,8 @@ android {
         applicationId "org.woheller69.spritpreise"
         minSdkVersion 26
         targetSdkVersion 31
-        versionCode 19
-        versionName "1.9"
+        versionCode 20
+        versionName "2.0"
 
         buildConfigField "String", "DEFAULT_API_KEY", "\"${project.findProperty("prop1")}\""
         buildConfigField "String", "UNPATCHED_API_KEY", "\"OTgxMjBmODAtNzYwNy0zOTQxLTI3NGUtMDE5MGI0NDg2NmZh\""

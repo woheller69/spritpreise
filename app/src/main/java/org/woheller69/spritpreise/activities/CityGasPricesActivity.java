@@ -50,6 +50,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
     private ViewPager2 viewPager2;
     private TabLayout tabLayout;
     private TextView noCityText;
+    private static Boolean isRefreshing = false;
     Context context;
 
     @Override
@@ -85,20 +86,6 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         if (pagerAdapter.getItemCount()>0) {  //only if at least one city is watched
              //if pagerAdapter has item with current cityId go there, otherwise use cityId from current item
             if (pagerAdapter.getPosForCityID(cityId)==-1) cityId=pagerAdapter.getCityIDForPos(viewPager2.getCurrentItem());
-            List <Station> stations = db.getStationsByCityId(cityId);
-
-            long timestamp = 0;
-            if (stations.size()!=0) timestamp= stations.get(0).getTimestamp();
-            long systemTime = System.currentTimeMillis() / 1000;
-            SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            long updateInterval = (long) (Float.parseFloat(prefManager.getString("pref_updateInterval", "15")) * 60);
-
-            if (timestamp + updateInterval - systemTime <= 0) {
-                if (cityId!=getWidgetCityID(context)||locationListenerGPS==null) { //do not update first TAB while location is updating
-                    CityPagerAdapter.refreshSingleData(getApplicationContext(), true, cityId); //only update current tab at start
-                    CityGasPricesActivity.startRefreshAnimation();
-                }
-            }
             if (viewPager2.getCurrentItem()!=pagerAdapter.getPosForCityID(cityId)) viewPager2.setCurrentItem(pagerAdapter.getPosForCityID(cityId),false);
         }
     }
@@ -192,11 +179,15 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
             if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                 updateLocationButton.getActionView().clearAnimation();
             }
+            SharedPreferences.Editor editor = prefManager.edit();
+            editor.putBoolean("pref_GPS",false);  //if GPS permission has been revoked also switch off in settings
+            editor.apply();
         }
 
         refreshActionButton = menu.findItem(R.id.menu_refresh);
         refreshActionButton.setActionView(R.layout.menu_refresh_action_view);
         refreshActionButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(refreshActionButton.getItemId(), 0));
+        if (isRefreshing) startRefreshAnimation();
 
         return true;
     }
@@ -250,39 +241,44 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
     @Override
     public void processUpdateStations(List<Station> stations, int cityID) {
+        stopRefreshAnimation();
+    }
+
+    public static void stopRefreshAnimation(){
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
+        isRefreshing = false;
     }
 
     public static void startRefreshAnimation(){
-        {
-            if(refreshActionButton !=null && refreshActionButton.getActionView() != null) {
-                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                rotate.setDuration(500);
-                rotate.setRepeatCount(5);
-                rotate.setInterpolator(new LinearInterpolator());
-                rotate.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        refreshActionButton.getActionView().setActivated(false);
-                        refreshActionButton.getActionView().setEnabled(false);
-                        refreshActionButton.getActionView().setClickable(false);
-                    }
+        isRefreshing = true;
+        if(refreshActionButton !=null && refreshActionButton.getActionView() != null) {
+            RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            rotate.setDuration(500);
+            rotate.setRepeatCount(5);
+            rotate.setInterpolator(new LinearInterpolator());
+            rotate.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    refreshActionButton.getActionView().setActivated(false);
+                    refreshActionButton.getActionView().setEnabled(false);
+                    refreshActionButton.getActionView().setClickable(false);
+                }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        refreshActionButton.getActionView().setActivated(true);
-                        refreshActionButton.getActionView().setEnabled(true);
-                        refreshActionButton.getActionView().setClickable(true);
-                    }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    refreshActionButton.getActionView().setActivated(true);
+                    refreshActionButton.getActionView().setEnabled(true);
+                    refreshActionButton.getActionView().setClickable(true);
+                    isRefreshing = false;
+                }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-                });
-                refreshActionButton.getActionView().startAnimation(rotate);
-            }
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            refreshActionButton.getActionView().startAnimation(rotate);
         }
     }
 

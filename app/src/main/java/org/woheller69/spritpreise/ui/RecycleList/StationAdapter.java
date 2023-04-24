@@ -81,12 +81,10 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         holder.dist.setText(stationList.get(position).getDistance()+" km");
         holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
         if (stationList.get(position).isOpen()) {
-            holder.isOpen.setText(R.string.open);
-            holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_green,null));
+            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_door_open_24px, null));
         }
         else  {
-            holder.isOpen.setText(R.string.closed);
-            holder.isOpen.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_lightred,null));
+            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_door_closed_24px, null));
         }
 
         holder.name.setText(stationList.get(position).getBrand());
@@ -103,7 +101,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         TextView e10;
         TextView name;
         TextView dist;
-        TextView isOpen;
+        ImageView isOpen;
         TextView address;
         ImageView fav;
 

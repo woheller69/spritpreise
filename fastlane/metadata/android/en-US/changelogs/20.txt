@@ -1,0 +1,4 @@
+UI: Icons instead of "open" / "closed"
+Option: Search radius up to 25km
+Option: hide closed stations
+Bug fixes

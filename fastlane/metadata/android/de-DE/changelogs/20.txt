@@ -1,0 +1,4 @@
+Design: Icons statt "offen" / "geschlossen"
+Option: Suchradius bis 25km
+Option: geschlossene Tankstellen ausblenden
+Fehlerbehebung
