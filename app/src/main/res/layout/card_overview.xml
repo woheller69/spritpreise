@@ -10,9 +10,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical">
 
-        <org.osmdroid.views.MapView android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/map_height" />
-
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

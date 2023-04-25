@@ -1,17 +1,16 @@
 package org.woheller69.spritpreise.ui;
 
+import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.DETAILS;
 import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.OVERVIEW;
 import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.STATIONS;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +34,7 @@ import java.util.List;
 public class CityFragment extends Fragment implements IUpdateableCityUI {
 
     private int mCityId = -1;
-    private static int[] mDataSetTypes;
+    private static final int[] mDataSetTypes = {STATIONS}; //Before: {OVERVIEW, DETAILS, STATIONS} OVERVIEW and DETAILS unused at the moment.
 
     private CityAdapter mAdapter;
 
@@ -66,9 +65,6 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
 
     @Override
     public void onResume() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (sp.getBoolean("pref_map",true)) mDataSetTypes = new int[]{OVERVIEW, STATIONS};
-        else mDataSetTypes = new int[]{STATIONS};
         loadData();
         super.onResume();
     }
@@ -95,7 +91,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
         recyclerView = v.findViewById(R.id.CityRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()){
             public boolean canScrollVertically() {    //Make parent recyclerview not scrollable (not needed in this app) and scroll stations instead
-                return true;
+                return false;
             }
         });
 

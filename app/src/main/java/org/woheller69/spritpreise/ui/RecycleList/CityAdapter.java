@@ -1,8 +1,10 @@
 package org.woheller69.spritpreise.ui.RecycleList;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -26,12 +28,16 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
 import org.woheller69.spritpreise.R;
+import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
+import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
@@ -76,49 +82,9 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     }
 
     public class OverViewHolder extends ViewHolder {
-        MapView map;
+
         OverViewHolder(View v) {
             super(v);
-            Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
-            map = v.findViewById(R.id.map);
-            map.setTileSource(TileSourceFactory.MAPNIK);
-            map.setTilesScaledToDpi(true);
-
-            int nightmodeflag = context.getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-            if (nightmodeflag == android.content.res.Configuration.UI_MODE_NIGHT_YES) map.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
-            else map.getOverlayManager().getTilesOverlay().setColorFilter(null);
-
-            SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
-
-            IMapController mapController = map.getController();
-            mapController.setZoom(12);
-            GeoPoint startPoint = new GeoPoint(database.getCityToWatch(cityID).getLatitude(),database.getCityToWatch(cityID).getLongitude());
-            mapController.setCenter(startPoint);
-            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-
-            List<Station> stations = database.getStationsByCityId(cityID);
-
-            for (Station station:stations){
-                if (!sp.getBoolean("pref_hide_closed",false) || station.isOpen()) {  //only show open stations on map
-                    GeoPoint stationPosition = new GeoPoint(station.getLatitude(), station.getLongitude());
-                    String stationName = station.getBrand();
-                    Marker stationMarker = new Marker(map);
-                    stationMarker.setPosition(stationPosition);
-                    stationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-                    if (station.isOpen()) stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_green_24dp));
-                    else stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_red_24dp));
-                    String priceinfo = "";
-                    if (station.getE5() > 0)
-                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €  ");
-                    if (station.getE10() > 0)
-                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €  ");
-                    if (station.getDiesel() > 0)
-                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €  ");
-                    stationMarker.setSnippet(priceinfo);
-                    stationMarker.setTitle(stationName);
-                    map.getOverlays().add(stationMarker);
-                }
-            }
         }
     }
 
@@ -135,12 +101,29 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     public class StationViewHolder extends ViewHolder {
         RecyclerView recyclerView;
         TextView recyclerViewHeader;
+        MapView map;
 
         StationViewHolder(View v) {
             super(v);
             recyclerView = v.findViewById(R.id.recycler_view_stations);
             recyclerView.setHasFixedSize(false);
             recyclerViewHeader=v.findViewById(R.id.recycler_view_header);
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+                @SuppressLint("ClickableViewAccessibility")
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    if (!recyclerView.canScrollVertically(-1)){
+                        recyclerView.setOnTouchListener(new OnSwipeDownListener(context) {
+                            public void onSwipeDown() {
+                                CityPagerAdapter.refreshSingleData(context,true,cityID);
+                                CityGasPricesActivity.startRefreshAnimation();
+                            }
+                        });
+                    }else recyclerView.setOnTouchListener(null);
+                }
+            });
+            map = v.findViewById(R.id.map);
         }
     }
 
@@ -186,7 +169,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             holder.recyclerView.addItemDecoration(new DividerItemDecoration(holder.recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-            StationAdapter adapter = new StationAdapter(stationList, context, holder.recyclerViewHeader, holder.recyclerView);
+            StationAdapter adapter = new StationAdapter(stationList, context);
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
             holder.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -205,6 +188,64 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
                 }
             }));
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+            if (sp.getBoolean("pref_map",true)) {
+                holder.map.setVisibility(View.VISIBLE);
+
+                Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
+                holder.map.setTileSource(TileSourceFactory.MAPNIK);
+                holder.map.setTilesScaledToDpi(true);
+
+                int nightmodeflag = context.getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+                if (nightmodeflag == android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                    holder.map.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
+                else holder.map.getOverlayManager().getTilesOverlay().setColorFilter(null);
+
+                SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
+
+                IMapController mapController = holder.map.getController();
+                mapController.setZoom(12);
+                GeoPoint startPoint = new GeoPoint(database.getCityToWatch(cityID).getLatitude(), database.getCityToWatch(cityID).getLongitude());
+                mapController.setCenter(startPoint);
+
+                List<Station> stations = database.getStationsByCityId(cityID);
+
+                for (Station station : stations) {
+                    if (!sp.getBoolean("pref_hide_closed", false) || station.isOpen()) {  //only show open stations on map
+                        GeoPoint stationPosition = new GeoPoint(station.getLatitude(), station.getLongitude());
+                        String stationName = station.getBrand();
+                        Marker stationMarker = new Marker(holder.map);
+                        stationMarker.setPosition(stationPosition);
+                        stationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+                        if (station.isOpen())
+                            stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_green_24dp));
+                        else
+                            stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_red_24dp));
+                        String priceinfo = "";
+                        if (station.getE5() > 0)
+                            priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €  ");
+                        if (station.getE10() > 0)
+                            priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E10: ", station.getE10(), " €  ");
+                        if (station.getDiesel() > 0)
+                            priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "D: ", station.getDiesel(), " €  ");
+                        stationMarker.setSnippet(priceinfo);
+                        stationMarker.setTitle(stationName);
+                        holder.map.getOverlays().add(stationMarker);
+                    }
+                }
+            } else {
+                holder.map.setVisibility(View.GONE);
+            }
+
+            if (!stationList.isEmpty()){
+                long time = stationList.get(0).getTimestamp();
+                long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
+                long updateTime = ((time + zoneseconds) * 1000);
+
+                holder.recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_stations_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
+            }
+
         }
         //No update for error needed
     }

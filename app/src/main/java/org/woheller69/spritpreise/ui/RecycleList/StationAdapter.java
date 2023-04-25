@@ -30,16 +30,11 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
 
     private List<Station> stationList;
     private Context context;
-    private TextView recyclerViewHeader;
-    private RecyclerView recyclerView;
-    private ImageView fav;
 
 //Adapter for Stations recycler view
-    StationAdapter(List<Station> stationList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
+    StationAdapter(List<Station> stationList, Context context) {
         this.context = context;
         this.stationList = stationList;
-        this.recyclerViewHeader=recyclerViewHeader;
-        this.recyclerView=recyclerView;
     }
 
 
@@ -53,12 +48,6 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     public void onBindViewHolder(StationViewHolder holder, int position) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-        if (stationList !=null && stationList.size()!=0 && stationList.get(0)!=null) {
-            long time = stationList.get(0).getTimestamp();
-            long zoneseconds = TimeZone.getDefault().getOffset(Instant.now().toEpochMilli()) / 1000L;
-            long updateTime = ((time + zoneseconds) * 1000);
-            recyclerViewHeader.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_stations_heading), StringFormatUtils.formatTimeWithoutZone(context, updateTime)));
-        }
 
         if (prefManager.getBoolean("prefBrands", false)) {  //if preferred brands are defined
             String[] brands = prefManager.getString("prefBrandsString", "").split(","); //read comma separated list

@@ -11,6 +11,15 @@
         android:orientation="vertical"
         android:background="@color/backgroundBlue">
 
+        <org.osmdroid.views.MapView android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/map_height" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white" />
+
         <TextView
             android:id="@+id/recycler_view_header"
             android:layout_width="match_parent"
