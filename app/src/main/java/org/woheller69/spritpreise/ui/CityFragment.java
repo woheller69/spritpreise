@@ -1,6 +1,5 @@
 package org.woheller69.spritpreise.ui;
 
-import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.DETAILS;
 import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.OVERVIEW;
 import static org.woheller69.spritpreise.ui.RecycleList.CityAdapter.STATIONS;
 
@@ -96,7 +95,7 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
         recyclerView = v.findViewById(R.id.CityRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()){
             public boolean canScrollVertically() {    //Make parent recyclerview not scrollable (not needed in this app) and scroll stations instead
-                return false;
+                return true;
             }
         });
 

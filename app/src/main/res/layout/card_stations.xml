@@ -15,7 +15,7 @@
             android:id="@+id/recycler_view_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/default_margin"
             android:gravity="center"
             android:text="@string/error_no_station_found"
             android:textAllCaps="true"
@@ -31,7 +31,7 @@
             android:id="@+id/recycler_view_stations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/default_margin"
             android:orientation="vertical" />
     </LinearLayout>
 

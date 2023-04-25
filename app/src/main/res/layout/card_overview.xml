@@ -12,7 +12,7 @@
 
         <org.osmdroid.views.MapView android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="180dp" />
+            android:layout_height="@dimen/map_height" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
