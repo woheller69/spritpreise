@@ -25,6 +25,7 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.CopyrightOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
 import org.woheller69.spritpreise.R;
@@ -209,6 +210,10 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                 GeoPoint startPoint = new GeoPoint(database.getCityToWatch(cityID).getLatitude(), database.getCityToWatch(cityID).getLongitude());
                 mapController.setCenter(startPoint);
 
+                CopyrightOverlay copyrightOverlay = new CopyrightOverlay(context);
+                copyrightOverlay.setCopyrightNotice(holder.map.getTileProvider().getTileSource().getCopyrightNotice());
+                copyrightOverlay.setTextColor(context.getColor(R.color.middlegrey));
+                holder.map.getOverlays().add(copyrightOverlay);
                 List<Station> stations = database.getStationsByCityId(cityID);
 
                 for (Station station : stations) {
