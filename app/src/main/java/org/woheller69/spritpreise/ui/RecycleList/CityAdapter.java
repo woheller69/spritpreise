@@ -1,10 +1,8 @@
 package org.woheller69.spritpreise.ui.RecycleList;
 
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -28,11 +26,9 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
 import org.woheller69.spritpreise.R;
-import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
-import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
