@@ -182,6 +182,15 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     if (holder.map.getOverlays().contains(highlightMarker)) holder.map.getOverlays().remove(highlightMarker);
                     GeoPoint highlightPosition = new GeoPoint(stationList.get(position).getLatitude(), stationList.get(position).getLongitude());
                     highlightMarker.setPosition(highlightPosition);
+                    String priceinfo = "";
+                    if (stationList.get(position).getE5() > 0)
+                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E5: ", stationList.get(position).getE5(), " €  ");
+                    if (stationList.get(position).getE10() > 0)
+                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E10: ", stationList.get(position).getE10(), " €  ");
+                    if (stationList.get(position).getDiesel() > 0)
+                        priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "D: ", stationList.get(position).getDiesel(), " €  ");
+                    highlightMarker.setSnippet(priceinfo);
+                    highlightMarker.setTitle(stationList.get(position).getBrand());
                     holder.map.getOverlays().add(highlightMarker);
                     holder.map.invalidate();
                 }
