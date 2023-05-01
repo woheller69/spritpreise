@@ -167,6 +167,9 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }  else if (viewHolder.getItemViewType() == STATIONS) {
 
             StationViewHolder holder = (StationViewHolder) viewHolder;
+            Marker highlightMarker = new Marker(holder.map);
+            highlightMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_highlight_32dp));
+            highlightMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             holder.recyclerView.addItemDecoration(new DividerItemDecoration(holder.recyclerView.getContext(), DividerItemDecoration.VERTICAL));
@@ -176,17 +179,21 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             holder.recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, holder.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
+                    if (holder.map.getOverlays().contains(highlightMarker)) holder.map.getOverlays().remove(highlightMarker);
+                    GeoPoint highlightPosition = new GeoPoint(stationList.get(position).getLatitude(), stationList.get(position).getLongitude());
+                    highlightMarker.setPosition(highlightPosition);
+                    holder.map.getOverlays().add(highlightMarker);
+                    holder.map.invalidate();
+                }
+
+                @Override
+                public void onLongItemClick(View view, int position) {
                     String loc = stationList.get(position).getLatitude() + "," + stationList.get(position).getLongitude();
                     try {
                         context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + loc + "?q=" + loc)));
                     } catch (ActivityNotFoundException ignored) {
                         Toast.makeText(context,R.string.error_no_map_app, Toast.LENGTH_LONG).show();
                     }
-                }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
                 }
             }));
 
