@@ -4,7 +4,7 @@
 
 Gas Prices Germany provides the prices that the petrol stations report to the market transparency office.
 You can choose your own locations and get current gas prices.
-Clicking on a gas station in the list or on the icon in the widget shows the gas station in a map application.
+Clicking on a gas station in the list or on the icon in the widget shows the gas station in an external map application.
 You can also allow the app to use GPS. If you do so and have the app widget installed the position will be updated 
 from time to time and the first tab in the app and the widget will show gas stations for your current location.
 (This will overwrite the city in your first tab.)
