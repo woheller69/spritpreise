@@ -21,7 +21,7 @@ import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.City;
 import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.SQLiteHelper;
-import org.woheller69.spritpreise.dialogs.AddLocationDialogPhotonAPI;
+import org.woheller69.spritpreise.dialogs.AddLocationDialogOmGeocodingAPI;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerItemClickListener;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.woheller69.spritpreise.ui.RecycleList.SimpleItemTouchHelperCallback;
@@ -117,7 +117,7 @@ public class ManageLocationsActivity extends NavigationActivity {
                     @Override
                     public void onClick(View view) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
-                        AddLocationDialogPhotonAPI addLocationDialog = new AddLocationDialogPhotonAPI();
+                        AddLocationDialogOmGeocodingAPI addLocationDialog = new AddLocationDialogOmGeocodingAPI();
                         addLocationDialog.show(fragmentManager, "AddLocationDialog");
                         getSupportFragmentManager().executePendingTransactions();
                         addLocationDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);

@@ -15,19 +15,19 @@ import com.android.volley.toolbox.Volley;
  * Modified by woheller69
  */
 
-public class photonApiCall {
-    private static photonApiCall mInstance;
+public class geocodingApiCall {
+    private static geocodingApiCall mInstance;
     private RequestQueue mRequestQueue;
     private static Context mCtx;
 
-    public photonApiCall(Context ctx) {
+    public geocodingApiCall(Context ctx) {
         mCtx = ctx.getApplicationContext();
         mRequestQueue = getRequestQueue();
     }
 
-    public static synchronized photonApiCall getInstance(Context context) {
+    public static synchronized geocodingApiCall getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new photonApiCall(context);
+            mInstance = new geocodingApiCall(context);
         }
         return mInstance;
     }
@@ -45,9 +45,9 @@ public class photonApiCall {
 
     public static void make(Context ctx, String query, String url, String lang, Response.Listener<String>
             listener, Response.ErrorListener errorListener) {
-        url = url + query+"&lang="+lang;
+        url = url + query+"&language="+lang;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 listener, errorListener);
-        photonApiCall.getInstance(ctx).addToRequestQueue(stringRequest);
+        geocodingApiCall.getInstance(ctx).addToRequestQueue(stringRequest);
     }
 }

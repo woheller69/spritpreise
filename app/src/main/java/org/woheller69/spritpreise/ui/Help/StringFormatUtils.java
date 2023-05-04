@@ -57,10 +57,10 @@ public final class StringFormatUtils {
         SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
         SimpleDateFormat df;
         if (android.text.format.DateFormat.is24HourFormat(context) || sharedPreferences.getBoolean("pref_TimeFormat", true)==TRUE){
-            df = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            df = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
             df.setTimeZone(TimeZone.getTimeZone("GMT"));
         }else {
-            df = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+            df = new SimpleDateFormat("dd-MM-yyyy hh:mm aa", Locale.getDefault());
             df.setTimeZone(TimeZone.getTimeZone("GMT"));
         }
         return df.format(time);

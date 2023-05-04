@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -36,8 +37,8 @@ import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.ManageLocationsActivity;
 import org.woheller69.spritpreise.database.City;
 import org.woheller69.spritpreise.database.SQLiteHelper;
-import org.woheller69.spritpreise.ui.util.photonApiCall;
 import org.woheller69.spritpreise.ui.util.AutoSuggestAdapter;
+import org.woheller69.spritpreise.ui.util.geocodingApiCall;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -47,7 +48,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class AddLocationDialogPhotonAPI extends DialogFragment {
+public class AddLocationDialogOmGeocodingAPI extends DialogFragment {
 
     Activity activity;
     View rootView;
@@ -60,7 +61,7 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
     private static final long AUTO_COMPLETE_DELAY = 300;
     private Handler handler;
     private AutoSuggestAdapter autoSuggestAdapter;
-    String url="https://photon.komoot.io/api/?q=";
+    String url="https://geocoding-api.open-meteo.com/v1/search?name=";
     String lang="default";
 
     @Override
@@ -78,13 +79,7 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Locale locale = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0);
-        //supported languages by photon.komoot.io API: default, en, de, fr, it
-        if ((locale.getLanguage().equals("de"))||(locale.getLanguage().equals("en"))||(locale.getLanguage().equals("fr"))||(locale.getLanguage().equals("it")))                 {
-            lang=locale.getLanguage();
-        } else {
-            lang="default";
-        }
-
+        lang=locale.getLanguage();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -102,7 +97,7 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString(BuildConfig.APPLICATION_ID+"/"+BuildConfig.VERSION_NAME);
         webview.setBackgroundColor(0x00000000);
-        webview.setBackgroundResource(R.drawable.photon);
+        webview.setBackgroundResource(R.drawable.map_back);
 
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
 
@@ -110,6 +105,7 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
         autoSuggestAdapter = new AutoSuggestAdapter(requireContext(),
                 R.layout.list_item_autocomplete);
         autoCompleteTextView.setThreshold(2);
+        autoCompleteTextView.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         autoCompleteTextView.setAdapter(autoSuggestAdapter);
 
         autoCompleteTextView.setOnItemClickListener(
@@ -177,7 +173,7 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
 
     }
     private void makeApiCall(String text) {
-        photonApiCall.make(getContext(), text, url,lang, new Response.Listener<String>() {
+        geocodingApiCall.make(getContext(), text, url,lang, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //parsing logic, please change it as per your requirement
@@ -185,44 +181,51 @@ public class AddLocationDialogPhotonAPI extends DialogFragment {
                 List<City> cityList = new ArrayList<>();
                 try {
                     JSONObject responseObject = new JSONObject(response);
-                    JSONArray array = responseObject.getJSONArray("features");
+
+                    JSONArray array = responseObject.getJSONArray("results");
                     for (int i = 0; i < array.length(); i++) {
                         City city =new City();
                         String citystring="";
                         JSONObject jsonFeatures = array.getJSONObject(i);
-                        JSONObject jsonProperties = jsonFeatures.getJSONObject("properties");
-                        JSONObject jsonGeometry=jsonFeatures.getJSONObject("geometry");
-                        JSONArray jsonCoordinates=jsonGeometry.getJSONArray("coordinates");
                         String name="";
-                        if (jsonProperties.has("name")) {
-                            name=jsonProperties.getString("name");
-                            citystring=citystring+name+", ";
-                        }
-                        String postcode="";
-                        if (jsonProperties.has("postcode")) {
-                            postcode=jsonProperties.getString("postcode");
-                            citystring=citystring+postcode+", ";
-                        }
-                        String cityname=name;
-                        if (jsonProperties.has("city")) {
-                            cityname=jsonProperties.getString("city");
-                            citystring=citystring+cityname+", ";
-                        }
-                        String state="";
-                        if (jsonProperties.has("state")) {
-                            state=jsonProperties.getString("state");
-                            citystring=citystring+state+", ";
-                        }
-                        String countrycode="";
-                        if (jsonProperties.has("countrycode")) {
-                            countrycode=jsonProperties.getString("countrycode");
-                            citystring=citystring+countrycode;
+                        if (jsonFeatures.has("name")) {
+                            name=jsonFeatures.getString("name");
+                            citystring=citystring+name;
                         }
 
-                        city.setCityName(cityname);
+                        String countrycode="";
+                        if (jsonFeatures.has("country_code")) {
+                            countrycode=jsonFeatures.getString("country_code");
+                            citystring=citystring+", "+countrycode;
+                        }
+                        String admin1="";
+                        if (jsonFeatures.has("admin1")) {
+                            admin1=jsonFeatures.getString("admin1");
+                            citystring=citystring+", "+admin1;
+                        }
+
+                        String admin2="";
+                        if (jsonFeatures.has("admin2")) {
+                            admin2=jsonFeatures.getString("admin2");
+                            citystring=citystring+", "+admin2;
+                        }
+
+                        String admin3="";
+                        if (jsonFeatures.has("admin3")) {
+                            admin3=jsonFeatures.getString("admin3");
+                            citystring=citystring+", "+admin3;
+                        }
+
+                        String admin4="";
+                        if (jsonFeatures.has("admin4")) {
+                            admin4=jsonFeatures.getString("admin4");
+                            citystring=citystring+", "+admin4;
+                        }
+
+                        city.setCityName(name);
                         city.setCountryCode(countrycode);
-                        city.setLatitude((float) jsonCoordinates.getDouble(1));
-                        city.setLongitude((float) jsonCoordinates.getDouble(0));
+                        city.setLatitude((float) jsonFeatures.getDouble("latitude"));
+                        city.setLongitude((float) jsonFeatures.getDouble("longitude"));
                         if (countrycode.equals("DE")) {
                             cityList.add(city);
                             stringList.add(citystring);
