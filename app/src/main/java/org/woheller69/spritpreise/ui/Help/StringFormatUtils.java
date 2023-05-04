@@ -10,6 +10,7 @@ import android.text.style.TextAppearanceSpan;
 
 import androidx.preference.PreferenceManager;
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -55,15 +56,17 @@ public final class StringFormatUtils {
 
     public static String formatTimeWithoutZone(Context context, long time) {
         SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
-        SimpleDateFormat df;
+        SimpleDateFormat tf;
+        java.text.DateFormat df = java.text.DateFormat.getDateInstance(DateFormat.SHORT);
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
         if (android.text.format.DateFormat.is24HourFormat(context) || sharedPreferences.getBoolean("pref_TimeFormat", true)==TRUE){
-            df = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-            df.setTimeZone(TimeZone.getTimeZone("GMT"));
+            tf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            tf.setTimeZone(TimeZone.getTimeZone("GMT"));
         }else {
-            df = new SimpleDateFormat("dd-MM-yyyy hh:mm aa", Locale.getDefault());
-            df.setTimeZone(TimeZone.getTimeZone("GMT"));
+            tf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+            tf.setTimeZone(TimeZone.getTimeZone("GMT"));
         }
-        return df.format(time);
+        return df.format(time)+" "+tf.format(time);
     }
 
 
