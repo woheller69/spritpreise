@@ -140,6 +140,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
     private void initResources() {
         viewPager2 = findViewById(R.id.viewPager2);
+        viewPager2.setUserInputEnabled(false);
         tabLayout = findViewById(R.id.tab_layout);
         pagerAdapter = new CityPagerAdapter(this, getSupportFragmentManager(),getLifecycle());
         noCityText = findViewById(R.id.noCitySelectedText);
