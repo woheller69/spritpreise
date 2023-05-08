@@ -1,0 +1,2 @@
+Photon geolocation API replaced with Open-Meteo API
+Bugfixes

@@ -8,7 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="0dp">
 
-
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTvAddDialog"
         android:layout_width="match_parent"
@@ -17,10 +16,16 @@
         android:imeOptions="actionDone"
         android:maxLines="1"
         android:inputType="text" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#aad3df"
+        android:gravity="center"
+        android:text="Search powered by by Open-Meteo.com"/>
     <WebView
-             android:id="@+id/webViewAddLocation"
-             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+        android:id="@+id/webViewAddLocation"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
 
 </LinearLayout>
