@@ -13,7 +13,8 @@
 
         <org.osmdroid.views.MapView android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/map_height" />
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <View
             android:layout_width="match_parent"
@@ -39,7 +40,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_stations"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="0dp"
             android:layout_margin="@dimen/default_margin"
             android:orientation="vertical" />
     </LinearLayout>
