@@ -1,0 +1,2 @@
+Increased map size
+Added monochrome icon

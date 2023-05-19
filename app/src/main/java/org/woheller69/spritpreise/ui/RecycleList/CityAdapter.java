@@ -222,7 +222,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                 SQLiteHelper database = SQLiteHelper.getInstance(context.getApplicationContext());
 
                 IMapController mapController = holder.map.getController();
-                mapController.setZoom(12);
+                mapController.setZoom(12d);
                 GeoPoint startPoint = new GeoPoint(database.getCityToWatch(cityID).getLatitude(), database.getCityToWatch(cityID).getLongitude());
                 mapController.setCenter(startPoint);
 
