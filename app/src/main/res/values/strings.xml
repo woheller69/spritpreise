@@ -22,7 +22,7 @@
     <string name="about_privacy_heading">Privacy Info</string>
     <string name="about_permission_internet_description">Connecting to the Network: This permission is needed because data is retrieved by making requests to servers on the Internet. Without this permission, no price information can be received. Optional: authorization for GPS.</string>
     <string name="about">About</string>
-    <string name="version_number" translatable="false">Version</string>
+    <string name="version_number">Version</string>
     <string name="about_license">License</string>
     <string name="about_license_text">This application is derived from Privacy Friendly Weather, developed by the research group SECUSO. Source code licensed under GPLv3. The app uses icons from Google Material Design Icons licensed under Apache License Version 2.0, Android Volley which is licensed under Apache License Version 2.0, AndroidX libraries which is licensed under Apache License Version 2.0, osmdroid which is licensed under Apache License Version 2.0, and AutoSuggestTextViewAPICall which is licensed under Apache License Version 2.0</string>
     <string name="about_more_info">More information can be found on:</string>

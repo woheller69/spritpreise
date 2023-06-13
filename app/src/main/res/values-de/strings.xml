@@ -13,6 +13,7 @@
     <string name="about_where_from">Woher kommen die Preisinformationen?</string>
     <string name="about_where_from_answer">Die Preisinformationen stammen von</string>
     <string name="activity_about">Über</string>
+    <string name="version_number">Version</string>
     <string name="activity_gasprices">Spritpreise</string>
     <string name="activity_manage">Orte verwalten</string>
     <string name="activity_settings">Einstellungen</string>
