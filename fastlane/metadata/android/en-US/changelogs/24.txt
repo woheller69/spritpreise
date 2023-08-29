@@ -1,0 +1,4 @@
+Update for Android 13 SDK
+Highlight selected element in list instead of showing pop-up
+Show current position on map
+Optimized layout for landscape mode

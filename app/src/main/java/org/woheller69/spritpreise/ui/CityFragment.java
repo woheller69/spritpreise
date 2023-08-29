@@ -83,6 +83,12 @@ public class CityFragment extends Fragment implements IUpdateableCityUI {
         super.onDetach();
     }
 
+    @Override
+    public void onPause() {
+        mAdapter.removeMyPositionListenerGPS();
+        super.onPause();
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

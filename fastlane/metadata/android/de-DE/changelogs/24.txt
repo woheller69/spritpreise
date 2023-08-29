@@ -1,0 +1,4 @@
+Update auf Android 13 SDK
+Ausgewähltes Element in Liste hervorheben anstatt Pop-up
+Aktuelle Position auf Karte anzeigen
+Optimiertes Layout für Querformat

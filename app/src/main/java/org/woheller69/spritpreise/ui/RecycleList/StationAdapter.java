@@ -30,6 +30,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
 
     private List<Station> stationList;
     private Context context;
+    private int selected = -1;
 
 //Adapter for Stations recycler view
     StationAdapter(List<Station> stationList, Context context) {
@@ -77,11 +78,30 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         }
 
         holder.name.setText(stationList.get(position).getBrand());
+
+        if (position == selected) holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_highlight,null));
+        else holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_transparent,null));
+
     }
 
     @Override
     public int getItemCount() {
         return stationList.size();
+    }
+
+    public void setSelected(int position) {
+        int oldSelected = selected;
+        selected = position;
+        notifyItemChanged(oldSelected);
+        notifyItemChanged(selected);
+    }
+
+    public int getPosUUID(String id) {
+
+        for (int i=0;i<stationList.size();i++){
+            if (stationList.get(i).getUuid().equals(id)) return i;
+        }
+        return 0;
     }
 
     class StationViewHolder extends RecyclerView.ViewHolder {
