@@ -1,7 +1,6 @@
 package org.woheller69.spritpreise.activities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AlertDialog;
@@ -10,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
-import androidx.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -109,8 +106,6 @@ public class ManageLocationsActivity extends NavigationActivity {
 
         FloatingActionButton addFab1 = (FloatingActionButton) findViewById(R.id.fabAddLocation);
 
-        SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
             if (addFab1 != null) {
 
                 addFab1.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +115,6 @@ public class ManageLocationsActivity extends NavigationActivity {
                         AddLocationDialogOmGeocodingAPI addLocationDialog = new AddLocationDialogOmGeocodingAPI();
                         addLocationDialog.show(fragmentManager, "AddLocationDialog");
                         getSupportFragmentManager().executePendingTransactions();
-                        addLocationDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                     }
                 });
             }
