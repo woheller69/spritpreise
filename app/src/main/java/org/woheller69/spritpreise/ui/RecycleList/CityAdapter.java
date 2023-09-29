@@ -10,7 +10,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -239,10 +238,24 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                         Marker stationMarker = new Marker(holder.map);
                         stationMarker.setPosition(stationPosition);
                         stationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-                        if (station.isOpen())
-                            stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_green_24dp));
-                        else
-                            stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_red_24dp));
+                        if (station.isOpen()) {
+                            switch (station.getRating()) {
+                                case 0:
+                                    stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_green_24dp));
+                                    break;
+                                case 1:
+                                    stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_yellow_24dp));
+                                    break;
+                                case 2:
+                                    stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_orange_24dp));
+                                    break;
+                                case 3:
+                                    stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_red_24dp));
+                                    break;
+                            }
+                        } else {
+                            stationMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_local_gas_station_grey_24dp));
+                        }
                         String priceinfo = "";
                         if (station.getE5() > 0)
                             priceinfo = priceinfo + StringFormatUtils.formatPrice(context, "E5: ", station.getE5(), " €  ");

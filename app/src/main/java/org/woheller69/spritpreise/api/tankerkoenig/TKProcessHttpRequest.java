@@ -3,6 +3,7 @@ package org.woheller69.spritpreise.api.tankerkoenig;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 
 import android.util.Log;
@@ -24,6 +25,8 @@ import org.woheller69.spritpreise.api.IDataExtractor;
 import org.woheller69.spritpreise.api.IProcessHttpRequest;
 import org.woheller69.spritpreise.widget.Widget;
 import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
+
+import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +74,6 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
                     Station station = extractor.extractStation(currentItem,context);
                     if (station != null) { // Could retrieve all data, so add it to the list
                         station.setCity_id(cityId);
-                        // add it to the database
-                        dbHelper.addStation(station);
                         stations.add(station);
                     }
                 }
@@ -84,8 +85,55 @@ public class TKProcessHttpRequest implements IProcessHttpRequest {
             if (NavigationActivity.isVisible)
                 Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
         }
+
+        CalculateStationRating(stations);
+        // add all stations to the database
+        dbHelper.addStations(stations);
+
         ViewUpdater.updateStations(stations,cityId);
         possiblyUpdateWidgets(cityId, stations);
+    }
+
+    /**
+     * Manipulate list and add ratings based on comparing all stations in the list
+     * @param stations the list of stations to compare to each other
+     */
+    private void CalculateStationRating(List<Station> stations) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String sortBy = sharedPreferences.getString("pref_type","all");
+        if (sortBy.equals("all")) return;
+
+        // Prepare min, max and value to be used for rating:
+        double min = Integer.MAX_VALUE;
+        double max = 0.0;
+        for (Station station : stations) {
+            switch (sortBy.toLowerCase()) {
+                case "e5":
+                    station.setSortValue(station.getE5());
+                    break;
+                case "e10":
+                    station.setSortValue(station.getE10());
+                    break;
+                case "diesel":
+                    station.setSortValue(station.getDiesel());
+                    break;
+            }
+            double val = station.getSortValue();
+            min = Math.min(val, min);
+            max = Math.max(val, max);
+        }
+
+        double dist = max - min;
+        double part1 = min + dist * 0.1;
+        double part2 = min + dist * 0.3;
+        double part3 = min + dist * 0.6;
+        for (Station station : stations) {
+            double val = station.getSortValue();
+            if      (val <= part1) station.setRating(0);
+            else if (val <= part2) station.setRating(1);
+            else if (val <= part3) station.setRating(2);
+            else station.setRating(3);
+        }
     }
 
     /**

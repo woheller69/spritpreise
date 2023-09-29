@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static SQLiteHelper instance = null;
 
@@ -49,6 +48,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String STATION_LATITUDE = "latitude";
     private static final String STATION_LONGITUDE = "longitude";
     private static final String STATION_UUID = "uuid";
+    private static final String STATION_RATING = "rating";
 
     /**
      * Create Table statements for all tables
@@ -69,7 +69,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             STATION_DISTANCE + " REAL," +
             STATION_LATITUDE + " REAL," +
             STATION_LONGITUDE + " REAL," +
-            STATION_UUID + " VARCHAR(200) NOT NULL ); ";
+            STATION_UUID + " VARCHAR(200) NOT NULL ," +
+            STATION_RATING + " INTEGER) ; ";
 
     private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
             "(" +
@@ -83,6 +84,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static SQLiteHelper getInstance(Context context) {
         if (instance == null && context != null) {
             instance = new SQLiteHelper(context.getApplicationContext());
+            if (instance.getReadableDatabase().needUpgrade(DATABASE_VERSION)) {
+                instance.getReadableDatabase().getVersion();
+            }
         }
         return instance;
     }
@@ -96,12 +100,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
         db.execSQL(CREATE_TABLE_STATIONS);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (oldVersion < 2) {
+            // @formatter:off
+            String sql = "ALTER TABLE " + TABLE_STATIONS + " ADD COLUMN rating INTEGER";
+            // @formatter:on
+            db.execSQL(sql);
+        }
     }
 
     /**
@@ -241,12 +249,23 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
 
+    public synchronized void addStations(List<Station> stations) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.beginTransaction();
+        try {
+            for (Station station : stations) {
+                addStation(database, station);
+            }
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        }
+        database.close();
+    }
     /**
      * Methods for TABLE_STATION
      */
-    public synchronized void addStation(Station station) {
-        SQLiteDatabase database = this.getWritableDatabase();
-
+    private synchronized void addStation(SQLiteDatabase database, Station station) {
         ContentValues values = new ContentValues();
         values.put(STATION_CITY_ID, station.getCity_id());
         values.put(STATION_TIMESTAMP, station.getTimestamp());
@@ -262,8 +281,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(STATION_LATITUDE, station.getLatitude());
         values.put(STATION_LONGITUDE, station.getLongitude());
         values.put(STATION_UUID, station.getUuid());
+        values.put(STATION_RATING, station.getRating());
         database.insert(TABLE_STATIONS, null, values);
-        database.close();
     }
 
     public synchronized void deleteAllStations() {
@@ -297,7 +316,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                         STATION_DISTANCE,
                         STATION_LATITUDE,
                         STATION_LONGITUDE,
-                        STATION_UUID}
+                        STATION_UUID,
+                        STATION_RATING }
                 , STATION_CITY_ID + "=?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
@@ -322,6 +342,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 station.setLatitude(Double.parseDouble(cursor.getString(12)));
                 station.setLongitude(Double.parseDouble(cursor.getString(13)));
                 station.setUuid(cursor.getString(14));
+                String ratingStr = cursor.getString(15);
+                if (ratingStr != null) {
+                    station.setRating(Integer.parseInt(ratingStr));
+                }
                 list.add(station);
             } while (cursor.moveToNext());
 

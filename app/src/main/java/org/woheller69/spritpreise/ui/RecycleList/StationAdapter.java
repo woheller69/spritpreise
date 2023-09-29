@@ -17,9 +17,7 @@ import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.TimeZone;
 
 //**
 // * Created by yonjuni on 02.01.17.
@@ -48,36 +46,48 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     @Override
     public void onBindViewHolder(StationViewHolder holder, int position) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-
+        Station station = stationList.get(position);
 
         if (prefManager.getBoolean("prefBrands", false)) {  //if preferred brands are defined
             String[] brands = prefManager.getString("prefBrandsString", "").split(","); //read comma separated list
             for (String brand : brands) {
-                if (stationList.get(position).getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {
+                if (station.getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {
                     holder.fav.setVisibility(View.VISIBLE);
                     break;
                 }
             }
         }
-        if (stationList.get(position).getDiesel()>0){
-            holder.diesel.setText(StringFormatUtils.formatPrice(context, "D: ",stationList.get(position).getDiesel()," €"));
+        if (station.getDiesel()>0){
+            holder.diesel.setText(StringFormatUtils.formatPrice(context, "D: ",station.getDiesel()," €"));
         }   else holder.diesel.setVisibility(View.GONE);
-        if (stationList.get(position).getE5()>0){
-            holder.e5.setText( StringFormatUtils.formatPrice(context, "E5: ",stationList.get(position).getE5()," €"));
+        if (station.getE5()>0){
+            holder.e5.setText( StringFormatUtils.formatPrice(context, "E5: ",station.getE5()," €"));
         }   else holder.e5.setVisibility(View.GONE);
-        if (stationList.get(position).getE10()>0){
-            holder.e10.setText(StringFormatUtils.formatPrice(context, "E10: ",stationList.get(position).getE10()," €"));
+        if (station.getE10()>0){
+            holder.e10.setText(StringFormatUtils.formatPrice(context, "E10: ",station.getE10()," €"));
         }   else holder.e10.setVisibility(View.GONE);
-        holder.dist.setText(stationList.get(position).getDistance()+" km");
-        holder.address.setText((stationList.get(position).getAddress1()+", "+stationList.get(position).getAddress2()).toUpperCase());
-        if (stationList.get(position).isOpen()) {
-            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_green_24dp, null));
-        }
-        else  {
-            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_red_24dp, null));
+        holder.dist.setText(station.getDistance()+" km");
+        holder.address.setText((station.getAddress1()+", "+station.getAddress2()).toUpperCase());
+        if (station.isOpen()) {
+            switch (station.getRating()) {
+                case 0:
+                    holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_green_24dp, null));
+                    break;
+                case 1:
+                    holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_yellow_24dp, null));
+                    break;
+                case 2:
+                    holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_orange_24dp, null));
+                    break;
+                case 3:
+                    holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_red_24dp, null));
+                    break;
+            }
+        } else {
+            holder.isOpen.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_local_gas_station_grey_24dp, null));
         }
 
-        holder.name.setText(stationList.get(position).getBrand());
+        holder.name.setText(station.getBrand());
 
         if (position == selected) holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_highlight,null));
         else holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.rounded_transparent,null));

@@ -20,12 +20,14 @@ public class Station {
     private double latitude;
     private double longitude;
     private String uuid;
+    private int rating;
+    private double sortValue;
 
 
     public Station() {
     }
 
-    public Station(int id, int city_id, long timestamp, double diesel, double e5, double e10, boolean isOpen, String brand, String name, String address1, String address2, double distance, double latitude, double longitude, String uuid) {
+    public Station(int id, int city_id, long timestamp, double diesel, double e5, double e10, boolean isOpen, String brand, String name, String address1, String address2, double distance, double latitude, double longitude, String uuid, int rating) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -41,6 +43,7 @@ public class Station {
         this.latitude = latitude;
         this.longitude = longitude;
         this.uuid = uuid;
+        this.rating = rating;
     }
 
     public int getId() {
@@ -161,5 +164,21 @@ public class Station {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public double getSortValue() {
+        return sortValue;
+    }
+
+    public void setSortValue(double sortValue) {
+        this.sortValue = sortValue;
     }
 }
