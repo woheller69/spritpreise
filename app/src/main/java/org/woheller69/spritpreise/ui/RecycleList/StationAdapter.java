@@ -2,6 +2,7 @@ package org.woheller69.spritpreise.ui.RecycleList;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,8 +29,8 @@ import java.util.TimeZone;
 
 public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationViewHolder> {
 
-    private List<Station> stationList;
-    private Context context;
+    private final List<Station> stationList;
+    private final Context context;
     private int selected = -1;
 
 //Adapter for Stations recycler view
@@ -39,6 +40,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     }
 
 
+    @NonNull
     @Override
     public StationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_station, parent, false);
@@ -46,7 +48,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     }
 
     @Override
-    public void onBindViewHolder(StationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StationViewHolder holder, int position) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
 
@@ -104,7 +106,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         return 0;
     }
 
-    class StationViewHolder extends RecyclerView.ViewHolder {
+    static class StationViewHolder extends RecyclerView.ViewHolder {
         TextView e5;
         TextView diesel;
         TextView e10;

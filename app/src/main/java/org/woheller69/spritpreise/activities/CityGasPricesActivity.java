@@ -164,6 +164,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
             updateLocationButton.setVisible(true);
             updateLocationButton.setActionView(R.layout.menu_update_location_view);
             updateLocationButton.getActionView().clearAnimation();
+            updateLocationButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(updateLocationButton.getItemId(), 0));
             if (locationListenerGPS!=null) {  //GPS still trying to get new location -> stop and restart to get around problem with tablayout not updating
                 removeLocationListener();
                 if (!db.getAllCitiesToWatch().isEmpty()) {  //if city has not been removed continue location update
@@ -174,7 +175,6 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                     }
                 }
             }
-            updateLocationButton.getActionView().setOnClickListener(v -> m.performIdentifierAction(updateLocationButton.getItemId(), 0));
         }else{
             removeLocationListener();
             if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
