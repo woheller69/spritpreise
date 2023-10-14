@@ -50,10 +50,10 @@ import java.util.TimeZone;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
-    private int[] dataSetTypes;
+    private final int[] dataSetTypes;
     private List<Station> stationList;
-    private int cityID;
-    private Context context;
+    private final int cityID;
+    private final Context context;
     private LocationManager locationManager;
     private static LocationListener myPositionListenerGPS;
 
@@ -138,8 +138,9 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View v;
         if (viewType == OVERVIEW) {
             v = LayoutInflater.from(viewGroup.getContext())
