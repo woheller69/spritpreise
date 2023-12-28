@@ -1,0 +1,1 @@
+Multi touch control instead of +/- for zoom

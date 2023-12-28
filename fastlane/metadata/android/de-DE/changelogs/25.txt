@@ -1,0 +1,1 @@
+Gestensteuerung anstelle von +/- für Zoom

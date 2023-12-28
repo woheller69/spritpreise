@@ -32,6 +32,7 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.CopyrightOverlay;
 import org.osmdroid.views.overlay.Marker;
@@ -209,6 +210,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             if (sp.getBoolean("pref_map",true)) {
                 holder.map.setVisibility(View.VISIBLE);
+                holder.map.setMultiTouchControls(true);
+                holder.map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
                 Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
                 holder.map.setTileSource(TileSourceFactory.MAPNIK);
