@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion 33
+    compileSdk 34
 
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "org.woheller69.spritpreise"
-        minSdkVersion 26
-        targetSdkVersion 33
-        versionCode 25
-        versionName "2.5"
+        minSdk 26
+        targetSdk 34
+        versionCode 26
+        versionName "2.6"
 
         buildConfigField "String", "DEFAULT_API_KEY", "\"${project.findProperty("prop1")}\""
         buildConfigField "String", "UNPATCHED_API_KEY", "\"OTgxMjBmODAtNzYwNy0zOTQxLTI3NGUtMDE5MGI0NDg2NmZh\""

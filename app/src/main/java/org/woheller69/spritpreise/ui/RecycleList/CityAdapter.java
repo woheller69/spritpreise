@@ -18,6 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -277,8 +282,15 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                     public void onLocationChanged(@NonNull Location location) {
                         if (holder.map.getOverlays().contains(positionMarker))
                             holder.map.getOverlays().remove(positionMarker);
-                        positionMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_location_24dp));
-                        positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                        if (location.hasBearing() && location.hasSpeed() && location.getSpeed()>0.5){
+                            Drawable originalDrawable = ContextCompat.getDrawable(context, R.drawable.ic_direction_32dp);
+                            Drawable rotatedDrawable = getRotatedDrawable(originalDrawable, location.getBearing());
+                            positionMarker.setIcon(rotatedDrawable);
+                            positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+                        } else {
+                            positionMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_location_32dp));
+                            positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                        }
                         GeoPoint myPosition = new GeoPoint(location.getLatitude(), location.getLongitude());
                         positionMarker.setPosition(myPosition);
                         positionMarker.setInfoWindow(null);
@@ -305,6 +317,18 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
         }
         //No update for error needed
+    }
+
+    @NonNull
+    private Drawable getRotatedDrawable(Drawable originalDrawable, Float angle) {
+        Bitmap originalBitmap = Bitmap.createBitmap(originalDrawable.getIntrinsicWidth(), originalDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(originalBitmap);
+        originalDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        originalDrawable.draw(canvas);
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.getWidth(), originalBitmap.getHeight(), matrix, true);
+        return new BitmapDrawable(context.getResources(), rotatedBitmap);
     }
 
     private void setHighlightMarker(int position, StationViewHolder holder, Marker highlightMarker) {

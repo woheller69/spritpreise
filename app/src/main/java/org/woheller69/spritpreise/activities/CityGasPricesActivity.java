@@ -95,7 +95,6 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         super.onCreate(savedInstanceState);
         context=this;
         setContentView(R.layout.activity_city_gas_prices);
-        overridePendingTransition(0, 0);
 
         initResources();
 

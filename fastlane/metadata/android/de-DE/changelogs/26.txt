@@ -1,0 +1,2 @@
+Update auf Android 14 (SDK 34)
+Anzeige der eigenen Bewegungsrichtung
