@@ -79,6 +79,12 @@
             android:defaultValue="true"
             />
 
+        <SeekBarPreference
+            android:key="pref_WidgetTransparency"
+            android:title="@string/settings_widget_transparency"
+            android:defaultValue="0"
+            android:max="100"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_position">

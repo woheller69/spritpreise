@@ -43,7 +43,7 @@
         android:layout_marginBottom="5dp"
         android:paddingTop="4dp"
         android:text="CityName"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/lightgrey"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="5dp"
         android:text="OMV"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/lightgrey"
         android:textSize="16dp"
         android:textStyle="bold" />
 
@@ -66,10 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/widget_brand"
         android:layout_marginStart="12dp"
-
         android:paddingTop="4dp"
         android:text="1.5 km"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/lightgrey"
         android:textSize="18dp"
         android:textStyle="bold" />
 

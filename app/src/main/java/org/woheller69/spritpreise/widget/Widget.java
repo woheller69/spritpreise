@@ -144,6 +144,7 @@ public class Widget extends AppWidgetProvider {
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent2, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
+        views.setFloat(R.id.widget_background,"setAlpha", (100.0f - prefManager.getInt("pref_WidgetTransparency", 0)) /100.0f);
 
     }
 

@@ -235,7 +235,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                 mapController.setCenter(startPoint);
 
                 CopyrightOverlay copyrightOverlay = new CopyrightOverlay(context);
-                copyrightOverlay.setCopyrightNotice(holder.map.getTileProvider().getTileSource().getCopyrightNotice());
                 copyrightOverlay.setTextColor(context.getColor(R.color.colorPrimaryDark));
                 holder.map.getOverlays().add(copyrightOverlay);
                 List<Station> stations = database.getStationsByCityId(cityID);

@@ -89,4 +89,5 @@
     <string name="settings_closed">Hide closed stations</string>
     <string name="settings_map">Show map</string>
     <string name="github" translatable="false">GitHub</string>
+    <string name="settings_widget_transparency">Widget transparency</string>
 </resources>
