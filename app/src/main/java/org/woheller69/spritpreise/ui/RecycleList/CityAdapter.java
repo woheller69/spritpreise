@@ -1,5 +1,6 @@
 package org.woheller69.spritpreise.ui.RecycleList;
 
+import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
 import static java.lang.Boolean.TRUE;
 
 import android.Manifest;
@@ -8,6 +9,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
@@ -35,15 +37,18 @@ import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.CopyrightOverlay;
+import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.activities.CityGasPricesActivity;
+import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
@@ -52,6 +57,7 @@ import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
@@ -261,41 +267,72 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                         stationMarker.setTitle(stationName);
 
                         stationMarker.setId(station.getUuid());
-                        stationMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                            @Override
-                            public boolean onMarkerClick(Marker marker, MapView mapView) {
-                                int pos = adapter.getPosUUID(marker.getId());
-                                holder.recyclerView.getLayoutManager().scrollToPosition(pos);
-                                setHighlightMarker(pos, holder, highlightMarker);
-                                adapter.setSelected(pos);
-                                return false;
-                            }
+                        stationMarker.setOnMarkerClickListener((marker, mapView) -> {
+                            int pos = adapter.getPosUUID(marker.getId());
+                            holder.recyclerView.getLayoutManager().scrollToPosition(pos);
+                            setHighlightMarker(pos, holder, highlightMarker);
+                            adapter.setSelected(pos);
+                            return false;
                         });
 
 
                         holder.map.getOverlays().add(stationMarker);
                     }
                 }
-                myPositionListenerGPS = new LocationListener() {
+                MapEventsReceiver mapEventsReceiver = new MapEventsReceiver() {
                     @Override
-                    public void onLocationChanged(@NonNull Location location) {
-                        if (holder.map.getOverlays().contains(positionMarker))
-                            holder.map.getOverlays().remove(positionMarker);
-                        if (location.hasBearing() && location.hasSpeed() && location.getSpeed()>0.5){
-                            Drawable originalDrawable = ContextCompat.getDrawable(context, R.drawable.ic_direction_32dp);
-                            Drawable rotatedDrawable = getRotatedDrawable(originalDrawable, location.getBearing());
-                            positionMarker.setIcon(rotatedDrawable);
-                            positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-                        } else {
-                            positionMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_location_32dp));
-                            positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                        }
-                        GeoPoint myPosition = new GeoPoint(location.getLatitude(), location.getLongitude());
-                        positionMarker.setPosition(myPosition);
-                        positionMarker.setInfoWindow(null);
-                        holder.map.getOverlays().add(positionMarker);
-                        holder.map.invalidate();
+                    public boolean singleTapConfirmedHelper(GeoPoint p) {
+                        return false;
                     }
+
+                    @Override
+                    public boolean longPressHelper(GeoPoint location) {
+                        if (cityID == getWidgetCityID(context) ) {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setMessage(context.getString(R.string.dialog_search_here));
+                            alertDialogBuilder.setPositiveButton(context.getString(R.string.dialog_OK_button), (dialog, which) -> {
+                                SQLiteHelper db = SQLiteHelper.getInstance(context);
+                                CityToWatch city = db.getCityToWatch(getWidgetCityID(context));
+                                city.setLatitude((float) location.getLatitude());
+                                city.setLongitude((float) location.getLongitude());
+                                city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
+                                db.updateCityToWatch(city);
+                                db.deleteStationsByCityId(getWidgetCityID(context));
+                                CityPagerAdapter.refreshSingleData(context,true,getWidgetCityID(context));
+                                CityGasPricesActivity.startRefreshAnimation();
+                                CityGasPricesActivity.refreshTab0Header(city.getCityName());
+                            });
+                            alertDialogBuilder.setNegativeButton(context.getString(R.string.dialog_NO_button), (dialog, which) -> {
+
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+
+                        }
+                        return false;
+                    }
+                };
+
+                MapEventsOverlay OverlayEventos = new MapEventsOverlay(mapEventsReceiver);
+                holder.map.getOverlays().add(OverlayEventos);
+
+                myPositionListenerGPS = location -> {
+                    if (holder.map.getOverlays().contains(positionMarker))
+                        holder.map.getOverlays().remove(positionMarker);
+                    if (location.hasBearing() && location.hasSpeed() && location.getSpeed()>0.5){
+                        Drawable originalDrawable = ContextCompat.getDrawable(context, R.drawable.ic_direction_32dp);
+                        Drawable rotatedDrawable = getRotatedDrawable(originalDrawable, location.getBearing());
+                        positionMarker.setIcon(rotatedDrawable);
+                        positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+                    } else {
+                        positionMarker.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_location_32dp));
+                        positionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    }
+                    GeoPoint myPosition = new GeoPoint(location.getLatitude(), location.getLongitude());
+                    positionMarker.setPosition(myPosition);
+                    positionMarker.setInfoWindow(null);
+                    holder.map.getOverlays().add(positionMarker);
+                    holder.map.invalidate();
                 };
                 SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context);
                 if (prefManager.getBoolean("pref_GPS", true) == TRUE && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {

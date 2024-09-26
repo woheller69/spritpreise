@@ -62,7 +62,6 @@
     <string name="registerTK">Information is fetched from Tankerkönig. Please enter your API key in settings. If you do not yet have an API key, please press the button below for free registration:</string>
     <string name="registerTKbutton">Register for free</string>
     <string name="dialog_edit_change_button">Modify</string>
-    <string name="dialog_edit_label">CAUTION: This will modify the internal city list!</string>
     <string name="edit_location_hint_name">Name</string>
     <string name="edit_location_hint_ID" translatable="false">ID</string>
     <string name="settings_darkmode">Android 10+ Dark Mode</string>
@@ -90,4 +89,5 @@
     <string name="settings_map">Show map</string>
     <string name="github" translatable="false">GitHub</string>
     <string name="settings_widget_transparency">Widget transparency</string>
+    <string name="dialog_search_here">Modify location?</string>
 </resources>

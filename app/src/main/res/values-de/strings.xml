@@ -55,7 +55,6 @@
     <string name="registerTK">Die Informationen stammen von Tankerkönig. Bitte geben Sie Ihren API-Key in den Einstellungen ein. Wenn Sie noch keinen API-Key haben, drücken Sie den Button unterhalb, um sich kostenlos zu registrieren:</string>
     <string name="registerTKbutton">Kostenfrei registrieren</string>
     <string name="dialog_edit_change_button">Ändern</string>
-    <string name="dialog_edit_label">ACHTUNG: Dies ändert die interne Städteliste!</string>
     <string name="edit_location_hint_name">Name</string>
     <string name="settings_darkmode">Android 10+ Dark Mode</string>
     <string name="settings_position">Position</string>
@@ -81,4 +80,5 @@
     <string name="settings_closed">Geschlossene Tankstellen ausblenden</string>
     <string name="settings_map">Karte anzeigen</string>
     <string name="settings_widget_transparency">Widget-Transparenz</string>
+    <string name="dialog_search_here">Ort ändern?</string>
 </resources>

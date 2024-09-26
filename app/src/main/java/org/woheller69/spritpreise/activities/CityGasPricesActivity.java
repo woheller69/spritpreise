@@ -48,7 +48,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
 
     private int cityId = -1;
     private ViewPager2 viewPager2;
-    private TabLayout tabLayout;
+    private static TabLayout tabLayout;
     private TextView noCityText;
     private static Boolean isRefreshing = false;
     Context context;
@@ -329,7 +329,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                 db.deleteStationsByCityId(getWidgetCityID(context));
                 pagerAdapter.loadCities();
                 viewPager2.setAdapter(pagerAdapter);
-                tabLayout.getTabAt(0).setText(city.getCityName());
+                refreshTab0Header(city.getCityName());
                 removeLocationListener();
                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                     updateLocationButton.getActionView().clearAnimation();
@@ -357,6 +357,10 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
             locationManager.removeUpdates(locationListenerGPS);
         }
         locationListenerGPS=null;
+    }
+
+    public static void refreshTab0Header(String name){
+        tabLayout.getTabAt(0).setText(name);
     }
 }
 
