@@ -40,14 +40,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class CityGasPricesActivity extends NavigationActivity implements IUpdateableCityUI {
-    private CityPagerAdapter pagerAdapter;
+    private static CityPagerAdapter pagerAdapter;
     private static LocationListener locationListenerGPS;
     private LocationManager locationManager;
     private static MenuItem updateLocationButton;
     private static MenuItem refreshActionButton;
 
     private int cityId = -1;
-    private ViewPager2 viewPager2;
+    private static ViewPager2 viewPager2;
     private static TabLayout tabLayout;
     private TextView noCityText;
     private static Boolean isRefreshing = false;
@@ -74,8 +74,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         } else {
             noCityText.setVisibility(View.GONE);
             viewPager2.setVisibility(View.VISIBLE);
-            pagerAdapter.loadCities();
-            viewPager2.setAdapter(pagerAdapter);
+            initPagerAdapter();
             TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,false,false, (tab, position) -> tab.setText(pagerAdapter.getPageTitle(position)));
             tabLayoutMediator.attach();
         }
@@ -327,8 +326,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                 city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                 db.updateCityToWatch(city);
                 db.deleteStationsByCityId(getWidgetCityID(context));
-                pagerAdapter.loadCities();
-                viewPager2.setAdapter(pagerAdapter);
+                initPagerAdapter();
                 refreshTab0Header(city.getCityName());
                 removeLocationListener();
                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
@@ -357,6 +355,12 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
             locationManager.removeUpdates(locationListenerGPS);
         }
         locationListenerGPS=null;
+    }
+
+
+    public static void initPagerAdapter(){
+        pagerAdapter.loadCities();
+        viewPager2.setAdapter(pagerAdapter);
     }
 
     public static void refreshTab0Header(String name){

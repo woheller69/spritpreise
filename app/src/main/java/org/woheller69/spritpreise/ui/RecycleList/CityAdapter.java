@@ -25,7 +25,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -300,6 +299,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
                                 db.deleteStationsByCityId(getWidgetCityID(context));
                                 CityPagerAdapter.refreshSingleData(context,true,getWidgetCityID(context));
                                 CityGasPricesActivity.startRefreshAnimation();
+                                CityGasPricesActivity.initPagerAdapter();
                                 CityGasPricesActivity.refreshTab0Header(city.getCityName());
                             });
                             alertDialogBuilder.setNegativeButton(context.getString(R.string.dialog_NO_button), (dialog, which) -> {
