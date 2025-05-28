@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowInsetsController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -77,6 +78,13 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_settings);
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            getWindow().getInsetsController().setSystemBarsAppearance(
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            );
+        }
 
     }
 
