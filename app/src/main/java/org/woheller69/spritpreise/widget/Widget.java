@@ -239,7 +239,7 @@ public class Widget extends AppWidgetProvider {
                     Log.d("GPS", "Request Updates");
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600000, MINDISTANCE, locationListenerGPS);  //Update every 10 min, MINDISTANCE km
                 }
-            }else {
+            } else {
                 Log.d("GPS","Remove Updates");
                 if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
                 locationListenerGPS=null;

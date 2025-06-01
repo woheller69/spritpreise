@@ -1,5 +1,9 @@
 package org.woheller69.spritpreise.activities;
 
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -18,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Looper;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.MenuItem;
 
 
@@ -26,6 +32,8 @@ import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.preferences.AppPreferencesManager;
 
 import static java.lang.Boolean.TRUE;
+
+import java.util.List;
 
 /**
  * Created by Chris on 04.07.2016.
@@ -49,6 +57,9 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        PowerManager powerManager = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+        if (checkAppWidget() && !powerManager.isIgnoringBatteryOptimizations(getPackageName())) startActivity(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:"+getPackageName())));
+        
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mHandler = new Handler(Looper.getMainLooper());
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
@@ -203,5 +214,20 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         super.onPause();
         isVisible=false;
     }
+    public boolean checkAppWidget(){
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        List<AppWidgetProviderInfo> providers = appWidgetManager.getInstalledProviders();
 
+        for (AppWidgetProviderInfo info : providers) {
+            ComponentName provider = info.provider;
+            if (provider.getPackageName().equals(getPackageName())) {
+                int[] widgetIds = appWidgetManager.getAppWidgetIds(provider);
+                if (widgetIds.length > 0) {
+                    // At least one instance of this widget is on the home screen
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
