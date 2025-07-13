@@ -3,11 +3,9 @@ package org.woheller69.spritpreise.activities;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -23,8 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Looper;
-import android.os.PowerManager;
-import android.provider.Settings;
 import android.view.MenuItem;
 
 
@@ -51,28 +47,12 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
 
     // Helper
     private Handler mHandler;
-    protected SharedPreferences mSharedPreferences;
     protected AppPreferencesManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int promptCount = mSharedPreferences.getInt("battery_optimization_prompt_count", 0);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkAppWidget()) {
-            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
-                if (promptCount < 3) {
-                    SharedPreferences.Editor editor = mSharedPreferences.edit();
-                    editor.putInt("battery_optimization_prompt_count", promptCount + 1);
-                    editor.apply();
-
-                    startActivity(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:"+getPackageName())));
-                }
-            }
-        }
         mHandler = new Handler(Looper.getMainLooper());
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
         if (prefManager.showStarDialog(this)) {
@@ -225,21 +205,5 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
     protected void onPause() {
         super.onPause();
         isVisible=false;
-    }
-    public boolean checkAppWidget(){
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        List<AppWidgetProviderInfo> providers = appWidgetManager.getInstalledProviders();
-
-        for (AppWidgetProviderInfo info : providers) {
-            ComponentName provider = info.provider;
-            if (provider.getPackageName().equals(getPackageName())) {
-                int[] widgetIds = appWidgetManager.getAppWidgetIds(provider);
-                if (widgetIds.length > 0) {
-                    // At least one instance of this widget is on the home screen
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
