@@ -24,6 +24,7 @@ import org.woheller69.spritpreise.dialogs.AddLocationDialogOmGeocodingAPI;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerItemClickListener;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.woheller69.spritpreise.ui.RecycleList.SimpleItemTouchHelperCallback;
+import org.woheller69.spritpreise.ui.util.ThemeUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,17 +47,10 @@ public class ManageLocationsActivity extends NavigationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_locations);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            );
-        }
+        ThemeUtils.setStatusBarAppearance(this);
 
         context=this;
         database = SQLiteHelper.getInstance(getApplicationContext());
-
-        //cities = new ArrayList<>();
 
         try {
             cities = database.getAllCitiesToWatch();

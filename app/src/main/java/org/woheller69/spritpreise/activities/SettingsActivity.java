@@ -20,6 +20,7 @@ import androidx.preference.PreferenceManager;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.SQLiteHelper;
+import org.woheller69.spritpreise.ui.util.ThemeUtils;
 
 import static java.lang.Boolean.TRUE;
 
@@ -79,12 +80,7 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
 
         setContentView(R.layout.activity_settings);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            );
-        }
+        ThemeUtils.setStatusBarAppearance(this);
 
     }
 

@@ -35,6 +35,7 @@ import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
+import org.woheller69.spritpreise.ui.util.ThemeUtils;
 import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
 
@@ -97,12 +98,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         context=this;
         setContentView(R.layout.activity_city_gas_prices);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            );
-        }
+        ThemeUtils.setStatusBarAppearance(this);
 
         initResources();
 

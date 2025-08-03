@@ -26,6 +26,7 @@ import org.woheller69.spritpreise.activities.CityGasPricesActivity;
 import org.woheller69.spritpreise.activities.SettingsActivity;
 
 import org.woheller69.spritpreise.preferences.AppPreferencesManager;
+import org.woheller69.spritpreise.ui.util.ThemeUtils;
 
 
 /**
@@ -52,12 +53,7 @@ public class TutorialActivity extends AppCompatActivity {
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
 
         setContentView(R.layout.activity_tutorial);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            );
-        }
+        ThemeUtils.setStatusBarAppearance(this);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnNext = (Button) findViewById(R.id.btn_next);
