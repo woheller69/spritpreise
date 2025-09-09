@@ -11,8 +11,8 @@ android {
         applicationId "org.woheller69.spritpreise"
         minSdk 26
         targetSdk 35
-        versionCode 30
-        versionName "3.0"
+        versionCode 31
+        versionName "3.1"
 
         buildConfigField "String", "DEFAULT_API_KEY", "\"${project.findProperty("prop1")}\""
         buildConfigField "String", "UNPATCHED_API_KEY", "\"OTgxMjBmODAtNzYwNy0zOTQxLTI3NGUtMDE5MGI0NDg2NmZh\""
@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.github.woheller69:preferences:1.2'
     implementation 'org.osmdroid:osmdroid-android:6.1.18'
     implementation 'androidx.work:work-runtime:2.10.2'
+    implementation 'com.github.woheller69:FreeDroidWarn:+'
 }
