@@ -55,9 +55,11 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         if (prefManager.getBoolean("prefBrands", false)) {  //if preferred brands are defined
             String[] brands = prefManager.getString("prefBrandsString", "").split(","); //read comma separated list
             for (String brand : brands) {
-                if (stationList.get(position).getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {
+                if (stationList.get(position).getBrand().toLowerCase().trim().equals(brand.toLowerCase().trim())) {
                     holder.fav.setVisibility(View.VISIBLE);
                     break;
+                } else {
+                    holder.fav.setVisibility(View.GONE);
                 }
             }
         }

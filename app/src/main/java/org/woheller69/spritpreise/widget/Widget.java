@@ -114,7 +114,7 @@ public class Widget extends AppWidgetProvider {
                 for (Station station : stations) {
                     if (station.isOpen()) {  //display values of closest open station
                         for (String brand : brands) {  //search if one of the preferred brands is available
-                            if (station.getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {   //remove leading and trailing spaces and compare
+                            if (station.getBrand().toLowerCase().trim().equals(brand.toLowerCase().trim())) {   //remove leading and trailing spaces and compare
                                 setView(context, views, appWidgetId, station);
                                 views.setViewVisibility(R.id.widget_fav,View.VISIBLE);
                                 foundStation = true;
