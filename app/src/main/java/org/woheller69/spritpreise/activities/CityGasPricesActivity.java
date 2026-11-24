@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowInsetsController;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -33,6 +35,7 @@ import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.ui.updater.IUpdateableCityUI;
 import org.woheller69.spritpreise.ui.updater.ViewUpdater;
+import org.woheller69.spritpreise.ui.util.ThemeUtils;
 import org.woheller69.spritpreise.ui.viewPager.CityPagerAdapter;
 import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
 
@@ -40,15 +43,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class CityGasPricesActivity extends NavigationActivity implements IUpdateableCityUI {
-    private CityPagerAdapter pagerAdapter;
+    private static CityPagerAdapter pagerAdapter;
     private static LocationListener locationListenerGPS;
     private LocationManager locationManager;
     private static MenuItem updateLocationButton;
     private static MenuItem refreshActionButton;
 
     private int cityId = -1;
-    private ViewPager2 viewPager2;
-    private TabLayout tabLayout;
+    private static ViewPager2 viewPager2;
+    private static TabLayout tabLayout;
     private TextView noCityText;
     private static Boolean isRefreshing = false;
     Context context;
@@ -74,8 +77,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         } else {
             noCityText.setVisibility(View.GONE);
             viewPager2.setVisibility(View.VISIBLE);
-            pagerAdapter.loadCities();
-            viewPager2.setAdapter(pagerAdapter);
+            initPagerAdapter();
             TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,false,false, (tab, position) -> tab.setText(pagerAdapter.getPageTitle(position)));
             tabLayoutMediator.attach();
         }
@@ -95,6 +97,8 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         super.onCreate(savedInstanceState);
         context=this;
         setContentView(R.layout.activity_city_gas_prices);
+
+        ThemeUtils.setStatusBarAppearance(this);
 
         initResources();
 
@@ -159,7 +163,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         updateLocationButton = menu.findItem(R.id.menu_update_location);
         SQLiteHelper db = SQLiteHelper.getInstance(this);
-        if(prefManager.getBoolean("pref_GPS", true)==TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+        if(prefManager.getBoolean("pref_GPS", false)==TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
             updateLocationButton.setVisible(true);
             updateLocationButton.setActionView(R.layout.menu_update_location_view);
             updateLocationButton.getActionView().clearAnimation();
@@ -220,7 +224,7 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                     tabLayoutMediator.attach();
                 }
                 SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                if (prefManager.getBoolean("pref_GPS", true) == TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (prefManager.getBoolean("pref_GPS", false) == TRUE && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     if (locationListenerGPS == null) {
                         locationListenerGPS = getNewLocationListener();
                         CityGasPricesActivity.startUpdateLocatationAnimation();
@@ -327,9 +331,8 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
                 city.setCityName(String.format(Locale.getDefault(), "%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
                 db.updateCityToWatch(city);
                 db.deleteStationsByCityId(getWidgetCityID(context));
-                pagerAdapter.loadCities();
-                viewPager2.setAdapter(pagerAdapter);
-                tabLayout.getTabAt(0).setText(city.getCityName());
+                initPagerAdapter();
+                refreshTab0Header(city.getCityName());
                 removeLocationListener();
                 if (updateLocationButton != null && updateLocationButton.getActionView() != null) {
                     updateLocationButton.getActionView().clearAnimation();
@@ -357,6 +360,16 @@ public class CityGasPricesActivity extends NavigationActivity implements IUpdate
             locationManager.removeUpdates(locationListenerGPS);
         }
         locationListenerGPS=null;
+    }
+
+
+    public static void initPagerAdapter(){
+        pagerAdapter.loadCities();
+        viewPager2.setAdapter(pagerAdapter);
+    }
+
+    public static void refreshTab0Header(String name){
+        tabLayout.getTabAt(0).setText(name);
     }
 }
 

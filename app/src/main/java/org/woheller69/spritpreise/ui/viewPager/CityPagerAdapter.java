@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
@@ -24,16 +23,13 @@ import static org.woheller69.spritpreise.services.UpdateDataService.SKIP_UPDATE_
 
 public class CityPagerAdapter extends FragmentStateAdapter implements IUpdateableCityUI {
 
-    private Context mContext;
-
-    private SQLiteHelper database;
+    private final SQLiteHelper database;
 
     private List<CityToWatch> cities;
 
     //Adapter for the Viewpager switching between different locations
     public CityPagerAdapter(Context context, @NonNull FragmentManager supportFragmentManager, @NonNull Lifecycle lifecycle) {
         super(supportFragmentManager,lifecycle);
-        this.mContext = context;
         this.database = SQLiteHelper.getInstance(context);
         loadCities();
     }

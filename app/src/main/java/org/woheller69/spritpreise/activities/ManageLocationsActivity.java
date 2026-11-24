@@ -1,6 +1,7 @@
 package org.woheller69.spritpreise.activities;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AlertDialog;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowInsetsController;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import org.woheller69.spritpreise.dialogs.AddLocationDialogOmGeocodingAPI;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerItemClickListener;
 import org.woheller69.spritpreise.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.woheller69.spritpreise.ui.RecycleList.SimpleItemTouchHelperCallback;
+import org.woheller69.spritpreise.ui.util.ThemeUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,10 +46,11 @@ public class ManageLocationsActivity extends NavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_locations);
+
+        ThemeUtils.setStatusBarAppearance(this);
+
         context=this;
         database = SQLiteHelper.getInstance(getApplicationContext());
-
-        //cities = new ArrayList<>();
 
         try {
             cities = database.getAllCitiesToWatch();

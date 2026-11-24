@@ -31,12 +31,17 @@ import org.woheller69.spritpreise.database.CityToWatch;
 import org.woheller69.spritpreise.database.Station;
 import org.woheller69.spritpreise.database.SQLiteHelper;
 import org.woheller69.spritpreise.services.UpdateDataService;
+import org.woheller69.spritpreise.services.WidgetUpdater;
 import org.woheller69.spritpreise.ui.Help.StringFormatUtils;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.woheller69.spritpreise.database.SQLiteHelper.getWidgetCityID;
@@ -54,7 +59,7 @@ public class Widget extends AppWidgetProvider {
         if (!db.getAllCitiesToWatch().isEmpty()) {
 
             int cityID = getWidgetCityID(context);
-            if(prefManager.getBoolean("pref_GPS", true) && !prefManager.getBoolean("pref_GPS_manual", false)) updateLocation(context, cityID,false);
+            if(prefManager.getBoolean("pref_GPS", false) && !prefManager.getBoolean("pref_GPS_manual", false)) updateLocation(context, cityID,false);
             Intent intent = new Intent(context, UpdateDataService.class);
             intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
             intent.putExtra("cityId", cityID);
@@ -94,7 +99,7 @@ public class Widget extends AppWidgetProvider {
 
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, CityToWatch city, List<Station> stations) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        if(prefManager.getBoolean("pref_GPS", true) && !prefManager.getBoolean("pref_GPS_manual", false)) views.setViewVisibility(R.id.location_on, View.VISIBLE); else views.setViewVisibility(R.id.location_on,View.GONE);
+        if(prefManager.getBoolean("pref_GPS", false) && !prefManager.getBoolean("pref_GPS_manual", false)) views.setViewVisibility(R.id.location_on, View.VISIBLE); else views.setViewVisibility(R.id.location_on,View.GONE);
         resetView(context, views, city);
 
         if (stations.size()>0) {
@@ -109,7 +114,7 @@ public class Widget extends AppWidgetProvider {
                 for (Station station : stations) {
                     if (station.isOpen()) {  //display values of closest open station
                         for (String brand : brands) {  //search if one of the preferred brands is available
-                            if (station.getBrand().toLowerCase().contains(brand.toLowerCase().trim())) {   //remove leading and trailing spaces and compare
+                            if (station.getBrand().toLowerCase().trim().equals(brand.toLowerCase().trim())) {   //remove leading and trailing spaces and compare
                                 setView(context, views, appWidgetId, station);
                                 views.setViewVisibility(R.id.widget_fav,View.VISIBLE);
                                 foundStation = true;
@@ -144,6 +149,7 @@ public class Widget extends AppWidgetProvider {
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent2, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
+        views.setInt(R.id.widget_background,"setAlpha",  (int) ((100.0f - prefManager.getInt("pref_WidgetTransparency", 0)) * 255 / 100.0f));
 
     }
 
@@ -192,57 +198,64 @@ public class Widget extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        PeriodicWorkRequest widgetUpdateRequest =
+                new PeriodicWorkRequest.Builder(WidgetUpdater.class,
+                        20, TimeUnit.MINUTES).build();
+        WorkManager
+                .getInstance(context)
+                .enqueueUniquePeriodicWork("widgetUpdateWork", ExistingPeriodicWorkPolicy.KEEP, widgetUpdateRequest); //KEEP makes sure it is only initialized once
+
         if (locationManager==null) locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        Log.d("GPS", "Widget onUpdate");
-            if(prefManager.getBoolean("pref_GPS", true) && !prefManager.getBoolean("pref_GPS_manual", false) && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && !powerManager.isPowerSaveMode()) {
-                if (locationListenerGPS==null) {
-                    Log.d("GPS", "Listener null");
-                    locationListenerGPS = new LocationListener() {
-                        @Override
-                        public void onLocationChanged(android.location.Location location) {
-                            Log.d("GPS", "Location changed");
-                            // Check if location change > MINDISTANCE, then update CityToWatch and update widgets accordingly
-                            SQLiteHelper db = SQLiteHelper.getInstance(context);
-                            CityToWatch city=db.getCityToWatch(getWidgetCityID(context));
-                            Location oldlocation = new Location(LocationManager.PASSIVE_PROVIDER);
-                            oldlocation.setLatitude(city.getLatitude());
-                            oldlocation.setLongitude(city.getLongitude());
-                            if (oldlocation.distanceTo(location)>MINDISTANCE){  //update coordinates of CityToWatch
-                                city.setLatitude((float) location.getLatitude());
-                                city.setLongitude((float) location.getLongitude());
-                                city.setCityName(String.format(Locale.getDefault(),"%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
-                                db.updateCityToWatch(city);
-                                // There may be multiple widgets active, so update all of them
-                                int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class)); //IDs Might have changed since last call of onUpdate
-                                for (int appWidgetId : appWidgetIds) {
-                                    updateAppWidget(context, appWidgetId);
-                                }
+
+        if(prefManager.getBoolean("pref_GPS", false) && !prefManager.getBoolean("pref_GPS_manual", false) && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && !powerManager.isPowerSaveMode()) {
+            if (locationListenerGPS==null) {
+                Log.d("GPS", "Listener null");
+                locationListenerGPS = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(android.location.Location location) {
+                        Log.d("GPS", "Location changed");
+                        // Check if location change > MINDISTANCE, then update CityToWatch and update widgets accordingly
+                        SQLiteHelper db = SQLiteHelper.getInstance(context);
+                        CityToWatch city=db.getCityToWatch(getWidgetCityID(context));
+                        Location oldlocation = new Location(LocationManager.PASSIVE_PROVIDER);
+                        oldlocation.setLatitude(city.getLatitude());
+                        oldlocation.setLongitude(city.getLongitude());
+                        if (oldlocation.distanceTo(location)>MINDISTANCE){  //update coordinates of CityToWatch
+                            city.setLatitude((float) location.getLatitude());
+                            city.setLongitude((float) location.getLongitude());
+                            city.setCityName(String.format(Locale.getDefault(),"%.2f° / %.2f°", location.getLatitude(), location.getLongitude()));
+                            db.updateCityToWatch(city);
+                            // There may be multiple widgets active, so update all of them
+                            int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, Widget.class)); //IDs Might have changed since last call of onUpdate
+                            for (int appWidgetId : appWidgetIds) {
+                                updateAppWidget(context, appWidgetId);
                             }
                         }
+                    }
 
-                        @Deprecated
-                        @Override
-                        public void onStatusChanged(String provider, int status, Bundle extras) {
-                        }
+                    @Deprecated
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+                    }
 
-                        @Override
-                        public void onProviderEnabled(String provider) {
-                        }
+                    @Override
+                    public void onProviderEnabled(String provider) {
+                    }
 
-                        @Override
-                        public void onProviderDisabled(String provider) {
-                        }
-                    };
-                    Log.d("GPS", "Request Updates");
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600000, MINDISTANCE, locationListenerGPS);  //Update every 10 min, MINDISTANCE km
-                }
-            }else {
-                Log.d("GPS","Remove Updates");
-                if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
-                locationListenerGPS=null;
+                    @Override
+                    public void onProviderDisabled(String provider) {
+                    }
+                };
+                Log.d("GPS", "Request Updates");
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600000, MINDISTANCE, locationListenerGPS);  //Update every 10 min, MINDISTANCE km
             }
+        } else {
+            Log.d("GPS","Remove Updates");
+            if (locationListenerGPS!=null) locationManager.removeUpdates(locationListenerGPS);
+            locationListenerGPS=null;
+        }
 
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
@@ -292,7 +305,7 @@ public class Widget extends AppWidgetProvider {
         if (intent.getBooleanExtra("Manual", false)) {
             int cityID = getWidgetCityID(context);
             SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-            if(prefManager.getBoolean("pref_GPS", true) && !prefManager.getBoolean("pref_GPS_manual", false)) updateLocation(context, cityID,true);
+            if(prefManager.getBoolean("pref_GPS", false) && !prefManager.getBoolean("pref_GPS_manual", false)) updateLocation(context, cityID,true);
         }
         super.onReceive(context,intent);
     }

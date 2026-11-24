@@ -1,0 +1,1 @@
+Favorites: check for exact matching of brand name

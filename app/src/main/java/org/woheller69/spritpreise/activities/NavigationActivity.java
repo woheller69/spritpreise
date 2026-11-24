@@ -1,6 +1,5 @@
 package org.woheller69.spritpreise.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -12,7 +11,6 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.TaskStackBuilder;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -23,11 +21,14 @@ import android.os.Looper;
 import android.view.MenuItem;
 
 
+import org.woheller69.freeDroidWarn.FreeDroidWarn;
 import org.woheller69.spritpreise.BuildConfig;
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.preferences.AppPreferencesManager;
 
 import static java.lang.Boolean.TRUE;
+
+import java.util.List;
 
 /**
  * Created by Chris on 04.07.2016.
@@ -44,33 +45,26 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
 
     // Helper
     private Handler mHandler;
-    protected SharedPreferences mSharedPreferences;
     protected AppPreferencesManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        FreeDroidWarn.showWarningOnUpgrade(this, BuildConfig.VERSION_CODE);
         mHandler = new Handler(Looper.getMainLooper());
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
         if (prefManager.showStarDialog(this)) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setMessage(R.string.dialog_StarOnGitHub);
-            alertDialogBuilder.setPositiveButton(getString(R.string.dialog_OK_button), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.GITHUB_URL)));
-                    prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-                    prefManager.setAskForStar(false);
-                }
+            alertDialogBuilder.setPositiveButton(getString(R.string.dialog_OK_button), (dialog, which) -> {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.GITHUB_URL)));
+                prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+                prefManager.setAskForStar(false);
             });
-            alertDialogBuilder.setNegativeButton(getString(R.string.dialog_NO_button), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-                    prefManager.setAskForStar(false);
-                }
+            alertDialogBuilder.setNegativeButton(getString(R.string.dialog_NO_button), (dialog, which) -> {
+                prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+                prefManager.setAskForStar(false);
             });
             alertDialogBuilder.setNeutralButton(getString(R.string.dialog_Later_button), null);
 
@@ -211,5 +205,4 @@ public class NavigationActivity extends AppCompatActivity implements OnNavigatio
         super.onPause();
         isVisible=false;
     }
-
 }

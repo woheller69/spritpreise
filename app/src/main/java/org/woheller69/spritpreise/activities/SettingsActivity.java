@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowInsetsController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -19,6 +20,7 @@ import androidx.preference.PreferenceManager;
 
 import org.woheller69.spritpreise.R;
 import org.woheller69.spritpreise.database.SQLiteHelper;
+import org.woheller69.spritpreise.ui.util.ThemeUtils;
 
 import static java.lang.Boolean.TRUE;
 
@@ -78,6 +80,8 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
 
         setContentView(R.layout.activity_settings);
 
+        ThemeUtils.setStatusBarAppearance(this);
+
     }
 
     @Override
@@ -90,7 +94,7 @@ public class SettingsActivity extends NavigationActivity implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
 
         if (s.equals("pref_GPS")) {
-            if (sharedPreferences.getBoolean("pref_GPS", true) == TRUE) {
+            if (sharedPreferences.getBoolean("pref_GPS", false) == TRUE) {
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         ActivityCompat.requestPermissions(this,
